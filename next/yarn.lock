@@ -810,10 +810,17 @@
   dependencies:
     tslib "^2.4.0"
 
-"@emnapi/wasi-threads@1.0.2", "@emnapi/wasi-threads@^1.0.2":
+"@emnapi/wasi-threads@1.0.2":
   version "1.0.2"
   resolved "https://registry.npmjs.org/@emnapi/wasi-threads/-/wasi-threads-1.0.2.tgz"
   integrity sha512-5n3nTJblwRi8LlXkJ9eBzu+kZR8Yxcc7ubakyQTFzPMtIhFpUBRbsnc2Dv88IZDIbCDlBiWrknhB4Lsz7mg6BA==
+  dependencies:
+    tslib "^2.4.0"
+
+"@emnapi/wasi-threads@^1.0.2":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@emnapi/wasi-threads/-/wasi-threads-1.0.4.tgz#703fc094d969e273b1b71c292523b2f792862bf4"
+  integrity sha512-PJR+bOmMOPH8AtcTGAyYNiuJ3/Fcoj2XN/gBEWzDIKh254XO+mM9XoXHk5GNEhodxeMznbg7BlRojVbKN+gC6g==
   dependencies:
     tslib "^2.4.0"
 
@@ -1088,18 +1095,18 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@napi-rs/wasm-runtime@^0.2.10", "@napi-rs/wasm-runtime@^0.2.11":
-  version "0.2.11"
-  resolved "https://registry.yarnpkg.com/@napi-rs/wasm-runtime/-/wasm-runtime-0.2.11.tgz#192c1610e1625048089ab4e35bc0649ce478500e"
-  integrity sha512-9DPkXtvHydrcOsopiYpUgPHpmj0HWZKMUnL2dZqpvC42lsratuBG06V5ipyno0fUek5VlFsNQ+AcFATSrJXgMA==
+"@napi-rs/wasm-runtime@^0.2.11":
+  version "0.2.12"
+  resolved "https://registry.yarnpkg.com/@napi-rs/wasm-runtime/-/wasm-runtime-0.2.12.tgz#3e78a8b96e6c33a6c517e1894efbd5385a7cb6f2"
+  integrity sha512-ZVWUcfwY4E/yPitQJl481FjFo3K22D6qF0DuFH6Y/nbnE11GY5uguDxZMGXPQ8WQ0128MXQD7TnfHyK4oWoIJQ==
   dependencies:
     "@emnapi/core" "^1.4.3"
     "@emnapi/runtime" "^1.4.3"
-    "@tybys/wasm-util" "^0.9.0"
+    "@tybys/wasm-util" "^0.10.0"
 
 "@next/env@13.5.11":
   version "13.5.11"
-  resolved "https://registry.yarnpkg.com/@next/env/-/env-13.5.11.tgz#6712d907e2682199aa1e8229b5ce028ee5a8001b"
+  resolved "https://registry.npmjs.org/@next/env/-/env-13.5.11.tgz"
   integrity sha512-fbb2C7HChgM7CemdCY+y3N1n8pcTKdqtQLbC7/EQtPdLvlMUT9JX/dBYl8MMZAtYG4uVMyPFHXckb68q/NRwqg==
 
 "@next/env@15.3.3":
@@ -1116,7 +1123,7 @@
 
 "@next/swc-darwin-arm64@13.5.9":
   version "13.5.9"
-  resolved "https://registry.yarnpkg.com/@next/swc-darwin-arm64/-/swc-darwin-arm64-13.5.9.tgz#46c3a525039171ff1a83c813d7db86fb7808a9b2"
+  resolved "https://registry.npmjs.org/@next/swc-darwin-arm64/-/swc-darwin-arm64-13.5.9.tgz"
   integrity sha512-pVyd8/1y1l5atQRvOaLOvfbmRwefxLhqQOzYo/M7FQ5eaRwA1+wuCn7t39VwEgDd7Aw1+AIWwd+MURXUeXhwDw==
 
 "@next/swc-darwin-arm64@15.3.3":
@@ -1296,15 +1303,15 @@
 
 "@swc/helpers@0.5.2":
   version "0.5.2"
-  resolved "https://registry.yarnpkg.com/@swc/helpers/-/helpers-0.5.2.tgz#85ea0c76450b61ad7d10a37050289eded783c27d"
+  resolved "https://registry.npmjs.org/@swc/helpers/-/helpers-0.5.2.tgz"
   integrity sha512-E4KcWTpoLHqwPHLxidpOqQbcrZVgi0rsmmZXUle1jXmJfuIf/UWpczUJ7MZZ5tlxytgJXyp0w4PGkkeLiuIdZw==
   dependencies:
     tslib "^2.4.0"
 
-"@tailwindcss/node@4.1.10":
-  version "4.1.10"
-  resolved "https://registry.npmjs.org/@tailwindcss/node/-/node-4.1.10.tgz"
-  integrity sha512-2ACf1znY5fpRBwRhMgj9ZXvb2XZW8qs+oTfotJ2C5xR0/WNL7UHZ7zXl6s+rUqedL1mNi+0O+WQr5awGowS3PQ==
+"@tailwindcss/node@4.1.11":
+  version "4.1.11"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/node/-/node-4.1.11.tgz#d626af65fc9872e5e9d8884791d7e3856e945359"
+  integrity sha512-yzhzuGRmv5QyU9qLNg4GTlYI6STedBWRE7NjxP45CsFYYq9taI0zJXZBMqIC/c8fViNLhmrbpSFS57EoxUmD6Q==
   dependencies:
     "@ampproject/remapping" "^2.3.0"
     enhanced-resolve "^5.18.1"
@@ -1312,106 +1319,113 @@
     lightningcss "1.30.1"
     magic-string "^0.30.17"
     source-map-js "^1.2.1"
-    tailwindcss "4.1.10"
+    tailwindcss "4.1.11"
 
-"@tailwindcss/oxide-android-arm64@4.1.10":
-  version "4.1.10"
-  resolved "https://registry.yarnpkg.com/@tailwindcss/oxide-android-arm64/-/oxide-android-arm64-4.1.10.tgz#ad0f3cbfa219e1ee5fc8ad7170885feda397c4e3"
-  integrity sha512-VGLazCoRQ7rtsCzThaI1UyDu/XRYVyH4/EWiaSX6tFglE+xZB5cvtC5Omt0OQ+FfiIVP98su16jDVHDEIuH4iQ==
+"@tailwindcss/oxide-android-arm64@4.1.11":
+  version "4.1.11"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/oxide-android-arm64/-/oxide-android-arm64-4.1.11.tgz#1f387d8302f011b61c226deb0c3a1d2bd79c6915"
+  integrity sha512-3IfFuATVRUMZZprEIx9OGDjG3Ou3jG4xQzNTvjDoKmU9JdmoCohQJ83MYd0GPnQIu89YoJqvMM0G3uqLRFtetg==
 
-"@tailwindcss/oxide-darwin-arm64@4.1.10":
-  version "4.1.10"
-  resolved "https://registry.npmjs.org/@tailwindcss/oxide-darwin-arm64/-/oxide-darwin-arm64-4.1.10.tgz"
-  integrity sha512-ZIFqvR1irX2yNjWJzKCqTCcHZbgkSkSkZKbRM3BPzhDL/18idA8uWCoopYA2CSDdSGFlDAxYdU2yBHwAwx8euQ==
+"@tailwindcss/oxide-darwin-arm64@4.1.11":
+  version "4.1.11"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/oxide-darwin-arm64/-/oxide-darwin-arm64-4.1.11.tgz#acd35ffb7e4eae83d0a3fe2f8ea36cfcc9b21f7e"
+  integrity sha512-ESgStEOEsyg8J5YcMb1xl8WFOXfeBmrhAwGsFxxB2CxY9evy63+AtpbDLAyRkJnxLy2WsD1qF13E97uQyP1lfQ==
 
-"@tailwindcss/oxide-darwin-x64@4.1.10":
-  version "4.1.10"
-  resolved "https://registry.yarnpkg.com/@tailwindcss/oxide-darwin-x64/-/oxide-darwin-x64-4.1.10.tgz#476490d1f95592a09801a53b48466e5065d7553f"
-  integrity sha512-eCA4zbIhWUFDXoamNztmS0MjXHSEJYlvATzWnRiTqJkcUteSjO94PoRHJy1Xbwp9bptjeIxxBHh+zBWFhttbrQ==
+"@tailwindcss/oxide-darwin-x64@4.1.11":
+  version "4.1.11"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/oxide-darwin-x64/-/oxide-darwin-x64-4.1.11.tgz#a0022312993a3893d6ff0312d6e3c83c4636fef4"
+  integrity sha512-EgnK8kRchgmgzG6jE10UQNaH9Mwi2n+yw1jWmof9Vyg2lpKNX2ioe7CJdf9M5f8V9uaQxInenZkOxnTVL3fhAw==
 
-"@tailwindcss/oxide-freebsd-x64@4.1.10":
-  version "4.1.10"
-  resolved "https://registry.yarnpkg.com/@tailwindcss/oxide-freebsd-x64/-/oxide-freebsd-x64-4.1.10.tgz#7b7ccb813592209216ed39187eb8510ce6b4fc9d"
-  integrity sha512-8/392Xu12R0cc93DpiJvNpJ4wYVSiciUlkiOHOSOQNH3adq9Gi/dtySK7dVQjXIOzlpSHjeCL89RUUI8/GTI6g==
+"@tailwindcss/oxide-freebsd-x64@4.1.11":
+  version "4.1.11"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/oxide-freebsd-x64/-/oxide-freebsd-x64-4.1.11.tgz#dd8e55eb0b88fe7995b8148c0e0ae5fa27092d22"
+  integrity sha512-xdqKtbpHs7pQhIKmqVpxStnY1skuNh4CtbcyOHeX1YBE0hArj2romsFGb6yUmzkq/6M24nkxDqU8GYrKrz+UcA==
 
-"@tailwindcss/oxide-linux-arm-gnueabihf@4.1.10":
-  version "4.1.10"
-  resolved "https://registry.yarnpkg.com/@tailwindcss/oxide-linux-arm-gnueabihf/-/oxide-linux-arm-gnueabihf-4.1.10.tgz#9f223c7994da846b9f3c70ac0b5713371c9b3b32"
-  integrity sha512-t9rhmLT6EqeuPT+MXhWhlRYIMSfh5LZ6kBrC4FS6/+M1yXwfCtp24UumgCWOAJVyjQwG+lYva6wWZxrfvB+NhQ==
+"@tailwindcss/oxide-linux-arm-gnueabihf@4.1.11":
+  version "4.1.11"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/oxide-linux-arm-gnueabihf/-/oxide-linux-arm-gnueabihf-4.1.11.tgz#02ee99090988847d3f13d277679012cbffcdde37"
+  integrity sha512-ryHQK2eyDYYMwB5wZL46uoxz2zzDZsFBwfjssgB7pzytAeCCa6glsiJGjhTEddq/4OsIjsLNMAiMlHNYnkEEeg==
 
-"@tailwindcss/oxide-linux-arm64-gnu@4.1.10":
-  version "4.1.10"
-  resolved "https://registry.yarnpkg.com/@tailwindcss/oxide-linux-arm64-gnu/-/oxide-linux-arm64-gnu-4.1.10.tgz#58412e6a359a83144b30b415f637a52c8207f311"
-  integrity sha512-3oWrlNlxLRxXejQ8zImzrVLuZ/9Z2SeKoLhtCu0hpo38hTO2iL86eFOu4sVR8cZc6n3z7eRXXqtHJECa6mFOvA==
+"@tailwindcss/oxide-linux-arm64-gnu@4.1.11":
+  version "4.1.11"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/oxide-linux-arm64-gnu/-/oxide-linux-arm64-gnu-4.1.11.tgz#4837559c102bebe65089879f6a0278ed473b4813"
+  integrity sha512-mYwqheq4BXF83j/w75ewkPJmPZIqqP1nhoghS9D57CLjsh3Nfq0m4ftTotRYtGnZd3eCztgbSPJ9QhfC91gDZQ==
 
-"@tailwindcss/oxide-linux-arm64-musl@4.1.10":
-  version "4.1.10"
-  resolved "https://registry.yarnpkg.com/@tailwindcss/oxide-linux-arm64-musl/-/oxide-linux-arm64-musl-4.1.10.tgz#3ed868b801a27e8cd35a615855bc94fd2786a6e8"
-  integrity sha512-saScU0cmWvg/Ez4gUmQWr9pvY9Kssxt+Xenfx1LG7LmqjcrvBnw4r9VjkFcqmbBb7GCBwYNcZi9X3/oMda9sqQ==
+"@tailwindcss/oxide-linux-arm64-musl@4.1.11":
+  version "4.1.11"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/oxide-linux-arm64-musl/-/oxide-linux-arm64-musl-4.1.11.tgz#bec465112a13a1383558ff36afdf28b8a8cb9021"
+  integrity sha512-m/NVRFNGlEHJrNVk3O6I9ggVuNjXHIPoD6bqay/pubtYC9QIdAMpS+cswZQPBLvVvEF6GtSNONbDkZrjWZXYNQ==
 
-"@tailwindcss/oxide-linux-x64-gnu@4.1.10":
-  version "4.1.10"
-  resolved "https://registry.yarnpkg.com/@tailwindcss/oxide-linux-x64-gnu/-/oxide-linux-x64-gnu-4.1.10.tgz#aca15cc4cf9dcd687eda0f5cd2bc1f4bfb485562"
-  integrity sha512-/G3ao/ybV9YEEgAXeEg28dyH6gs1QG8tvdN9c2MNZdUXYBaIY/Gx0N6RlJzfLy/7Nkdok4kaxKPHKJUlAaoTdA==
+"@tailwindcss/oxide-linux-x64-gnu@4.1.11":
+  version "4.1.11"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/oxide-linux-x64-gnu/-/oxide-linux-x64-gnu-4.1.11.tgz#f9e47e6aa67ff77f32f7412bc9698d4278e101bf"
+  integrity sha512-YW6sblI7xukSD2TdbbaeQVDysIm/UPJtObHJHKxDEcW2exAtY47j52f8jZXkqE1krdnkhCMGqP3dbniu1Te2Fg==
 
-"@tailwindcss/oxide-linux-x64-musl@4.1.10":
-  version "4.1.10"
-  resolved "https://registry.yarnpkg.com/@tailwindcss/oxide-linux-x64-musl/-/oxide-linux-x64-musl-4.1.10.tgz#0c77d1e94e499a9f85c80013e6052dd98d3cfee4"
-  integrity sha512-LNr7X8fTiKGRtQGOerSayc2pWJp/9ptRYAa4G+U+cjw9kJZvkopav1AQc5HHD+U364f71tZv6XamaHKgrIoVzA==
+"@tailwindcss/oxide-linux-x64-musl@4.1.11":
+  version "4.1.11"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/oxide-linux-x64-musl/-/oxide-linux-x64-musl-4.1.11.tgz#7d6e8adcfb9bc84d8e2e2e8781d661edb9e41ba8"
+  integrity sha512-e3C/RRhGunWYNC3aSF7exsQkdXzQ/M+aYuZHKnw4U7KQwTJotnWsGOIVih0s2qQzmEzOFIJ3+xt7iq67K/p56Q==
 
-"@tailwindcss/oxide-wasm32-wasi@4.1.10":
-  version "4.1.10"
-  resolved "https://registry.yarnpkg.com/@tailwindcss/oxide-wasm32-wasi/-/oxide-wasm32-wasi-4.1.10.tgz#6e749424db4f6e076371a66da7c4daf1fcd4f9df"
-  integrity sha512-d6ekQpopFQJAcIK2i7ZzWOYGZ+A6NzzvQ3ozBvWFdeyqfOZdYHU66g5yr+/HC4ipP1ZgWsqa80+ISNILk+ae/Q==
+"@tailwindcss/oxide-wasm32-wasi@4.1.11":
+  version "4.1.11"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/oxide-wasm32-wasi/-/oxide-wasm32-wasi-4.1.11.tgz#a1762f4939c6ebaa824696fda2fd7db1b85fbed2"
+  integrity sha512-Xo1+/GU0JEN/C/dvcammKHzeM6NqKovG+6921MR6oadee5XPBaKOumrJCXvopJ/Qb5TH7LX/UAywbqrP4lax0g==
   dependencies:
     "@emnapi/core" "^1.4.3"
     "@emnapi/runtime" "^1.4.3"
     "@emnapi/wasi-threads" "^1.0.2"
-    "@napi-rs/wasm-runtime" "^0.2.10"
+    "@napi-rs/wasm-runtime" "^0.2.11"
     "@tybys/wasm-util" "^0.9.0"
     tslib "^2.8.0"
 
-"@tailwindcss/oxide-win32-arm64-msvc@4.1.10":
-  version "4.1.10"
-  resolved "https://registry.yarnpkg.com/@tailwindcss/oxide-win32-arm64-msvc/-/oxide-win32-arm64-msvc-4.1.10.tgz#e1663b5a95425f0f458f616399ed9f6707d4a786"
-  integrity sha512-i1Iwg9gRbwNVOCYmnigWCCgow8nDWSFmeTUU5nbNx3rqbe4p0kRbEqLwLJbYZKmSSp23g4N6rCDmm7OuPBXhDA==
+"@tailwindcss/oxide-win32-arm64-msvc@4.1.11":
+  version "4.1.11"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/oxide-win32-arm64-msvc/-/oxide-win32-arm64-msvc-4.1.11.tgz#70ba392dca0fa3707ebe27d2bd6ac3e69d35e3b7"
+  integrity sha512-UgKYx5PwEKrac3GPNPf6HVMNhUIGuUh4wlDFR2jYYdkX6pL/rn73zTq/4pzUm8fOjAn5L8zDeHp9iXmUGOXZ+w==
 
-"@tailwindcss/oxide-win32-x64-msvc@4.1.10":
-  version "4.1.10"
-  resolved "https://registry.yarnpkg.com/@tailwindcss/oxide-win32-x64-msvc/-/oxide-win32-x64-msvc-4.1.10.tgz#de3d4e8b38c31caf2522ad0c6f0efdeb5034fc95"
-  integrity sha512-sGiJTjcBSfGq2DVRtaSljq5ZgZS2SDHSIfhOylkBvHVjwOsodBhnb3HdmiKkVuUGKD0I7G63abMOVaskj1KpOA==
+"@tailwindcss/oxide-win32-x64-msvc@4.1.11":
+  version "4.1.11"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/oxide-win32-x64-msvc/-/oxide-win32-x64-msvc-4.1.11.tgz#cdcb9eea9225a346c0695f67f621990b0534763f"
+  integrity sha512-YfHoggn1j0LK7wR82TOucWc5LDCguHnoS879idHekmmiR7g9HUtMw9MI0NHatS28u/Xlkfi9w5RJWgz2Dl+5Qg==
 
-"@tailwindcss/oxide@4.1.10":
-  version "4.1.10"
-  resolved "https://registry.npmjs.org/@tailwindcss/oxide/-/oxide-4.1.10.tgz"
-  integrity sha512-v0C43s7Pjw+B9w21htrQwuFObSkio2aV/qPx/mhrRldbqxbWJK6KizM+q7BF1/1CmuLqZqX3CeYF7s7P9fbA8Q==
+"@tailwindcss/oxide@4.1.11":
+  version "4.1.11"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/oxide/-/oxide-4.1.11.tgz#569b668c99c337b7b8204bc5b6a833429755a05b"
+  integrity sha512-Q69XzrtAhuyfHo+5/HMgr1lAiPP/G40OMFAnws7xcFEYqcypZmdW8eGXaOUIeOl1dzPJBPENXgbjsOyhg2nkrg==
   dependencies:
     detect-libc "^2.0.4"
     tar "^7.4.3"
   optionalDependencies:
-    "@tailwindcss/oxide-android-arm64" "4.1.10"
-    "@tailwindcss/oxide-darwin-arm64" "4.1.10"
-    "@tailwindcss/oxide-darwin-x64" "4.1.10"
-    "@tailwindcss/oxide-freebsd-x64" "4.1.10"
-    "@tailwindcss/oxide-linux-arm-gnueabihf" "4.1.10"
-    "@tailwindcss/oxide-linux-arm64-gnu" "4.1.10"
-    "@tailwindcss/oxide-linux-arm64-musl" "4.1.10"
-    "@tailwindcss/oxide-linux-x64-gnu" "4.1.10"
-    "@tailwindcss/oxide-linux-x64-musl" "4.1.10"
-    "@tailwindcss/oxide-wasm32-wasi" "4.1.10"
-    "@tailwindcss/oxide-win32-arm64-msvc" "4.1.10"
-    "@tailwindcss/oxide-win32-x64-msvc" "4.1.10"
+    "@tailwindcss/oxide-android-arm64" "4.1.11"
+    "@tailwindcss/oxide-darwin-arm64" "4.1.11"
+    "@tailwindcss/oxide-darwin-x64" "4.1.11"
+    "@tailwindcss/oxide-freebsd-x64" "4.1.11"
+    "@tailwindcss/oxide-linux-arm-gnueabihf" "4.1.11"
+    "@tailwindcss/oxide-linux-arm64-gnu" "4.1.11"
+    "@tailwindcss/oxide-linux-arm64-musl" "4.1.11"
+    "@tailwindcss/oxide-linux-x64-gnu" "4.1.11"
+    "@tailwindcss/oxide-linux-x64-musl" "4.1.11"
+    "@tailwindcss/oxide-wasm32-wasi" "4.1.11"
+    "@tailwindcss/oxide-win32-arm64-msvc" "4.1.11"
+    "@tailwindcss/oxide-win32-x64-msvc" "4.1.11"
 
-"@tailwindcss/postcss@^4.1.10":
-  version "4.1.10"
-  resolved "https://registry.npmjs.org/@tailwindcss/postcss/-/postcss-4.1.10.tgz"
-  integrity sha512-B+7r7ABZbkXJwpvt2VMnS6ujcDoR2OOcFaqrLIo1xbcdxje4Vf+VgJdBzNNbrAjBj/rLZ66/tlQ1knIGNLKOBQ==
+"@tailwindcss/postcss@^4.1.11":
+  version "4.1.11"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/postcss/-/postcss-4.1.11.tgz#4d844f7ff295c731ceab54934531bece7380ce0c"
+  integrity sha512-q/EAIIpF6WpLhKEuQSEVMZNMIY8KhWoAemZ9eylNAih9jxMGAYPPWBn3I9QL/2jZ+e7OEz/tZkX5HwbBR4HohA==
   dependencies:
     "@alloc/quick-lru" "^5.2.0"
-    "@tailwindcss/node" "4.1.10"
-    "@tailwindcss/oxide" "4.1.10"
+    "@tailwindcss/node" "4.1.11"
+    "@tailwindcss/oxide" "4.1.11"
     postcss "^8.4.41"
-    tailwindcss "4.1.10"
+    tailwindcss "4.1.11"
+
+"@tybys/wasm-util@^0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@tybys/wasm-util/-/wasm-util-0.10.0.tgz#2fd3cd754b94b378734ce17058d0507c45c88369"
+  integrity sha512-VyyPYFlOMNylG45GoAe0xDoLwWuowvf92F9kySqzYh8vmYm7D2u4iUJKa1tOUpS70Ku13ASrOkS4ScXFsTaCNQ==
+  dependencies:
+    tslib "^2.4.0"
 
 "@tybys/wasm-util@^0.9.0":
   version "0.9.0"
@@ -1455,7 +1469,7 @@
 
 "@types/next-pwa@^5.6.9":
   version "5.6.9"
-  resolved "https://registry.yarnpkg.com/@types/next-pwa/-/next-pwa-5.6.9.tgz#b9e14ae3d2c6d82585c34d94faa3373cad64695d"
+  resolved "https://registry.npmjs.org/@types/next-pwa/-/next-pwa-5.6.9.tgz"
   integrity sha512-KcymH+MtFYB5KVKIOH1DMqd0wUb8VLCxzHtsaRQQ7S8sGOaTH24Lo2vGZf6/0Ok9e+xWCKhqsSt6cgDJTk91Iw==
   dependencies:
     "@types/node" "*"
@@ -2065,6 +2079,11 @@ client-only@0.0.1:
   version "0.0.1"
   resolved "https://registry.npmjs.org/client-only/-/client-only-0.0.1.tgz"
   integrity sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA==
+
+clsx@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.npmjs.org/clsx/-/clsx-2.1.1.tgz"
+  integrity sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==
 
 color-convert@^2.0.1:
   version "2.0.1"
@@ -2771,6 +2790,15 @@ fraction.js@^4.3.7:
   version "4.3.7"
   resolved "https://registry.npmjs.org/fraction.js/-/fraction.js-4.3.7.tgz"
   integrity sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==
+
+framer-motion@^12.23.9:
+  version "12.23.9"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-12.23.9.tgz#f6567b57b9326c19224b25fbb7cd167e1e089d68"
+  integrity sha512-TqEHXj8LWfQSKqfdr5Y4mYltYLw96deu6/K9kGDd+ysqRJPNwF9nb5mZcrLmybHbU7gcJ+HQar41U3UTGanbbQ==
+  dependencies:
+    motion-dom "^12.23.9"
+    motion-utils "^12.23.6"
+    tslib "^2.4.0"
 
 fs-extra@^9.0.1:
   version "9.1.0"
@@ -3659,6 +3687,18 @@ mkdirp@^3.0.1:
   resolved "https://registry.npmjs.org/mkdirp/-/mkdirp-3.0.1.tgz"
   integrity sha512-+NsyUUAZDmo6YVHzL/stxSu3t9YS1iljliy3BSDrXJ/dkn1KYdmtZODGGjLcc9XLgVVpH4KshHB8XmZgMhaBXg==
 
+motion-dom@^12.23.9:
+  version "12.23.9"
+  resolved "https://registry.yarnpkg.com/motion-dom/-/motion-dom-12.23.9.tgz#f6768cdeb19c69f07c31083da12418d4e9f3e8c9"
+  integrity sha512-6Sv++iWS8XMFCgU1qwKj9l4xuC47Hp4+2jvPfyTXkqDg2tTzSgX6nWKD4kNFXk0k7llO59LZTPuJigza4A2K1A==
+  dependencies:
+    motion-utils "^12.23.6"
+
+motion-utils@^12.23.6:
+  version "12.23.6"
+  resolved "https://registry.yarnpkg.com/motion-utils/-/motion-utils-12.23.6.tgz#fafef80b4ea85122dd0d6c599a0c63d72881f312"
+  integrity sha512-eAWoPgr4eFEOFfg2WjIsMoqJTW6Z8MTUCgn/GZ3VRpClWBdnbjryiA3ZSNLyxCTmCQx4RmYX6jX1iWHbenUPNQ==
+
 ms@^2.1.1, ms@^2.1.3:
   version "2.1.3"
   resolved "https://registry.npmjs.org/ms/-/ms-2.1.3.tgz"
@@ -3716,7 +3756,7 @@ next@15.3.3:
 
 "next@^12.2.5 || ^13.0.0":
   version "13.5.11"
-  resolved "https://registry.yarnpkg.com/next/-/next-13.5.11.tgz#a021e849c5748fb6e2a4447585614e0c0e6c778d"
+  resolved "https://registry.npmjs.org/next/-/next-13.5.11.tgz"
   integrity sha512-WUPJ6WbAX9tdC86kGTu92qkrRdgRqVrY++nwM+shmWQwmyxt4zhZfR59moXSI4N8GDYCBY3lIAqhzjDd4rTC8Q==
   dependencies:
     "@next/env" "13.5.11"
@@ -4035,6 +4075,16 @@ react-dom@^19.0.0:
   integrity sha512-Xs1hdnE+DyKgeHJeJznQmYMIBG3TKIHJJT95Q58nHLSrElKlGQqDTR2HQ9fx5CN/Gk6Vh/kupBTDLU11/nDk/g==
   dependencies:
     scheduler "^0.26.0"
+
+react-hook-form@^7.61.1:
+  version "7.61.1"
+  resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.61.1.tgz"
+  integrity sha512-2vbXUFDYgqEgM2RcXcAT2PwDW/80QARi+PKmHy5q2KhuKvOlG8iIYgf7eIlIANR5trW9fJbP4r5aub3a4egsew==
+
+react-icons@^5.5.0:
+  version "5.5.0"
+  resolved "https://registry.npmjs.org/react-icons/-/react-icons-5.5.0.tgz"
+  integrity sha512-MEFcXdkP3dLo8uumGI5xN3lDFNsRtrjbOEKDLD7yv76v4wpnEq2Lt2qeHaQOr34I/wPN3s3+N08WkQ+CW37Xiw==
 
 react-is@^16.13.1:
   version "16.13.1"
@@ -4531,7 +4581,7 @@ strip-json-comments@^3.1.1:
 
 styled-jsx@5.1.1:
   version "5.1.1"
-  resolved "https://registry.yarnpkg.com/styled-jsx/-/styled-jsx-5.1.1.tgz#839a1c3aaacc4e735fed0781b8619ea5d0009d1f"
+  resolved "https://registry.npmjs.org/styled-jsx/-/styled-jsx-5.1.1.tgz"
   integrity sha512-pW7uC1l4mBZ8ugbiZrcIsiIvVx1UmTfw7UkC3Um2tmfUq9Bhk8IiyEIPl6F8agHgjzku6j0xQEZbfA5uSgSaCw==
   dependencies:
     client-only "0.0.1"
@@ -4562,7 +4612,12 @@ supports-preserve-symlinks-flag@^1.0.0:
   resolved "https://registry.npmjs.org/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
 
-tailwindcss@4.1.10, tailwindcss@^4.1.10:
+tailwindcss@4.1.11:
+  version "4.1.11"
+  resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-4.1.11.tgz#799af3e98c19c5baaefafc6e0c16304a0e684854"
+  integrity sha512-2E9TBm6MDD/xKYe+dvJZAmg3yxIEDNRc0jwlNyDg/4Fil2QcSLjFKGVff0lAf1jjeaArlG/M75Ey/EYr/OJtBA==
+
+tailwindcss@^4.1.10:
   version "4.1.10"
   resolved "https://registry.npmjs.org/tailwindcss/-/tailwindcss-4.1.10.tgz"
   integrity sha512-P3nr6WkvKV/ONsTzj6Gb57sWPMX29EPNPopo7+FcpkQaNsrNpZ1pv8QmrYI2RqEKD7mlGqLnGovlcYnBK0IqUA==
@@ -4823,7 +4878,7 @@ uri-js@^4.2.2:
 
 watchpack@2.4.0:
   version "2.4.0"
-  resolved "https://registry.yarnpkg.com/watchpack/-/watchpack-2.4.0.tgz#fa33032374962c78113f93c7f2fb4c54c9862a5d"
+  resolved "https://registry.npmjs.org/watchpack/-/watchpack-2.4.0.tgz"
   integrity sha512-Lcvm7MGST/4fup+ifyKi2hjyIAwcdI4HRgtvTpIUxBRhB+RFtUh8XtDOxUfctVCnhVi+QQj49i91OyvzkJl6cg==
   dependencies:
     glob-to-regexp "^0.4.1"
@@ -4924,14 +4979,6 @@ workbox-background-sync@6.6.0:
     idb "^7.0.1"
     workbox-core "6.6.0"
 
-workbox-background-sync@6.6.1:
-  version "6.6.1"
-  resolved "https://registry.yarnpkg.com/workbox-background-sync/-/workbox-background-sync-6.6.1.tgz#08d603a33717ce663e718c30cc336f74909aff2f"
-  integrity sha512-trJd3ovpWCvzu4sW0E8rV3FUyIcC0W8G+AZ+VcqzzA890AsWZlUGOTSxIMmIHVusUw/FDq1HFWfy/kC/WTRqSg==
-  dependencies:
-    idb "^7.0.1"
-    workbox-core "6.6.1"
-
 workbox-broadcast-update@6.6.0:
   version "6.6.0"
   resolved "https://registry.npmjs.org/workbox-broadcast-update/-/workbox-broadcast-update-6.6.0.tgz"
@@ -4939,14 +4986,7 @@ workbox-broadcast-update@6.6.0:
   dependencies:
     workbox-core "6.6.0"
 
-workbox-broadcast-update@6.6.1:
-  version "6.6.1"
-  resolved "https://registry.yarnpkg.com/workbox-broadcast-update/-/workbox-broadcast-update-6.6.1.tgz#0fad9454cf8e4ace0c293e5617c64c75d8a8c61e"
-  integrity sha512-fBhffRdaANdeQ1V8s692R9l/gzvjjRtydBOvR6WCSB0BNE2BacA29Z4r9/RHd9KaXCPl6JTdI9q0bR25YKP8TQ==
-  dependencies:
-    workbox-core "6.6.1"
-
-workbox-build@6.6.0:
+workbox-build@6.6.0, workbox-build@^6.5.4:
   version "6.6.0"
   resolved "https://registry.npmjs.org/workbox-build/-/workbox-build-6.6.0.tgz"
   integrity sha512-Tjf+gBwOTuGyZwMz2Nk/B13Fuyeo0Q84W++bebbVsfr9iLkDSo6j6PST8tET9HYA58mlRXwlMGpyWO8ETJiXdQ==
@@ -4989,49 +5029,6 @@ workbox-build@6.6.0:
     workbox-sw "6.6.0"
     workbox-window "6.6.0"
 
-workbox-build@^6.5.4:
-  version "6.6.1"
-  resolved "https://registry.yarnpkg.com/workbox-build/-/workbox-build-6.6.1.tgz#6010e9ce550910156761448f2dbea8cfcf759cb0"
-  integrity sha512-INPgDx6aRycAugUixbKgiEQBWD0MPZqU5r0jyr24CehvNuLPSXp/wGOpdRJmts656lNiXwqV7dC2nzyrzWEDnw==
-  dependencies:
-    "@apideck/better-ajv-errors" "^0.3.1"
-    "@babel/core" "^7.11.1"
-    "@babel/preset-env" "^7.11.0"
-    "@babel/runtime" "^7.11.2"
-    "@rollup/plugin-babel" "^5.2.0"
-    "@rollup/plugin-node-resolve" "^11.2.1"
-    "@rollup/plugin-replace" "^2.4.1"
-    "@surma/rollup-plugin-off-main-thread" "^2.2.3"
-    ajv "^8.6.0"
-    common-tags "^1.8.0"
-    fast-json-stable-stringify "^2.1.0"
-    fs-extra "^9.0.1"
-    glob "^7.1.6"
-    lodash "^4.17.20"
-    pretty-bytes "^5.3.0"
-    rollup "^2.43.1"
-    rollup-plugin-terser "^7.0.0"
-    source-map "^0.8.0-beta.0"
-    stringify-object "^3.3.0"
-    strip-comments "^2.0.1"
-    tempy "^0.6.0"
-    upath "^1.2.0"
-    workbox-background-sync "6.6.1"
-    workbox-broadcast-update "6.6.1"
-    workbox-cacheable-response "6.6.1"
-    workbox-core "6.6.1"
-    workbox-expiration "6.6.1"
-    workbox-google-analytics "6.6.1"
-    workbox-navigation-preload "6.6.1"
-    workbox-precaching "6.6.1"
-    workbox-range-requests "6.6.1"
-    workbox-recipes "6.6.1"
-    workbox-routing "6.6.1"
-    workbox-strategies "6.6.1"
-    workbox-streams "6.6.1"
-    workbox-sw "6.6.1"
-    workbox-window "6.6.1"
-
 workbox-cacheable-response@6.6.0:
   version "6.6.0"
   resolved "https://registry.npmjs.org/workbox-cacheable-response/-/workbox-cacheable-response-6.6.0.tgz"
@@ -5039,22 +5036,10 @@ workbox-cacheable-response@6.6.0:
   dependencies:
     workbox-core "6.6.0"
 
-workbox-cacheable-response@6.6.1:
-  version "6.6.1"
-  resolved "https://registry.yarnpkg.com/workbox-cacheable-response/-/workbox-cacheable-response-6.6.1.tgz#284c2b86be3f4fd191970ace8c8e99797bcf58e9"
-  integrity sha512-85LY4veT2CnTCDxaVG7ft3NKaFbH6i4urZXgLiU4AiwvKqS2ChL6/eILiGRYXfZ6gAwDnh5RkuDbr/GMS4KSag==
-  dependencies:
-    workbox-core "6.6.1"
-
 workbox-core@6.6.0:
   version "6.6.0"
   resolved "https://registry.npmjs.org/workbox-core/-/workbox-core-6.6.0.tgz"
   integrity sha512-GDtFRF7Yg3DD859PMbPAYPeJyg5gJYXuBQAC+wyrWuuXgpfoOrIQIvFRZnQ7+czTIQjIr1DhLEGFzZanAT/3bQ==
-
-workbox-core@6.6.1:
-  version "6.6.1"
-  resolved "https://registry.yarnpkg.com/workbox-core/-/workbox-core-6.6.1.tgz#7184776d4134c5ed2f086878c882728fc9084265"
-  integrity sha512-ZrGBXjjaJLqzVothoE12qTbVnOAjFrHDXpZe7coCb6q65qI/59rDLwuFMO4PcZ7jcbxY+0+NhUVztzR/CbjEFw==
 
 workbox-expiration@6.6.0:
   version "6.6.0"
@@ -5063,14 +5048,6 @@ workbox-expiration@6.6.0:
   dependencies:
     idb "^7.0.1"
     workbox-core "6.6.0"
-
-workbox-expiration@6.6.1:
-  version "6.6.1"
-  resolved "https://registry.yarnpkg.com/workbox-expiration/-/workbox-expiration-6.6.1.tgz#a841fa36676104426dbfb9da1ef6a630b4f93739"
-  integrity sha512-qFiNeeINndiOxaCrd2DeL1Xh1RFug3JonzjxUHc5WkvkD2u5abY3gZL1xSUNt3vZKsFFGGORItSjVTVnWAZO4A==
-  dependencies:
-    idb "^7.0.1"
-    workbox-core "6.6.1"
 
 workbox-google-analytics@6.6.0:
   version "6.6.0"
@@ -5082,29 +5059,12 @@ workbox-google-analytics@6.6.0:
     workbox-routing "6.6.0"
     workbox-strategies "6.6.0"
 
-workbox-google-analytics@6.6.1:
-  version "6.6.1"
-  resolved "https://registry.yarnpkg.com/workbox-google-analytics/-/workbox-google-analytics-6.6.1.tgz#a07a6655ab33d89d1b0b0a935ffa5dea88618c5d"
-  integrity sha512-1TjSvbFSLmkpqLcBsF7FuGqqeDsf+uAXO/pjiINQKg3b1GN0nBngnxLcXDYo1n/XxK4N7RaRrpRlkwjY/3ocuA==
-  dependencies:
-    workbox-background-sync "6.6.1"
-    workbox-core "6.6.1"
-    workbox-routing "6.6.1"
-    workbox-strategies "6.6.1"
-
 workbox-navigation-preload@6.6.0:
   version "6.6.0"
   resolved "https://registry.npmjs.org/workbox-navigation-preload/-/workbox-navigation-preload-6.6.0.tgz"
   integrity sha512-utNEWG+uOfXdaZmvhshrh7KzhDu/1iMHyQOV6Aqup8Mm78D286ugu5k9MFD9SzBT5TcwgwSORVvInaXWbvKz9Q==
   dependencies:
     workbox-core "6.6.0"
-
-workbox-navigation-preload@6.6.1:
-  version "6.6.1"
-  resolved "https://registry.yarnpkg.com/workbox-navigation-preload/-/workbox-navigation-preload-6.6.1.tgz#61a34fe125558dd88cf09237f11bd966504ea059"
-  integrity sha512-DQCZowCecO+wRoIxJI2V6bXWK6/53ff+hEXLGlQL4Rp9ZaPDLrgV/32nxwWIP7QpWDkVEtllTAK5h6cnhxNxDA==
-  dependencies:
-    workbox-core "6.6.1"
 
 workbox-precaching@6.6.0:
   version "6.6.0"
@@ -5115,28 +5075,12 @@ workbox-precaching@6.6.0:
     workbox-routing "6.6.0"
     workbox-strategies "6.6.0"
 
-workbox-precaching@6.6.1:
-  version "6.6.1"
-  resolved "https://registry.yarnpkg.com/workbox-precaching/-/workbox-precaching-6.6.1.tgz#dedeeba10a2d163d990bf99f1c2066ac0d1a19e2"
-  integrity sha512-K4znSJ7IKxCnCYEdhNkMr7X1kNh8cz+mFgx9v5jFdz1MfI84pq8C2zG+oAoeE5kFrUf7YkT5x4uLWBNg0DVZ5A==
-  dependencies:
-    workbox-core "6.6.1"
-    workbox-routing "6.6.1"
-    workbox-strategies "6.6.1"
-
 workbox-range-requests@6.6.0:
   version "6.6.0"
   resolved "https://registry.npmjs.org/workbox-range-requests/-/workbox-range-requests-6.6.0.tgz"
   integrity sha512-V3aICz5fLGq5DpSYEU8LxeXvsT//mRWzKrfBOIxzIdQnV/Wj7R+LyJVTczi4CQ4NwKhAaBVaSujI1cEjXW+hTw==
   dependencies:
     workbox-core "6.6.0"
-
-workbox-range-requests@6.6.1:
-  version "6.6.1"
-  resolved "https://registry.yarnpkg.com/workbox-range-requests/-/workbox-range-requests-6.6.1.tgz#ddaf7e73af11d362fbb2f136a9063a4c7f507a39"
-  integrity sha512-4BDzk28govqzg2ZpX0IFkthdRmCKgAKreontYRC5YsAPB2jDtPNxqx3WtTXgHw1NZalXpcH/E4LqUa9+2xbv1g==
-  dependencies:
-    workbox-core "6.6.1"
 
 workbox-recipes@6.6.0:
   version "6.6.0"
@@ -5150,18 +5094,6 @@ workbox-recipes@6.6.0:
     workbox-routing "6.6.0"
     workbox-strategies "6.6.0"
 
-workbox-recipes@6.6.1:
-  version "6.6.1"
-  resolved "https://registry.yarnpkg.com/workbox-recipes/-/workbox-recipes-6.6.1.tgz#ea70d2b2b0b0bce8de0a9d94f274d4a688e69fae"
-  integrity sha512-/oy8vCSzromXokDA+X+VgpeZJvtuf8SkQ8KL0xmRivMgJZrjwM3c2tpKTJn6PZA6TsbxGs3Sc7KwMoZVamcV2g==
-  dependencies:
-    workbox-cacheable-response "6.6.1"
-    workbox-core "6.6.1"
-    workbox-expiration "6.6.1"
-    workbox-precaching "6.6.1"
-    workbox-routing "6.6.1"
-    workbox-strategies "6.6.1"
-
 workbox-routing@6.6.0:
   version "6.6.0"
   resolved "https://registry.npmjs.org/workbox-routing/-/workbox-routing-6.6.0.tgz"
@@ -5169,26 +5101,12 @@ workbox-routing@6.6.0:
   dependencies:
     workbox-core "6.6.0"
 
-workbox-routing@6.6.1:
-  version "6.6.1"
-  resolved "https://registry.yarnpkg.com/workbox-routing/-/workbox-routing-6.6.1.tgz#cba9a1c7e0d1ea11e24b6f8c518840efdc94f581"
-  integrity sha512-j4ohlQvfpVdoR8vDYxTY9rA9VvxTHogkIDwGdJ+rb2VRZQ5vt1CWwUUZBeD/WGFAni12jD1HlMXvJ8JS7aBWTg==
-  dependencies:
-    workbox-core "6.6.1"
-
 workbox-strategies@6.6.0:
   version "6.6.0"
   resolved "https://registry.npmjs.org/workbox-strategies/-/workbox-strategies-6.6.0.tgz"
   integrity sha512-eC07XGuINAKUWDnZeIPdRdVja4JQtTuc35TZ8SwMb1ztjp7Ddq2CJ4yqLvWzFWGlYI7CG/YGqaETntTxBGdKgQ==
   dependencies:
     workbox-core "6.6.0"
-
-workbox-strategies@6.6.1:
-  version "6.6.1"
-  resolved "https://registry.yarnpkg.com/workbox-strategies/-/workbox-strategies-6.6.1.tgz#38d0f0fbdddba97bd92e0c6418d0b1a2ccd5b8bf"
-  integrity sha512-WQLXkRnsk4L81fVPkkgon1rZNxnpdO5LsO+ws7tYBC6QQQFJVI6v98klrJEjFtZwzw/mB/HT5yVp7CcX0O+mrw==
-  dependencies:
-    workbox-core "6.6.1"
 
 workbox-streams@6.6.0:
   version "6.6.0"
@@ -5198,23 +5116,10 @@ workbox-streams@6.6.0:
     workbox-core "6.6.0"
     workbox-routing "6.6.0"
 
-workbox-streams@6.6.1:
-  version "6.6.1"
-  resolved "https://registry.yarnpkg.com/workbox-streams/-/workbox-streams-6.6.1.tgz#b2f7ba7b315c27a6e3a96a476593f99c5d227d26"
-  integrity sha512-maKG65FUq9e4BLotSKWSTzeF0sgctQdYyTMq529piEN24Dlu9b6WhrAfRpHdCncRS89Zi2QVpW5V33NX8PgH3Q==
-  dependencies:
-    workbox-core "6.6.1"
-    workbox-routing "6.6.1"
-
 workbox-sw@6.6.0:
   version "6.6.0"
   resolved "https://registry.npmjs.org/workbox-sw/-/workbox-sw-6.6.0.tgz"
   integrity sha512-R2IkwDokbtHUE4Kus8pKO5+VkPHD2oqTgl+XJwh4zbF1HyjAbgNmK/FneZHVU7p03XUt9ICfuGDYISWG9qV/CQ==
-
-workbox-sw@6.6.1:
-  version "6.6.1"
-  resolved "https://registry.yarnpkg.com/workbox-sw/-/workbox-sw-6.6.1.tgz#d4c4ca3125088e8b9fd7a748ed537fa0247bd72c"
-  integrity sha512-R7whwjvU2abHH/lR6kQTTXLHDFU2izht9kJOvBRYK65FbwutT4VvnUAJIgHvfWZ/fokrOPhfoWYoPCMpSgUKHQ==
 
 workbox-webpack-plugin@^6.5.4:
   version "6.6.0"
@@ -5235,14 +5140,6 @@ workbox-window@6.6.0, workbox-window@^6.5.4:
     "@types/trusted-types" "^2.0.2"
     workbox-core "6.6.0"
 
-workbox-window@6.6.1:
-  version "6.6.1"
-  resolved "https://registry.yarnpkg.com/workbox-window/-/workbox-window-6.6.1.tgz#f22a394cbac36240d0dadcbdebc35f711bb7b89e"
-  integrity sha512-wil4nwOY58nTdCvif/KEZjQ2NP8uk3gGeRNy2jPBbzypU4BT4D9L8xiwbmDBpZlSgJd2xsT9FvSNU0gsxV51JQ==
-  dependencies:
-    "@types/trusted-types" "^2.0.2"
-    workbox-core "6.6.1"
-
 wrappy@1:
   version "1.0.2"
   resolved "https://registry.npmjs.org/wrappy/-/wrappy-1.0.2.tgz"
@@ -5262,3 +5159,8 @@ yocto-queue@^0.1.0:
   version "0.1.0"
   resolved "https://registry.npmjs.org/yocto-queue/-/yocto-queue-0.1.0.tgz"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
+
+zustand@^5.0.6:
+  version "5.0.6"
+  resolved "https://registry.npmjs.org/zustand/-/zustand-5.0.6.tgz"
+  integrity sha512-ihAqNeUVhe0MAD+X8M5UzqyZ9k3FFZLBTtqo6JLPwV53cbRB/mJwBI0PxcIgqhBBHlEs8G45OTDTMq3gNcLq3A==

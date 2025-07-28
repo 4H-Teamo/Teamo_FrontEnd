@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@layer components {
+    .button-common {
+        @apply relative box-border bg-main text-white rounded-xl
+        lg:w-24 lg:h-16
+        sm:w-20 sm:h-16
+        w-20 h-16
+    }
+}
