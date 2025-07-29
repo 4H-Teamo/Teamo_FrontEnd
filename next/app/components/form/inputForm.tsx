@@ -10,7 +10,7 @@ const InputForm = ({ name, placeholder,className, type = "text" }: InputFormProp
 	const { register } = useFormContext();
 
 	return (
-		<div className="mb-4">
+		<div className="mb-4 font-medium ">
 			<input
 				type={type}
 				{...register(name)}

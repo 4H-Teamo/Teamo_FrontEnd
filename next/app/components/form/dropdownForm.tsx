@@ -52,7 +52,7 @@ const DropDownForm = ({ options,value, onChange, placeholder }: DropDownProps) =
 					{options?.map((opt) => (
 						<li
 							key={opt.id}
-							className="p-5 text-sm cursor-pointer hover:bg-gray-100 rounded-xl"
+							className="p-5 text-sm font-medium cursor-pointer hover:bg-gray-100 rounded-xl"
 							onClick={() => handleSelect(String(opt.value))}
 						>
 							{opt.label}

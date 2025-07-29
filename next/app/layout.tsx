@@ -29,14 +29,16 @@ export default function RootLayout({
 	return (
 		<html lang="ko" className={pretendard.variable}>
 		<body className={pretendard.className}>
-		<div className="flex h-screen overflow-hidden">
-			<Sidebar/>
-			<div className="flex flex-col flex-1 overflow-auto">
+		<div className="flex min-h-screen">
+			<Sidebar />
+			<div className="flex flex-col flex-1 min-h-screen">
 				<Header />
-				<main className="w-full h-screen bg-light overflow-auto px-9 py-4">{children}</main>
+				<main className="flex-1 bg-light overflow-auto px-9 py-4">
+					{children}
+				</main>
 			</div>
-			<Footer />
 		</div>
+		<Footer />
 		</body>
 		</html>
 	);

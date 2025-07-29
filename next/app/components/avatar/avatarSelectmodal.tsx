@@ -50,27 +50,27 @@ const AvatarSelectModal: React.FC<AvatarSelectModalProps> = ({
 	// 		// 임시로 더미 데이터 사용
 	// 		setImages([
 	// 			{
-	// 				id: "1",
+	// 				stackId: "1",
 	// 				url: "https://teamo-bucket.s3.ap-northeast-2.amazonaws.com/images/profileImages/lolipop.png",
 	// 			},
 	// 			{
-	// 				id: "2",
+	// 				stackId: "2",
 	// 				url: "https://teamo-bucket.s3.ap-northeast-2.amazonaws.com/images/profileImages/mad.png",
 	// 			},
 	// 			{
-	// 				id: "3",
+	// 				stackId: "3",
 	// 				url: "https://teamo-bucket.s3.ap-northeast-2.amazonaws.com/images/profileImages/magic.png",
 	// 			},
 	// 			{
-	// 				id: "4",
+	// 				stackId: "4",
 	// 				url: "https://teamo-bucket.s3.ap-northeast-2.amazonaws.com/images/profileImages/mith.png",
 	// 			},
 	// 			{
-	// 				id: "5",
+	// 				stackId: "5",
 	// 				url: "https://teamo-bucket.s3.ap-northeast-2.amazonaws.com/images/profileImages/music.png",
 	// 			},
 	// 			{
-	// 				id: "6",
+	// 				stackId: "6",
 	// 				url: "https://teamo-bucket.s3.ap-northeast-2.amazonaws.com/images/profileImages/nature.png",
 	// 			},
 	// 		]);
