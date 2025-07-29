@@ -1,10 +1,12 @@
 import {IoSearch} from "react-icons/io5";
-import React, {useState} from "react";
+import React from "react";
 interface SearchBarProps {
 	readOnly?: boolean;
+	value:string
+	onChange:(value:string) => void
 }
-const SearchBar = ({ readOnly = false }: SearchBarProps) => {
-	const [value, setValue] = useState("");
+const SearchInput = ({ onChange,value,readOnly = false }: SearchBarProps) => {
+
 	const handleKeyDown =(e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.key === 'Enter') {
 			e.preventDefault();
@@ -16,7 +18,7 @@ const SearchBar = ({ readOnly = false }: SearchBarProps) => {
 			<IoSearch className="text-[#2B3674] " />
 			<input type="text"
 			       value={value}
-			       onChange={(e) => setValue(e.target.value)}
+			       onChange={(e) => onChange(e.target.value)}
 			       readOnly={readOnly}
 			       placeholder="검색" className=" focus:outline-none  bg-[#F4F7FE] text-black" onKeyDown={handleKeyDown}
 			/>
@@ -25,4 +27,4 @@ const SearchBar = ({ readOnly = false }: SearchBarProps) => {
 	)
 }
 
-export default SearchBar;
+export default SearchInput;

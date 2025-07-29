@@ -11,7 +11,7 @@ const Mypage = () => {
 	return(
 		<FormProvider {...methods} >
 			<form >
-			<div className="leading-5 text-sm font-light text-gray10">
+			<div className="leading-5 text-sm  text-gray10">
 				<Avatar/>
 				<UserInfoForm/>
 			</div>
