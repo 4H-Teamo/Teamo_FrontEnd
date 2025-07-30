@@ -35,22 +35,41 @@ const UserInfoForm = () => {
 					</div>
 				))}
 			</div>
-			<Stack/>
+		{USERINFO_LABEL.filter(item=>item.type==="multiSelect").map((item)=>(
+			<div key={item.id} className="flex  flex-col gap-2 w-full sm:w-auto">
+				<Label id={item.id} text={item.label} />
+				<Controller
+					name={item.id}
+					defaultValue={[]}
+					control={control}
+					render={({ field }) => (
+						<Stack value={field.value} onChange={field.onChange} />
+					)}
+				/>
+			</div>
+			))}
+		{USERINFO_LABEL.filter(item => item.type === "textarea").map((item) => (
+			<div key={item.id} className="flex  flex-col gap-2 w-full sm:w-auto">
+				<Label id={item.id} text={item.label} />
 			<Controller
-				name="introduction"
+				name={item.id}
 				control={control}
 				render={({ field }) => (
 					<TextArea {...field} />
 				)}
 			/>
-			<Controller
-				name="isPublic"
-				control={control}
-				defaultValue={false}
-				render={({ field }) => (
-					<PublicToggle isPublic={field.value} onToggle={() => field.onChange(!field.value)} />
-				)}
-			/>
+			</div>
+		))}
+
+					<Controller
+						name="isPublic"
+						control={control}
+						render={({ field }) => (
+							<PublicToggle isPublic={field.value} onToggle={() => field.onChange(!field.value)} />
+						)}
+					/>
+
+
 		</div>
 	);
 };
