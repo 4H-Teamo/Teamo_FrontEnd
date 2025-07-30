@@ -2,20 +2,17 @@
 
 import {usePathname} from "next/navigation";
 import SearchInput from "@/app/components/searchInput/searchInput";
-import Button from "@/app/components/button/button";
 import More from "@/app/assets/more.svg";
 import React, {useState} from "react";
 import MobileSidebar from "@/app/components/sidebar/mobileSidebar";
 import Image from "next/image";
-import {useFormContext} from "react-hook-form";
+
 
 
 const Header = () => {
 	const pathname = usePathname();
 	const showHeader = ["/", "/team", "/teammate"].includes(pathname);
-
 	const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
 	const openSidebar = () => setIsSidebarOpen(true);
 	const closeSidebar = () => setIsSidebarOpen(false);
 	return (

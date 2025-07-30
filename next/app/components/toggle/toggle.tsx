@@ -18,7 +18,7 @@ const PublicToggle = ({ isPublic, onToggle }: PublicToggleProps) => {
 					onClick={onToggle}
 					className={clsx(
 						"relative w-[34px] h-[18px] rounded-full p-[2px] transition-all cursor-pointer",
-						isPublic ? "bg-green-500" : "bg-gray-300"
+						isPublic ? "bg-main" : "bg-gray-300"
 					)}
 				>
 					<div

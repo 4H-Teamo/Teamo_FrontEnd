@@ -29,7 +29,9 @@
 @theme {
   --color-main: oklch(0.4979 0.2525 281.84);
   --color-black:oklch(0.235 0 0);
-  --color-gray10:oklch(0.4784 0 0)
+  --color-gray10:oklch(0.4784 0 0);
+  --color-gray20:oklch(0.8853 0 0);
+
 }
 @layer utilities {
   .text-shadow {

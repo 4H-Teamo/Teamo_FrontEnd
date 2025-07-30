@@ -7,7 +7,6 @@ import DropdownForm from "@/app/components/form/dropdownForm";
 import Stack from "@/app/components/techStack/stack";
 import PublicToggle from "@/app/components/toggle/toggle";
 import TextArea from "@/app/components/textArea/textArea";
-import values from "ajv/lib/vocabularies/jtd/values";
 
 const UserInfoForm = () => {
 	const { control, setValue, watch } = useFormContext();
@@ -51,16 +50,15 @@ const UserInfoForm = () => {
 		{USERINFO_LABEL.filter(item => item.type === "textarea").map((item) => (
 			<div key={item.id} className="flex  flex-col gap-2 w-full sm:w-auto">
 				<Label id={item.id} text={item.label} />
-			<Controller
+				<Controller
 				name={item.id}
 				control={control}
 				render={({ field }) => (
-					<TextArea {...field} />
+					<TextArea {...field} placeholder={item.placeholder} />
 				)}
 			/>
 			</div>
 		))}
-
 					<Controller
 						name="isPublic"
 						control={control}

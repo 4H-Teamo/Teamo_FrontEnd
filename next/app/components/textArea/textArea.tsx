@@ -1,17 +1,22 @@
-
 import React from "react";
-
+import {useFormContext} from "react-hook-form";
+import clsx from "clsx";
 type TextAreaProps = {
 	value: string;
+	name: string;
+	placeholder?: string;
+	className?: string;
 	onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 };
 
-const TextArea = ({ value, onChange }: TextAreaProps) => {
+const TextArea = ({ className,name,value, placeholder,onChange }: TextAreaProps) => {
+	const {register}=useFormContext()
 	return (
 		<textarea
-			className="w-full h-48 p-5 border border-gray-300 rounded-xl resize-none md:w-6/8 lg:w-[54rem]"
-			placeholder="자기소개를 입력하세요"
+			className={clsx("w-full h-48 p-5 border border-gray-300 rounded-xl resize-none md:w-6/8 lg:w-[54rem]",className)}
+			placeholder={placeholder}
 			value={value}
+			{...register(name)}
 			onChange={onChange}
 		></textarea>
 	);

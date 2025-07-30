@@ -3,7 +3,7 @@ import { URL } from "@/app/constants/url";
 import type { IconType } from 'react-icons';
 type SidebarItem = {
 	label: string;
-	path: string;
+	path: string | string[];
 	icon: IconType;
 };
 export const SIDEBAR_ITEMS = [
@@ -14,7 +14,7 @@ export const SIDEBAR_ITEMS = [
 	},
 	{
 		label: "팀 찾기",
-		path: URL.FIND_TEAM,
+		path: [URL.FIND_TEAM, URL.CREATE_NEW_TEAM],
 		icon: MdSearch,
 	},
 	{
