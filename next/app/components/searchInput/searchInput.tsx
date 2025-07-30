@@ -2,8 +2,8 @@ import {IoSearch} from "react-icons/io5";
 import React from "react";
 interface SearchBarProps {
 	readOnly?: boolean;
-	value:string
-	onChange:(value:string) => void
+	value?:string
+	onChange?:(value:string) => void
 }
 const SearchInput = ({ onChange,value,readOnly = false }: SearchBarProps) => {
 
@@ -18,7 +18,7 @@ const SearchInput = ({ onChange,value,readOnly = false }: SearchBarProps) => {
 			<IoSearch className="text-[#2B3674] " />
 			<input type="text"
 			       value={value}
-			       onChange={(e) => onChange(e.target.value)}
+			       onChange={(e) => (onChange ?? e.target.value)}
 			       readOnly={readOnly}
 			       placeholder="검색" className=" focus:outline-none  bg-[#F4F7FE] text-black" onKeyDown={handleKeyDown}
 			/>
