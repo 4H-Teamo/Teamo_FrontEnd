@@ -1,7 +1,8 @@
 export const URL = {
 	HOME: "/",
-	FIND_TEAM: "/find-team",
-	FIND_TEAMMATE: "/find-teammate",
+	FIND_TEAM: "/team",
+	FIND_TEAMMATE: "/teammate",
 	MY_PAGE: "/mypage",
 	MY_NOTIFICATIONS: "/notification",
-} as const;
+	CREATE_NEW_TEAM: "/team/create",
+}

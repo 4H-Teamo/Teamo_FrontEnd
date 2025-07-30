@@ -2,9 +2,12 @@
 
 @layer components {
     .button-common {
-        @apply relative box-border bg-main text-white rounded-xl
+        @apply relative box-border bg-main text-white rounded-xl font-medium
         lg:w-24 lg:h-16
         sm:w-20 sm:h-16
         w-20 h-16
+    }
+    .button-circle{
+        @apply rounded-full py-1 px-7 items-center justify-center border border-main text-black
     }
 }

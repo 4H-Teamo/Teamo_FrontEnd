@@ -11,7 +11,6 @@ interface Props {
 const SidebarContent = ({ onNavigate }: Props) => {
 	const pathname = usePathname();
 	const router = useRouter();
-
 	const handleItemClick = (path: string) => {
 		router.push(path);
 		if (onNavigate) onNavigate();
@@ -36,8 +35,8 @@ const SidebarContent = ({ onNavigate }: Props) => {
 						key={item.label}
 						icon={item.icon}
 						text={item.label}
-						isSelected={pathname === item.path}
-						onClick={() => handleItemClick(item.path)}
+						isSelected={Array.isArray(item.path)? item.path.includes(pathname) : item.path === pathname}
+						onClick={() =>handleItemClick(Array.isArray(item.path) ? item.path[0] : item.path)}
 					/>
 				))}
 			</nav>
