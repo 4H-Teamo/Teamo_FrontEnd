@@ -15,7 +15,7 @@ const WorkMode = ({name}:workModeProps) => {
 		setValue(name,id)
 	}
 	return (
-		<div className="flex gap-2">
+		<div className="grid  md:grid grid-cols-2 lg:flex gap-2 h-10 ">
 			{WORK_MODE.map((item) => (
 				<Button className={clsx("button-circle", selected===item.id &&"bg-main text-white")} key={item.id} onClick={()=>handleClick(item.id)}>{item.label}</Button>
 			))}

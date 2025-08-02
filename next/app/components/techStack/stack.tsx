@@ -6,13 +6,15 @@ import { stackMock } from "@/app/mock/stack";
 import SearchInput from "@/app/components/searchInput/searchInput";
 import SelectStack from "@/app/components/techStack/selectStack";
 import type { Stack } from "@/app/model/stack";
+import clsx from "clsx";
 
 type TechStackProps = {
 	value: Stack[];
+	className?: string;
 	onChange: (stacks: Stack[]) => void;
 };
 
-const TechStack = ({ value, onChange }: TechStackProps) => {
+const TechStack = ({className, value, onChange }: TechStackProps) => {
 	const [search, setSearch] =useState('');
 	const isSelected = (stack: Stack) => {
 		return value.some((s) => s.stackId === stack.stackId);
@@ -36,7 +38,7 @@ const TechStack = ({ value, onChange }: TechStackProps) => {
 	);
 
 	return (
-		<div className="w-full flex flex-col gap-4 p-4 border border-gray-300 rounded-xl md:w-6/8 lg:w-[54rem]">
+		<div className={clsx("w-full flex flex-col gap-4 p-4 border border-gray-300 rounded-xl md:w-6/8 lg:w-[54rem]",className)}>
 			<SearchInput readOnly={false} value={search} onChange={setSearch} />
 			<SelectStack selected={value} onRemove={handleRemove} />
 			<TechStackLabel stacks={filteredStacks} selected={value} onToggle={handleToggle} />

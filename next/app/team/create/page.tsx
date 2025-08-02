@@ -12,7 +12,7 @@ const Create = () => {
 
 	return (
 		<FormProvider {...methods}>
-			<div className="border-gray20 p-10 rounded-lg border">
+			<div className="border-gray20 rounded-lg border p-5 md:p-2 lg:p-10 min-w-2/3 max-w-4xl">
 				<Header onSubmit={onSubmit} />
 				<Content />
 			</div>
