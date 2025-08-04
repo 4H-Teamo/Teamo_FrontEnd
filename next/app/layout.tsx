@@ -21,10 +21,8 @@ export const metadata: Metadata = {
 		apple: "/logoSymbol.png",
 	},
 };
-export default function RootLayout({
-	                                   children,
-                                   }: {
-	children: React.ReactNode;
+export default function RootLayout({children}: {
+	children: React.ReactNode ,modal:React.ReactNode;
 }) {
 	return (
 		<html lang="ko" className={pretendard.variable}>
