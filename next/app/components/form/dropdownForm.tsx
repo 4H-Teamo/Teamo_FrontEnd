@@ -31,7 +31,7 @@ const DropDownForm = ({ options,value, onChange, placeholder }: DropDownProps) =
 			<div className="relative">
 				<input
 					type="text"
-					className="input-common input-medium cursor-pointer"
+					className="input-common  cursor-pointer"
 					readOnly
 					value={selected || ""}
 					placeholder={placeholder || "선택하세요"}

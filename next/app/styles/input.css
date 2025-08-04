@@ -7,6 +7,13 @@
         w-full h-16
     }
     .input-medium {
-        @apply h-16 text-lg rounded-xl
+        @apply text-black text-lg rounded-xl leading-5 border border-gray-300 bg-white px-6 py-2
+        w-30 h-16
+    }
+    .input-small{
+        @apply  text-black text-lg rounded-xl leading-5 h-11 w-52 p-5  border border-gray-300
+    }
+    .input-calendar {
+        @apply flex  items-center justify-center gap-8 h-11 text-base rounded-lg border border-gray-300 px-4 py-2
     }
 }
