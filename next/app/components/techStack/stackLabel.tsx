@@ -1,4 +1,4 @@
-
+import clsx from "clsx";
 import type{Stack} from "@/app/model/stack"
 type Props = {
 	stacks: Stack[];
@@ -17,9 +17,10 @@ const TechStackLabel = ({ stacks, selected, onToggle }: Props) => {
 					<div
 						key={stack.stackId}
 						onClick={() => onToggle(stack)}
-						className={`w-full h-10 flex items-center justify-center rounded-full border text-sm cursor-pointer transition
-              ${isActive ? "bg-main text-white border-main" : "bg-white text-black border-main"}`}
-						style={{ backgroundColor: isActive ? "#5932EA" : "#FFFFFF" }}
+						className={clsx(
+							"badge-common",
+							isActive ? "badge-active" : "badge-inactive"
+						)}
 					>
 						{stack.name}
 					</div>

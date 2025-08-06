@@ -5,4 +5,5 @@ export const URL = {
 	MY_PAGE: "/mypage",
 	MY_NOTIFICATIONS: "/notification",
 	CREATE_NEW_TEAM: "/team/create",
+	SEARCH:"/search"
 }

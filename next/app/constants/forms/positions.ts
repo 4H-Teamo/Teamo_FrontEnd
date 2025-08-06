@@ -7,4 +7,5 @@ export const POSITION = [
 	{ id: "DATA_ANALYST",value:"DATA_ANALYST",label: "데이터 분석가" },
 	{ id: "AI", value:"AI",label: "AI" },
 	{ id: "PM", value:"PM",label: "기획자" },
-];
+] as const;
+export type Positions = typeof POSITION[number];

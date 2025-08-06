@@ -4,7 +4,8 @@ import TextArea from "@/app/components/textArea/textArea";
 import React from "react";
 import { Controller } from "react-hook-form";
 import WorkMode from "@/app/components/workMode/workMode";
-import Calendar from "@/app/components/datebox/dateBox";
+import Calendar from "@/app/components/dateBox/dateBox";
+import Position from "@/app/components/position/position";
 
 interface FormMapProps {
   control: any;
@@ -26,7 +27,19 @@ const getFormMap = (control: any): Record<string, React.FC<any>> => ({
     <InputForm className="input-medium" name="capacity" {...props} />
   ),
   positions: (props) => (
-    <InputForm className="input-common" name="positions" {...props} />
+
+<Controller
+  name="positions"
+  control={control}
+  defaultValue={[]}
+  render={({ field }) => (
+    <Position
+      value={field.value}
+      className="lg:w-full"
+      onChange={field.onChange}
+    />
+  )}
+/>
   ),
   stacks: () => (
     <Controller
