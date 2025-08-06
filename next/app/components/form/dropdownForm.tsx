@@ -4,14 +4,14 @@ import { useState } from "react";
 import ArrowDown from "@/app/assets/arrowDown.svg";
 import Image from "next/image";
 
-type OptionType = {
+interface OptionType {
 	id: string;
 	value: string | boolean;
 	label: string;
 };
 
-type DropDownProps = {
-	options?: OptionType[];
+interface DropDownProps {
+	options?: OptionType[] | undefined;
 	value: string;
 	onChange: (value: string) => void;
 	placeholder?: string;
