@@ -11,6 +11,7 @@ import TextArea from "@/app/components/textArea/textArea";
 const UserInfoForm = () => {
 	const { control, setValue, watch } = useFormContext();
 
+
 	return (
 		<div className="flex flex-col gap-4 mt-6 justify-center items-center">
 			<div className="flex flex-col w-full justify-center sm:flex-row sm:gap-16">
