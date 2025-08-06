@@ -21,7 +21,7 @@ const SearchInput = ({onClick, className,onChange,value,readOnly = false }: Sear
 			<IoSearch className="text-[#2B3674] " />
 			<input type="text"
 			       value={value}
-			       onChange={(e) => (onChange ?? e.target.value)}
+			       onChange={(e) => onChange?.(e.target.value)}
 			       readOnly={readOnly}
 			       placeholder="검색" className="focus:outline-none  bg-[#F4F7FE] text-black" onKeyDown={handleKeyDown}
 			/>

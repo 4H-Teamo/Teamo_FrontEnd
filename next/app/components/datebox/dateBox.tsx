@@ -5,12 +5,12 @@ import { useRouter } from "next/navigation";
 import useCalendarStore from "@/app/store/calendarStore";
 import { useFormContext } from "react-hook-form";
 import { useEffect } from "react";
-  type Props={
+  interface Props{
     value?:string;
     onChange?:()=>void;
   }
 const PLACEHOLDER_TEXT = "날짜를 선택하세요";
-  const DateBox = () => {
+  const DateBox = ({value,onChange}:Props) => {
   const router = useRouter();
   const { setValue } = useFormContext();
   const endDate = useCalendarStore((s) => s.endDate);
