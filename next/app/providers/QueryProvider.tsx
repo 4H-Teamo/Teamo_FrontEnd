@@ -15,7 +15,7 @@
 // 	);
 // };
 //
-// export default QueryProvider;
+// export default.tsx QueryProvider;
 'use client';
 
 import {QueryClientProvider} from '@tanstack/react-query';

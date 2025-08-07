@@ -18,6 +18,7 @@ const Header = () => {
 	const openSidebar = () => setIsSidebarOpen(true);
 	const closeSidebar = () => setIsSidebarOpen(false);
 	const handleSearch=()=>router.push(URL.SEARCH)
+	const handleLogin =()=>router.push(URL.LOGIN)
 	return (
 		<header className="w-full flex justify-end items-center px-8 pt-4 bg-white mt-2">
 			<div className="absolute left-0 ml-4 lg:hidden ">
@@ -31,7 +32,7 @@ const Header = () => {
 					<>
           <SearchInput readOnly={true} onClick={handleSearch}/>
 					<div
-					onClick={() => console.log("로그인 클릭")}
+					onClick={handleLogin}
 				className="text-base font-medium text-[#3E3E3E] cursor-pointer"
 			>
 				로그인
