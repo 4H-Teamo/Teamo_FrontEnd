@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 	},
 };
 const RootLayout=({children}: {
-	children: React.ReactNode ,modal:React.ReactNode;
+	children: React.ReactNode;
 })=> {
 	return (
 		<html lang="ko" className={pretendard.variable}>
