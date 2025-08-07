@@ -21,6 +21,7 @@ export const metadata: Metadata = {
 		apple: "/logoSymbol.png",
 	},
 };
+
 const RootLayout=({children, modal}: {
 	children: React.ReactNode ,modal:React.ReactNode;
 })=> {
