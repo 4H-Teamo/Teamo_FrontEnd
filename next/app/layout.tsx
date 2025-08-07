@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 		apple: "/logoSymbol.png",
 	},
 };
-const RootLayout=({children}: {
+const RootLayout=({children, modal}: {
 	children: React.ReactNode ,modal:React.ReactNode;
 })=> {
 	return (
@@ -34,6 +34,7 @@ const RootLayout=({children}: {
 				<Header />
 				<main className="flex-1 bg-light overflow-auto px-9 py-4">
 					{children}
+					{modal}
 				</main>
 			</div>
 		</div>

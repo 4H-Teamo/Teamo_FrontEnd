@@ -2,7 +2,7 @@
 import CalendarModal from "@/app/team/create/@modal/calendar/component";
 import useCalendarStore from "@/app/store/calendarStore";
 
-export default function CalendarPage() {
+const CalendarPage=()=> {
   const { setEndDate } = useCalendarStore();
 
   return (
@@ -13,3 +13,4 @@ export default function CalendarPage() {
     />
   );
 }
+export default CalendarPage
