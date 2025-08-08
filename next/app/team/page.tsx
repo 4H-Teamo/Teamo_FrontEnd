@@ -1,12 +1,19 @@
 "use client";
-import Header from "@/app/team/header";
+import PageHeader from "@/app/components/pageHeader/header";
+import Card from "@/app/components/card/layout";
+import { useRouter } from "next/navigation";
+import { URL } from "@/app/constants/url";
 
-const Team = ()=>{
-	return(
-		<div className="">
-<Header />
+const Team = () => {
+	const router = useRouter();
+	const handleClick = () => router.push(URL.CREATE_NEW_TEAM);
+
+	return (
+		<div>
+			<PageHeader title="팀 찾기" button={true} onClick={handleClick} buttonText="글작성하기"/>
+			<Card />
 		</div>
-	)
+	);
+};
 
-}
 export default Team;
