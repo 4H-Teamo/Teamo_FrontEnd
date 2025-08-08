@@ -20,7 +20,6 @@ const SidebarItem = ({ icon:Icon, text, isSelected, onClick }: Props) => {
 			onClick={onClick}
 		>
 			<Icon/>
-
 			<span> {text}</span>
 
 		</button>
