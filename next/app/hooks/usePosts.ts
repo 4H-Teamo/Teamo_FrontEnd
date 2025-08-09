@@ -1,5 +1,5 @@
 // import { useQuery } from "@tanstack/react-query";
-// import { getPosts } from "@/app/api/post";
+// import { getPosts } from "@/app/auth/post";
 // import type { Post } from "@/app/model/type";
 //
 // export default.tsx function usePosts() {

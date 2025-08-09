@@ -1,30 +1,39 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import Login from "@/app/assets/login.svg"
+import Login from "@/app/assets/login.svg";
 import SpeechBubble from "@/app/components/speechBubble/speechBubble";
-import KaKao from "@/app/assets/kakao.svg"
-import useKakaoLogin from "@/app/hooks/useKaKaoLogin";
+import KaKao from "@/app/assets/kakao.svg";
+import { handleSocialSignIn } from "@/app/utils/social";
 import useBackdrop from "@/app/hooks/useBackdrop";
 
-const LoginPage =()=>{
-	const {handleKaKoaClick} = useKakaoLogin();
-	const { handleBackdropClick } = useBackdrop();
-	return(
-		<motion.div className="fixed   inset-0 flex items-center justify-center bg-black/50  z-50" onClick={handleBackdropClick}>
-		<div className="flex flex-col items-center bg-white p-6 rounded-lg shadow-lg w-fit">
-			<SpeechBubble  text={"카카오 로그인으로 간편하게 시작할 수 있어요!"} />
-			<Image src={Login} alt="로그인"/>
-			<button onClick={() => console.log("clicked")} className="w-full flex justify-center mt-6">
-				<Image
-					src={KaKao}
-					alt="카카오 로그인"
-					onClick={handleKaKoaClick}
-				/>
-			</button>
-		</div>
+const LoginPage = () => {
+  const { handleBackdropClick } = useBackdrop();
 
-		</motion.div>
-	)
-}
+  const handleKaKoaClick = async () => {
+    try {
+      await handleSocialSignIn();
+    } catch (error) {
+      console.error("카카오 로그인 실패:", error);
+    }
+  };
+
+  return (
+    <motion.div
+      className="fixed   inset-0 flex items-center justify-center bg-black/50  z-50"
+      onClick={handleBackdropClick}
+    >
+      <div className="flex flex-col items-center bg-white p-6 rounded-lg shadow-lg w-fit">
+        <SpeechBubble text={"카카오 로그인으로 간편하게 시작할 수 있어요!"} />
+        <Image src={Login} alt="로그인" />
+        <button
+          onClick={handleKaKoaClick}
+          className="w-full flex justify-center mt-6"
+        >
+          <Image src={KaKao} alt="카카오 로그인" />
+        </button>
+      </div>
+    </motion.div>
+  );
+};
 export default LoginPage;

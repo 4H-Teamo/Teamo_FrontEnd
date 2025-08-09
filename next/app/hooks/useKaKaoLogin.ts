@@ -70,12 +70,11 @@
 // }
 import { useRouter } from "next/navigation";
 
-
 const useKakaoLogin = () => {
-	const router = useRouter();
-	const handleKaKoaClick = () => {
-		router.push("/login");
-	};
-return {handleKaKoaClick};
-}
+  const router = useRouter();
+  const handleKaKoaClick = () => {
+    router.push("/login");
+  };
+  return { handleKaKoaClick };
+};
 export default useKakaoLogin;
