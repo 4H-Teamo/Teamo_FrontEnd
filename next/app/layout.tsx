@@ -24,6 +24,7 @@ export const metadata: Metadata = {
     apple: "/logoSymbol.png",
   },
 };
+
 const RootLayout = ({
   children,
   modal,
@@ -54,4 +55,5 @@ const RootLayout = ({
     </html>
   );
 };
+
 export default RootLayout;
