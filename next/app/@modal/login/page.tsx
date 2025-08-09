@@ -4,19 +4,13 @@ import Image from "next/image";
 import Login from "@/app/assets/login.svg";
 import SpeechBubble from "@/app/components/speechBubble/speechBubble";
 import KaKao from "@/app/assets/kakao.svg";
-import { handleSocialSignIn } from "@/app/utils/social";
+
 import useBackdrop from "@/app/hooks/useBackdrop";
+import useKakaoLogin from "@/app/hooks/useKaKaoLogin";
 
 const LoginPage = () => {
   const { handleBackdropClick } = useBackdrop();
-
-  const handleKaKoaClick = async () => {
-    try {
-      await handleSocialSignIn();
-    } catch (error) {
-      console.error("카카오 로그인 실패:", error);
-    }
-  };
+  const { login } = useKakaoLogin();
 
   return (
     <motion.div
@@ -27,7 +21,7 @@ const LoginPage = () => {
         <SpeechBubble text={"카카오 로그인으로 간편하게 시작할 수 있어요!"} />
         <Image src={Login} alt="로그인" />
         <button
-          onClick={handleKaKoaClick}
+          onClick={login}
           className="w-full flex justify-center mt-6"
         >
           <Image src={KaKao} alt="카카오 로그인" />
