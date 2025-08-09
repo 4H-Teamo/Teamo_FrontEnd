@@ -1,0 +1,19 @@
+name: Dispatch Infra Deploy (Frontend)
+
+on:
+  push:
+    branches: [develop]
+  pull_request:
+    types: [closed]
+    branches: [develop]
+
+jobs:
+  trigger-infra:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository Dispatch to Infra
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.PAT_DISPATCH }}
+          repository: 4H-Teamo/Teamo_Infra
+          event-type: deploy_frontend
