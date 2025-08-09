@@ -13,6 +13,7 @@ export type Post= {
 	capacity:number;
 	positions:string[];
 	createdAt: Date;
+	location:string;
 	updatedAt:Date;
 };
 export type User={
@@ -40,4 +41,37 @@ export type Notice={
 	message: string
 	createdAt :Date;
 }
-export type Board='teammate'|'team';
+export type BoardType = 'team' | 'teammate';
+
+type TeamItemKey = keyof Post;
+
+type TeamItem = {
+	key: TeamItemKey;
+	label: string;
+};
+
+export const teamItem: TeamItem[] = [
+	{ key: 'title', label: '제목' },
+	{ key: 'workMode', label: '작업 방식' },
+	{ key: 'location', label: '지역' },
+	{ key: 'endDate', label: '마감일' },
+	{ key: 'positions', label: '모집 포지션' },
+	{ key: 'stacks', label: '기술 스택' },
+	{ key: 'content', label: '소개' },
+];
+
+type TeammateItemKey = keyof User;
+
+type TeammateItem = {
+	key: TeammateItemKey;
+	label: string;
+};
+
+export const teammateItem: TeammateItem[] = [
+	{ key: 'nickName', label: '제목' },
+	{ key: 'workMode', label: '작업 방식' },
+	{ key: 'location', label: '지역' },
+	{ key: 'positionId', label: '모집 포지션' },
+	{ key: 'stacks', label: '기술 스택' },
+	{ key: 'description', label: '소개' },
+];

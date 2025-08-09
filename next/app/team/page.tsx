@@ -1,6 +1,6 @@
 "use client";
 import PageHeader from "@/app/components/pageHeader/header";
-import Card from "@/app/components/card/layout";
+import Card from "@/app/components/card/cardFeed";
 import { useRouter } from "next/navigation";
 import { URL } from "@/app/constants/url";
 
@@ -11,7 +11,7 @@ const Team = () => {
 	return (
 		<div>
 			<PageHeader title="팀 찾기" button={true} onClick={handleClick} buttonText="글작성하기"/>
-			<Card />
+			<Card type={"team"} />
 		</div>
 	);
 };
