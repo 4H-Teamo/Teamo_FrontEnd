@@ -17,29 +17,29 @@ export type Post= {
 	updatedAt:Date;
 };
 export type User={
-	userId:string;
-	nickName:string;
-	description:string;
-	location:string;
-	image:string;
-	github:string;
-	workMode:WorkMode;
-	beginner:string;
-	isPublic:boolean;
-	stacks:Stack[];
-	createdAt: Date;
-	updatedAt:Date;
-	positionId:number;
-	posts:  Post[]
-	comments:Comment[]
-	notices:  Notice[]
+	userId?:string;
+	nickName?:string;
+	description?:string;
+	location?:string;
+	image?:string;
+	github?:string;
+	workMode?:WorkMode;
+	beginner?:boolean;
+	isPublic?:boolean;
+	stacks?:Stack[];
+	createdAt?: Date;
+	updatedAt?:Date;
+	positionId?:string;
+	posts?:Post[]
+	comments?:Comment[]
+	notices?:  Notice[]
 }
 export type Notice={
-	noticeId: string;
-	userId: string;
-	isRead: boolean;
-	message: string
-	createdAt :Date;
+	noticeId?: string;
+	userId?: string;
+	isRead?: boolean;
+	message?: string
+	createdAt?:Date;
 }
 export type BoardType = 'team' | 'teammate';
 
