@@ -5,9 +5,7 @@ import "@/app/globals.css";
 import { Metadata } from "next";
 import Sidebar from "@/app/components/sidebar/index";
 import React from "react";
-import AuthProvider from "@/app/providers/AuthProvider";
 import RootProvider from "@/app/providers/RootProvider";
-import LoginHandler from "@/app/components/auth/LoginHandler";
 
 const pretendard = localFont({
   src: "../public/font/PretendardVariable.woff2",
@@ -35,9 +33,7 @@ const RootLayout = ({
   return (
     <html lang="ko" className={pretendard.variable}>
       <body className={pretendard.className}>
-        <AuthProvider>
           <RootProvider>
-            <LoginHandler />
             <div className="flex min-h-screen">
               <Sidebar />
               <div className="flex flex-col flex-1 min-h-screen">
@@ -50,10 +46,10 @@ const RootLayout = ({
             </div>
             <Footer />
           </RootProvider>
-        </AuthProvider>
+
       </body>
     </html>
   );
 };
-
 export default RootLayout;
+

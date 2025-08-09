@@ -1,19 +1,19 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { useSession, signOut } from "next-auth/react";
+import useKaKaoLogin from "@/app/hooks/useKaKaoLogin"
 import SearchInput from "@/app/components/searchInput/searchInput";
 import More from "@/app/assets/more.svg";
 import React, { useState } from "react";
 import MobileSidebar from "@/app/components/sidebar/mobileSidebar";
 import Image from "next/image";
 import { URL } from "@/app/constants/url";
-
+import {useUserStore} from "@/app/store/userStore";
 const Header = () => {
   const pathname = usePathname();
   const router = useRouter();
-  const { data: session, status } = useSession();
-
+const {logout, login}=useKaKaoLogin()
+const {user} = useUserStore();
   const showHeader = ["/", "/team", "/teammate"].includes(pathname);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const openSidebar = () => setIsSidebarOpen(true);
@@ -21,13 +21,11 @@ const Header = () => {
 
   const handleSearch = () => router.push(URL.SEARCH);
 
-  const handleAuthClick = () => {
-    if (session) {
-      // 로그인된 상태: 로그아웃
-      signOut({ callbackUrl: "/" });
+  const handleAuth = () => {
+    if (user) {
+      logout();
     } else {
-      // 로그인되지 않은 상태: 로그인 페이지로 이동
-      router.push(URL.LOGIN);
+     login()
     }
   };
 
@@ -44,14 +42,10 @@ const Header = () => {
           <>
             <SearchInput readOnly={true} onClick={handleSearch} />
             <div
-              onClick={handleAuthClick}
+              onClick={handleAuth}
               className="text-base font-medium text-[#3E3E3E] cursor-pointer"
             >
-              {status === "loading"
-                ? "로딩중..."
-                : session
-                  ? "로그아웃"
-                  : "로그인"}
+              {user ? "로그아웃" : "로그인"}
             </div>
           </>
         )}
