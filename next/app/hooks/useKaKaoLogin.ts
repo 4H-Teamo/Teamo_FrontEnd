@@ -7,7 +7,8 @@ export default function useKakaoLogin() {
 	const logout = useUserStore((s) => s.clearUser);
 
 	function login() {
-		const loginUrl = `${process.env.BACKEND_URL}/auth/kakao`;
+		const loginUrl = 'https://kauth.kakao.com/oauth/authorize?client_id=b2c1e2300e29d7c095a4ac3f1e440cfd&redirect_uri=http://devcms.ddns.net:81/kakao/redirect&response_type=code'
+		console.log("로그인 URL:", loginUrl);
 		const popup = window.open(
 			loginUrl,
 			"Teamo 로그인",
@@ -20,6 +21,9 @@ export default function useKakaoLogin() {
 	}
 	useEffect(() => {
 		function handleMessage(e: MessageEvent) {
+				if (e.origin !== 'https://kauth.kakao.com/oauth/authorize?client_id=b2c1e2300e29d7c095a4ac3f1e440cfd&redirect_uri=http://devcms.ddns.net:81//kakao/redirect&response_type=code') {
+					console.warn("origin 다름", e.origin);
+				}
 			const receivedData = e.data;
 			console.log("받은 데이터", receivedData);
 			const { user, tokens } = receivedData;
