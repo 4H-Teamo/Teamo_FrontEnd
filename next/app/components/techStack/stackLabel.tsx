@@ -10,8 +10,6 @@ const TechStackLabel = ({ stacks, selected, onToggle }: Props) => {
 	return (
 		<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-2">
 			{stacks.map((stack) => {
-				console.log("selected", selected);
-				console.log("stack", stack)
 				const isActive = selected.some((s) => s.stackId === stack.stackId);
 				return (
 					<div
