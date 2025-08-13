@@ -1,4 +1,3 @@
-// /store/useCalendarStore.ts
 import { create } from "zustand";
 
 type CalendarStore = {

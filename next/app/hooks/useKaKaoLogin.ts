@@ -1,48 +1,36 @@
-import {useUserStore} from "@/app/store/userStore"
-import {useEffect} from "react";
-import { User } from "../model/type.js";
+import { useUserStore } from "@/app/store/userStore";
+import { useRouter } from "next/navigation";
+
 export default function useKakaoLogin() {
-	const setUser = useUserStore((s) => s.setUser);
-;
-	const logout = useUserStore((s) => s.clearUser);
+  const router = useRouter();
+  const logout = useUserStore((s) => s.clearUser);
 
-	function login() {
-		const loginUrl = 'https://kauth.kakao.com/oauth/authorize?client_id=b2c1e2300e29d7c095a4ac3f1e440cfd&redirect_uri=http://devcms.ddns.net:81/kakao/redirect&response_type=code'
-		console.log("로그인 URL:", loginUrl);
-		const popup = window.open(
-			loginUrl,
-			"Teamo 로그인",
-			'width=500,height=600,menubar=no,toolbar=no,location=no,status=no'
-		)
-		if (!popup) {
-			alert("팝업 차단을 확인해주세요.")
-			return
-		}
-	}
-	useEffect(() => {
-		function handleMessage(e: MessageEvent) {
-				if (e.origin !== 'https://kauth.kakao.com/oauth/authorize?client_id=b2c1e2300e29d7c095a4ac3f1e440cfd&redirect_uri=http://devcms.ddns.net:81//kakao/redirect&response_type=code') {
-					console.warn("origin 다름", e.origin);
-				}
-			const receivedData = e.data;
-			console.log("받은 데이터", receivedData);
-			const { user, tokens } = receivedData;
+  const login = async () => {
+    try {
+      const clientId = process.env.NEXT_PUBLIC_KAKAO_RESTAPI_KEY;
+      if (!clientId) {
+        console.error("카카오 REstApi가 설정되어 있지 않습니다.");
+        return;
+      }
 
-			const userData = user as User;
-			console.log("userData", userData);
-			localStorage.setItem("accessToken", tokens.accessToken);
-			localStorage.setItem("refreshToken", tokens.refreshToken);
-			setUser(userData);
+      const origin =
+        typeof window !== "undefined"
+          ? window.location.origin
+          : "http://localhost:3000";
+      const redirectUri = `${origin}/kakao/redirect`;
+      const loginUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(
+        redirectUri
+      )}&response_type=code`;
 
+      router.push(loginUrl);
+      console.log("loginUrl", loginUrl);
+    } catch (error) {
+      console.error("로그인 실패:", error);
+    }
+  };
 
-		}
-
-		window.addEventListener("message", handleMessage);
-		return () => window.removeEventListener("message", handleMessage);
-	}, [setUser])
-
-	return {
-		login,
-		logout,
-	}
+  return {
+    login,
+    logout,
+  };
 }
