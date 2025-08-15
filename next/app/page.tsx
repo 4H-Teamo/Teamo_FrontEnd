@@ -1,10 +1,3 @@
-import Image from "next/image";
-import Layout from "@/app/layout";
-
 export default function Home() {
-  return (
-    <div className="">
-      홈이다
-    </div>
-  );
+  return <div className="">홈이다</div>;
 }

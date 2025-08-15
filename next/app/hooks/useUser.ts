@@ -1,33 +1,73 @@
 "use client";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { useQuery } from "@tanstack/react-query";
-import { fetchUser } from "@/app/api/auth/info";
-import { useUserStore } from "@/app/store/userStore";
-import { useEffect } from "react";
+// 쿠키 상태 확인 함수
+export const checkCookieStatus = async () => {
+  if (typeof document === "undefined") return null;
+
+  try {
+    const Cookies = (await import("js-cookie")).default;
+    const accessToken = Cookies.get("accessToken");
+
+    console.log("현재 쿠키 상태:", {
+      hasAccessToken: !!accessToken,
+      accessToken: accessToken ? `${accessToken.substring(0, 20)}...` : null,
+    });
+
+    return accessToken;
+  } catch (error) {
+    console.error("쿠키 확인 중 에러:", error);
+    return null;
+  }
+};
+
+const fetchUser = async () => {
+  const res = await fetch("/api/proxy/users/me", {
+    method: "GET",
+    credentials: "include",
+  });
+
+  if (!res.ok) {
+    throw new Error(`HTTP error! status: ${res.status}`);
+  }
+
+  const userData = await res.json();
+
+  return userData;
+};
 
 export default function useUser() {
-  const setUser = useUserStore((s) => s.setUser);
+  const queryClient = useQueryClient();
 
   const query = useQuery({
     queryKey: ["user"],
-    queryFn: async () => {
-      const token = localStorage.getItem("accessToken");
-      if (!token) {
-        throw new Error("토큰이 없습니다. 다시 로그인해주세요.");
-      }
-      return fetchUser(token);
-    },
-    staleTime: 1000 * 60 * 5,
+    queryFn: async () => fetchUser(),
+    staleTime: 1000 * 60 * 30,
     refetchOnWindowFocus: false,
-    retry: false, // 401 에러 시 재시도하지 않음
+    retry: false,
+    enabled: false,
   });
 
-  useEffect(() => {
-    if (query.data) {
-      setUser(query.data);
-      console.log("사용자 정보 로드 완료:", query.data);
+  const prefetchUser = async () => {
+    try {
+      await queryClient.prefetchQuery({
+        queryKey: ["user"],
+        queryFn: fetchUser,
+        staleTime: 1000 * 60 * 30,
+      });
+    } catch (error) {
+      console.log("사용자 정보 prefetch 실패:", error);
     }
-  }, [query.data, setUser]);
+  };
 
-  return query;
+  const clearUser = () => {
+    queryClient.removeQueries({ queryKey: ["user"] });
+    console.log("사용자 정보가 캐시에서 제거되었습니다.");
+  };
+
+  return {
+    ...query,
+    prefetchUser,
+    clearUser,
+  };
 }

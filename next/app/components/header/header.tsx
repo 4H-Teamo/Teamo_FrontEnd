@@ -7,14 +7,13 @@ import React, { useState } from "react";
 import MobileSidebar from "@/app/components/sidebar/mobileSidebar";
 import Image from "next/image";
 import { URL } from "@/app/constants/url";
-import {useUserStore} from "@/app/store/userStore";
-import useKakaoLogin from "@/app/hooks/useKaKaoLogin";
+import useUser from "@/app/hooks/useUser";
 
 const Header = () => {
   const pathname = usePathname();
   const router = useRouter();
-  const {user}=useUserStore()
-const {logout}=useKakaoLogin()
+  const { data: user, clearUser } = useUser();
+
   const showHeader = ["/", "/team", "/teammate"].includes(pathname);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const openSidebar = () => setIsSidebarOpen(true);
@@ -24,10 +23,8 @@ const {logout}=useKakaoLogin()
 
   const handleAuthClick = () => {
     if (user) {
-      // 로그인된 상태: 로그아웃
- logout()
+      clearUser();
     } else {
-      // 로그인되지 않은 상태: 로그인 페이지로 이동
       router.push(URL.LOGIN);
     }
   };

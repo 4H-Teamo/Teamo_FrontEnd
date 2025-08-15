@@ -29,8 +29,23 @@ export default function useKakaoLogin() {
     }
   };
 
+  const logoutAndClearCookie = async () => {
+    try {
+      // 프록시 라우트를 통해 서버에서 쿠키 제거 처리 (필요 시 구현)
+      await fetch("/api/proxy/auth/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+    } catch (error) {
+      console.error("로그아웃 실패:", error);
+    } finally {
+      logout();
+      router.push("/");
+    }
+  };
+
   return {
     login,
-    logout,
+    logout: logoutAndClearCookie,
   };
 }

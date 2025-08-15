@@ -4,7 +4,7 @@ import TextArea from "@/app/components/textArea/textArea";
 import React from "react";
 import { Controller } from "react-hook-form";
 import WorkMode from "@/app/components/workMode/workMode";
-import Calendar from "@/app/components/datebox/dateBox";
+import Calendar from "@/app/components/dateBox/dateBox";
 
 
 const getFormMap = (control: any): Record<string, React.FC<any>> => ({
