@@ -1,22 +1,16 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
 import clsx from "clsx";
+
 type TextAreaProps = {
-  value: string;
   name: string;
   placeholder?: string;
   className?: string;
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 };
 
-const TextArea = ({
-  className,
-  name,
-  value,
-  placeholder,
-  onChange,
-}: TextAreaProps) => {
+const TextArea = ({ className, name, placeholder }: TextAreaProps) => {
   const { register } = useFormContext();
+
   return (
     <textarea
       className={clsx(
@@ -24,9 +18,7 @@ const TextArea = ({
         className
       )}
       placeholder={placeholder}
-      value={value ?? ""}
       {...register(name)}
-      onChange={onChange}
     ></textarea>
   );
 };

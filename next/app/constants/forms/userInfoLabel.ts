@@ -21,13 +21,13 @@ export const USERINFO_LABEL = [
     placeholder: "진행여부",
   },
   {
-    id: "position",
+    id: "positionId",
     label: "포지션",
     type: "select",
     options: POSITION,
     placeholder: "포지션",
   },
-  { id: "stack", label: "기술스택", type: "multiSelect" },
+  { id: "stacks", label: "기술스택", type: "multiSelect" },
   {
     id: "description",
     label: "자기소개",
