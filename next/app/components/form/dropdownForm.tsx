@@ -6,7 +6,6 @@ import Image from "next/image";
 interface OptionType {
   id?: string | number;
   positionId?: number;
-
   value: boolean | number;
   label: string;
 }

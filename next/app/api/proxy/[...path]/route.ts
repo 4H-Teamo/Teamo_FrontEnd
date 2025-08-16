@@ -67,7 +67,6 @@ async function proxy(req: NextRequest) {
       console.log(errorBody);
       console.log("==========================");
 
-      // 응답을 다시 생성 (text()로 읽었으므로)
       const newBackendRes = await fetch(targetUrl, init);
       return new NextResponse(newBackendRes.body, {
         status: newBackendRes.status,

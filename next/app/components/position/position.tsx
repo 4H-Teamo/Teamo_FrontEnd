@@ -2,19 +2,22 @@ import { POSITION, type Positions } from "@/app/constants/forms/positions";
 import clsx from "clsx";
 
 type Props = {
-  value: Positions[];
+  value: number[]; // 배열로 변경
   className: string;
-  onChange: (value: Positions[]) => void;
+  onChange: (value: number[]) => void; // 배열 반환
 };
 
 const Position = ({ className, value, onChange }: Props) => {
+  const safeValue = value || null;
+
   const handleToggle = (position: Positions) => {
-    const selected = value.some((s) => s.positionId === position.positionId);
+    const selected = safeValue.includes(position.positionId); // some 대신 includes 사용
     const newSelected = selected
-      ? value.filter((s) => s.positionId !== position.positionId)
-      : [...value, position];
+      ? safeValue.filter((id) => id !== position.positionId) // 배열에서 제거
+      : [...safeValue, position.positionId]; // 배열에 추가
     onChange(newSelected);
   };
+
   return (
     <div
       className={clsx(
@@ -23,9 +26,7 @@ const Position = ({ className, value, onChange }: Props) => {
       )}
     >
       {POSITION.map((position) => {
-        const isActive = value.some(
-          (s) => s.positionId === position.positionId
-        );
+        const isActive = safeValue.includes(position.positionId); // some 대신 includes 사용
         return (
           <div
             key={position.positionId}

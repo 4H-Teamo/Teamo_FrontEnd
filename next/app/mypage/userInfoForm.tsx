@@ -54,15 +54,9 @@ const UserInfoForm = () => {
         )
       )}
       {USERINFO_LABEL.filter((item) => item.type === "textarea").map((item) => (
-        <div key={item.id} className="flex  flex-col gap-2 w-full sm:w-auto">
+        <div key={item.id} className="flex flex-col gap-2 w-full sm:w-auto">
           <Label id={item.id} text={item.label} />
-          <Controller
-            name={item.id}
-            control={control}
-            render={({ field }) => (
-              <TextArea {...field} placeholder={item.placeholder} />
-            )}
-          />
+          <TextArea name={item.id} placeholder={item.placeholder} />
         </div>
       ))}
       <Controller

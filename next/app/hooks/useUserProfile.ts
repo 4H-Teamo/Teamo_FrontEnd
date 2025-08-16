@@ -8,7 +8,6 @@ const fetcher = async <T>(
   const res = await fetch(input, { credentials: "include", ...init });
 
   if (!res.ok) {
-    // 더 자세한 에러 정보 제공
     const errorText = await res.text();
     const errorInfo = {
       status: res.status,
@@ -18,7 +17,6 @@ const fetcher = async <T>(
     };
 
     console.error("Fetcher 에러:", JSON.stringify(errorInfo, null, 2));
-
     throw new Error(`HTTP ${res.status}: ${res.statusText} - ${errorText}`);
   }
 

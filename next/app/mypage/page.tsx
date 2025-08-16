@@ -14,10 +14,9 @@ const Mypage = () => {
   const { data: userData, isLoading } = useUser();
   const updateUserProfile = useUpdateUserProfile();
   const methods = useForm({
-    defaultValues: userData || {}, // 사용자 데이터로 초기값 설정
+    defaultValues: userData || {},
   });
 
-  // 사용자 데이터가 변경되면 폼 초기값 업데이트
   useEffect(() => {
     if (userData) {
       console.log("userData", userData);
@@ -25,7 +24,7 @@ const Mypage = () => {
     }
   }, [userData, methods]);
 
-  // 쿠키 상태 확인
+  // 현재 쿠키 상태
   useEffect(() => {
     const checkCookie = async () => {
       await checkCookieStatus();
@@ -42,7 +41,7 @@ const Mypage = () => {
     try {
       console.log("폼 제출 데이터:", data);
 
-      // 현재 쿠키 상태 확인
+      // 현재 쿠키 상태
       const Cookies = (await import("js-cookie")).default;
       const currentToken = Cookies.get("accessToken");
       console.log("=== 현재 쿠키 상태 ===");
@@ -54,7 +53,6 @@ const Mypage = () => {
       }
       console.log("======================");
 
-      // userId는 제거하고 필요한 데이터만 전송
       const updateData = {
         nickname: data.nickname,
         description: data.description,
@@ -79,7 +77,6 @@ const Mypage = () => {
         console.log("workMode 원본 값:", data.workMode);
         console.log("workMode 타입:", typeof data.workMode);
 
-        // mutateAsync 사용하여 에러를 명시적으로 캐치
         const result = await updateUserProfile.mutateAsync(updateData);
         console.log("사용자 정보 업데이트 완료!", result);
         alert("회원정보가 수정되었습니다!");
@@ -92,8 +89,7 @@ const Mypage = () => {
           error instanceof Error ? error.message : String(error)
         );
         console.error("================================");
-
-        // 401 에러 시 로그인 페이지로 리다이렉트
+        //수정 필요
         if (error instanceof Error && error.message.includes("401")) {
           alert("로그인이 만료되었습니다. 다시 로그인해주세요.");
           window.location.href = "/";

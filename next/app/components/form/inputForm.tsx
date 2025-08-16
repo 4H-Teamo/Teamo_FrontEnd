@@ -15,13 +15,18 @@ const InputForm = ({
 }: InputFormProps) => {
   const { register } = useFormContext();
 
+  const inputClassName =
+    type === "number"
+      ? `${className} [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`
+      : className;
+
   return (
     <div className="font-medium ">
       <input
         type={type}
         {...register(name)}
         placeholder={placeholder}
-        className={className}
+        className={inputClassName}
       />
     </div>
   );
