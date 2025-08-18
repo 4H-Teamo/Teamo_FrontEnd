@@ -1,11 +1,20 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAuthStore } from "@/app/store/authStore";
 
-export default function KakaoCallback() {
+// 로딩 UI 컴포넌트
+const LoadingUI = () => (
+  <div className="flex flex-col items-center justify-center h-screen">
+    <div>로그인 처리중...</div>
+    <div className="mt-2 text-sm text-gray-500">잠시만 기다려주세요</div>
+  </div>
+);
+
+// 카카오 로그인 처리 컴포넌트
+function KakaoLoginHandler() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const queryClient = useQueryClient();
@@ -87,8 +96,8 @@ export default function KakaoCallback() {
             console.warn("응답에 토큰이 없습니다! (token 또는 accessToken)");
           }
 
-          // 토큰 저장은 프록시가 백엔드 헤더를 받아 쿠키로 설정
-          login(data.user); // 로그인 함수 호출
+          // 즉시 유저 스토어에 저장
+          login(data.user);
           router.push("/");
         } else {
           alert("로그인에 실패했습니다.");
@@ -104,10 +113,14 @@ export default function KakaoCallback() {
     handleKakaoLogin();
   }, [code, router, queryClient, login]);
 
+  return <LoadingUI />;
+}
+
+// 메인 페이지 컴포넌트
+export default function KakaoCallback() {
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <div>로그인 처리중...</div>
-      <div className="mt-2 text-sm text-gray-500">잠시만 기다려주세요</div>
-    </div>
+    <Suspense fallback={<LoadingUI />}>
+      <KakaoLoginHandler />
+    </Suspense>
   );
 }

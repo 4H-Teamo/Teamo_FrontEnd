@@ -33,8 +33,6 @@ export const useAuthStore = create<AuthState>()(
         } catch (error) {
           console.error("쿠키 삭제 중 에러:", error);
         }
-
-        // 상태 변경
         set({ user: null, isAuthenticated: false, isLoading: false });
         console.log("로그아웃 완료");
       },
