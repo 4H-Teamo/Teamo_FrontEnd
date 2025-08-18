@@ -3,11 +3,13 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
+import { useAuthStore } from "@/app/store/authStore";
 
 export default function KakaoCallback() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const queryClient = useQueryClient();
+  const { login } = useAuthStore();
   const [code, setCode] = useState<string | null>(null);
 
   useEffect(() => {
@@ -86,6 +88,7 @@ export default function KakaoCallback() {
           }
 
           // 토큰 저장은 프록시가 백엔드 헤더를 받아 쿠키로 설정
+          login(data.user); // 로그인 함수 호출
           router.push("/");
         } else {
           alert("로그인에 실패했습니다.");
@@ -99,7 +102,7 @@ export default function KakaoCallback() {
     };
 
     handleKakaoLogin();
-  }, [code, router, queryClient]);
+  }, [code, router, queryClient, login]);
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">

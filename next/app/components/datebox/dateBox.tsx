@@ -11,7 +11,9 @@ interface Props {
   value?: string;
   onChange?: (date: string) => void;
 }
+
 const PLACEHOLDER_TEXT = "날짜를 선택하세요";
+
 const DateBox = ({ value, onChange }: Props) => {
   const router = useRouter();
   const { setValue } = useFormContext();
@@ -20,7 +22,6 @@ const DateBox = ({ value, onChange }: Props) => {
   useEffect(() => {
     if (endDate) {
       setValue("endDate", endDate);
-      // onChange prop이 있으면 호출
       if (onChange) {
         onChange(endDate);
       }
@@ -42,4 +43,5 @@ const DateBox = ({ value, onChange }: Props) => {
     </button>
   );
 };
+
 export default DateBox;

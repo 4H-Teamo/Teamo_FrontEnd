@@ -1,11 +1,10 @@
-import { useUserStore } from "@/app/store/userStore";
+import { useAuthStore } from "@/app/store/authStore";
 import { useRouter } from "next/navigation";
 
 export default function useKakaoLogin() {
   const router = useRouter();
-  const logout = useUserStore((s) => s.clearUser);
-
-  const login = async () => {
+  const logout = useAuthStore((s) => s.logout);
+  const loginAndSetUser = async () => {
     try {
       const clientId = process.env.NEXT_PUBLIC_KAKAO_RESTAPI_KEY;
       if (!clientId) {
@@ -45,7 +44,7 @@ export default function useKakaoLogin() {
   };
 
   return {
-    login,
+    login: loginAndSetUser,
     logout: logoutAndClearCookie,
   };
 }
