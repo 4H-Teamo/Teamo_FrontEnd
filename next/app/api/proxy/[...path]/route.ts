@@ -66,7 +66,8 @@ async function proxy(req: NextRequest) {
       console.log("=== 401 에러 응답 본문 ===");
       console.log(errorBody);
       console.log("==========================");
-
+      
+      // 응답을 다시 생성 (text()로 읽었으므로)
       const newBackendRes = await fetch(targetUrl, init);
       return new NextResponse(newBackendRes.body, {
         status: newBackendRes.status,
@@ -75,6 +76,26 @@ async function proxy(req: NextRequest) {
       });
     } catch (error) {
       console.error("401 에러 응답 본문 읽기 실패:", error);
+    }
+  }
+
+  // 400 에러 시 응답 본문도 로깅
+  if (backendRes.status === 400) {
+    try {
+      const errorBody = await backendRes.text();
+      console.log("=== 400 에러 응답 본문 ===");
+      console.log(errorBody);
+      console.log("==========================");
+      
+      // 응답을 다시 생성 (text()로 읽었으므로)
+      const newBackendRes = await fetch(targetUrl, init);
+      return new NextResponse(newBackendRes.body, {
+        status: newBackendRes.status,
+        statusText: newBackendRes.statusText,
+        headers: newBackendRes.headers,
+      });
+    } catch (error) {
+      console.error("400 에러 응답 본문 읽기 실패:", error);
     }
   }
 

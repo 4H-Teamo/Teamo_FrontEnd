@@ -1,6 +1,6 @@
 import type { Stack } from "@/app/model/stack";
 export type WorkMode = 1 | 2 | 3;
-
+export type filterType = "팀 구해요" | "팀원 구해요";
 export type Post = {
   postId: number;
   userId: string;

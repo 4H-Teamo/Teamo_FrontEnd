@@ -2,12 +2,12 @@ import InputForm from "@/app/components/form/inputForm";
 import Stack from "@/app/components/techStack/stack";
 import TextArea from "@/app/components/textArea/textArea";
 import React from "react";
-import { Controller } from "react-hook-form";
+import { Controller, Control } from "react-hook-form";
 import WorkMode from "@/app/components/workMode/workMode";
 import Calendar from "@/app/components/dateBox/dateBox";
 import Position from "@/app/components/position/position";
 
-const getFormMap = (control: any): Record<string, React.FC<any>> => ({
+const getFormMap = (control: Control<any>): Record<string, React.FC<any>> => ({
   title: (props) => (
     <InputForm className="input-common" name="title" {...props} />
   ),
@@ -64,7 +64,12 @@ const getFormMap = (control: any): Record<string, React.FC<any>> => ({
     <Controller
       name="endDate"
       control={control}
-      render={({ field }) => <Calendar value={field.value} />}
+      render={({ field }) => (
+        <Calendar
+          value={field.value}
+          onChange={(date: string) => field.onChange(date)}
+        />
+      )}
     />
   ),
 });
