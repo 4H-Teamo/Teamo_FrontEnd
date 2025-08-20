@@ -97,3 +97,15 @@ export const useCurrentUser = () => {
     enabled: typeof document !== "undefined",
   });
 };
+
+// 사용자 목록 조회 (페이지네이션 지원)
+export const useUsers = (page: number = 1, limit: number = 50) => {
+  return useQuery({
+    queryKey: ["users", page, limit],
+    queryFn: () =>
+      fetcher<User[]>(`/api/proxy/users?page=${page}&limit=${limit}`, {
+        method: "GET",
+      }),
+    enabled: typeof document !== "undefined",
+  });
+};

@@ -1,5 +1,5 @@
-import type { Stack } from "@/app/model/stack";
-export type WorkMode = 1 | 2 | 3;
+// import type { Stack } from "@/app/model/stack";
+
 export type filterType = "팀 구해요" | "팀원 구해요";
 export type Post = {
   postId: number;
@@ -7,8 +7,8 @@ export type Post = {
   title: string;
   content: string;
   status: boolean;
-  workMode: WorkMode;
-  stacks: Stack[];
+  workMode: number;
+  stacks: number[];
   endDate: string;
   capacity: number;
   positions: string[];
@@ -18,15 +18,15 @@ export type Post = {
 };
 export type User = {
   userId?: string;
-  nickName?: string;
+  nickname?: string;
   description?: string;
   location?: string;
   image?: string;
   github?: string;
-  workMode?: WorkMode;
+  workMode: number;
   beginner?: boolean;
   isPublic?: boolean;
-  stacks?: Stack[];
+  stacks?: number[];
   createdAt?: Date;
   updatedAt?: Date;
   positionId?: string;
@@ -68,10 +68,8 @@ type TeammateItem = {
 };
 
 export const teammateItem: TeammateItem[] = [
-  { key: "nickName", label: "제목" },
-  { key: "workMode", label: "작업 방식" },
   { key: "location", label: "지역" },
-  { key: "positionId", label: "모집 포지션" },
+  { key: "github", label: "깃허브" },
   { key: "stacks", label: "기술 스택" },
-  { key: "description", label: "소개" },
+  { key: "positionId", label: "포지션" },
 ];

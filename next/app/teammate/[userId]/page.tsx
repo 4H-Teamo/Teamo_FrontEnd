@@ -3,16 +3,23 @@ import {
   dehydrate,
   QueryClient,
 } from "@tanstack/react-query";
-import TeammateList from "./list";
+import TeammateDetailClient from "./teammateDetailClient";
 
-export default async function TeammatePage() {
+interface TeammateDetailPageProps {
+  params: Promise<{ userId: string }>;
+}
+
+export default async function TeammateDetailPage({
+  params,
+}: TeammateDetailPageProps) {
+  const { userId } = await params;
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ["users", 1, 50],
+    queryKey: ["teammate", userId],
     queryFn: async () => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/proxy/users`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/proxy/users/${userId}`,
         {
           credentials: "include",
           cache: "no-store",
@@ -24,7 +31,7 @@ export default async function TeammatePage() {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <TeammateList />
+      <TeammateDetailClient userId={userId} />
     </HydrationBoundary>
   );
 }

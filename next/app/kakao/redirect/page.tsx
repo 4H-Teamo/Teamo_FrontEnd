@@ -5,7 +5,6 @@ import { useEffect, useState, Suspense } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAuthStore } from "@/app/store/authStore";
 
-// 로딩 UI 컴포넌트
 const LoadingUI = () => (
   <div className="flex flex-col items-center justify-center h-screen">
     <div>로그인 처리중...</div>
@@ -13,8 +12,7 @@ const LoadingUI = () => (
   </div>
 );
 
-// 카카오 로그인 처리 컴포넌트
-function KakaoLoginHandler() {
+const KakaoLoginHandler = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const queryClient = useQueryClient();
@@ -114,13 +112,14 @@ function KakaoLoginHandler() {
   }, [code, router, queryClient, login]);
 
   return <LoadingUI />;
-}
+};
 
 // 메인 페이지 컴포넌트
-export default function KakaoCallback() {
+const KakaoCallback = () => {
   return (
     <Suspense fallback={<LoadingUI />}>
       <KakaoLoginHandler />
     </Suspense>
   );
-}
+};
+export default KakaoCallback;
