@@ -4,11 +4,11 @@ import { stackMock } from "@/app/mock/stack";
 import DetailSection from "@/app/components/detail/DetailSection";
 
 interface Props {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 const TeamDetailPage = async ({ params }: Props) => {
-  const { id } = params;
+  const { id } = await params;
   const user = await getTeamDetail(id);
 
   const monthDay = user.updatedAt
