@@ -5,16 +5,16 @@ import {currentUserMock} from "@/app/mock/currentUser";
 
 const CommentsBox = () => {
   const [text, setText] = React.useState("");
-  const [items, setItems] = React.useState<string[]>([]);
+  //const [items, setItems] = React.useState<string[]>([]);
   const nickname = currentUserMock.nickname;
   const handleSubmit = () => {
     if (!text.trim()) return;
-    setItems((prev) => [...prev, text.trim()]);
+    //setItems((prev) => [...prev, text.trim()]);
     setText("");
   };
   return (
     <div className="detail-container mt-4">
-      <div className="rounded-2xl bg-[#F6F7FA] p-4 md:p-5 border border-gray-200 bg-white">
+      <div className="rounded-2xl bg-white p-4 md:p-5 border border-gray-200 ">
         <div className="text-sm font-semibold text-black mb-3">{nickname}</div>
         <div className="flex w-full items-center gap-4">
           <input

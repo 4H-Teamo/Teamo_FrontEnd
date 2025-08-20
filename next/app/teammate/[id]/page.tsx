@@ -1,4 +1,3 @@
-import PageHeader from "@/app/components/pageHeader/header";
 import { getTeammateDetail } from "@/app/api/post";
 import { workModeIdToLabel } from "@/app/utils/workMode";
 import { positionsToLabels } from "@/app/utils/position";

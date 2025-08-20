@@ -1,5 +1,3 @@
-import PageHeader from "@/app/components/pageHeader/header";
-import { formatDate } from "@/app/utils/formatDate";
 import { getTeamDetail } from "@/app/api/post";
 import { workModeIdToLabel } from "@/app/utils/workMode";
 import { stackMock } from "@/app/mock/stack";
