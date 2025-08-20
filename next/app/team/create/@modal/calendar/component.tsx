@@ -1,10 +1,9 @@
 "use client";
 import "react-calendar/dist/Calendar.css";
 import Calendar from "react-calendar";
-import React, { useState, useCallback } from "react";
-import { formatCalendar } from "@/app/utils/formatDate";
-import { useRouter } from "next/navigation";
-import useBackdrop from "@/app/hooks/useBackdrop";
+import { useState, useCallback } from "react";
+import { formatCalendar } from "../../../../utils/formatDate";
+import { useRouter } from "next/navigation"
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
@@ -16,7 +15,7 @@ interface CalendarModalProps {
 const CalendarModal = ({ onChange }: CalendarModalProps) => {
   const [calendarValue, setCalendarValue] = useState<Value>(new Date());
   const router = useRouter();
-  const { handleBackdropClick } = useBackdrop();
+
   const onChangeCalendar = useCallback(
     (nextValue: Value) => {
       setCalendarValue(nextValue);
@@ -29,11 +28,15 @@ const CalendarModal = ({ onChange }: CalendarModalProps) => {
     [onChange, router]
   );
 
-
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      router.back();
+    }
+  };
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center bg-blacK/50 z-50"
+      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50"
       onClick={handleBackdropClick}
     >
       <div

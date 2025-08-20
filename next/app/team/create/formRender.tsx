@@ -4,12 +4,8 @@ import TextArea from "@/app/components/textArea/textArea";
 import React from "react";
 import { Controller } from "react-hook-form";
 import WorkMode from "@/app/components/workMode/workMode";
-import Calendar from "@/app/components/datebox/dateBox";
+import Calendar from "@/app/components/dateBox/dateBox";
 import Position from "@/app/components/position/position";
-
-interface FormMapProps {
-  control: any;
-}
 
 const getFormMap = (control: any): Record<string, React.FC<any>> => ({
   title: (props) => (
@@ -24,22 +20,27 @@ const getFormMap = (control: any): Record<string, React.FC<any>> => ({
     />
   ),
   capacity: (props) => (
-    <InputForm className="input-medium" name="capacity" {...props} />
-  ),
-  positions: (props) => (
-
-<Controller
-  name="positions"
-  control={control}
-  defaultValue={[]}
-  render={({ field }) => (
-    <Position
-      value={field.value}
-      className="lg:w-full"
-      onChange={field.onChange}
+    <InputForm
+      className="input-medium"
+      name="capacity"
+      {...props}
+      type="number"
+      min="1"
     />
-  )}
-/>
+  ),
+  positions: () => (
+    <Controller
+      name="positions"
+      control={control}
+      defaultValue={[]}
+      render={({ field }) => (
+        <Position
+          value={field.value || []}
+          onChange={field.onChange}
+          className=""
+        />
+      )}
+    />
   ),
   stacks: () => (
     <Controller
@@ -63,9 +64,7 @@ const getFormMap = (control: any): Record<string, React.FC<any>> => ({
     <Controller
       name="endDate"
       control={control}
-      render={({ field }) => (
-        <Calendar value={field.value} onChange={field.onChange} />
-      )}
+      render={({ field }) => <Calendar value={field.value} />}
     />
   ),
 });
