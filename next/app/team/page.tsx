@@ -1,19 +1,36 @@
-"use client";
 import PageHeader from "@/app/components/pageHeader/header";
-import Card from "@/app/components/card/cardFeed";
-import { useRouter } from "next/navigation";
-import { URL } from "@/app/constants/url";
+import InfiniteTeammateList from "@/app/teammate/InfiniteTeammateList";
+import {
+  HydrationBoundary,
+  QueryClient,
+  dehydrate,
+} from "@tanstack/react-query";
+import { getTeams } from "@/app/api/post";
 
-const Team = () => {
-	const router = useRouter();
-	const handleClick = () => router.push(URL.CREATE_NEW_TEAM);
+interface Props {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}
 
-	return (
-		<div>
-			<PageHeader title="팀 찾기" button={true} onClick={handleClick} buttonText="글작성하기"/>
-			<Card type={"team"} />
-		</div>
-	);
+const Team = async ({ searchParams }: Props) => {
+  const sp = await searchParams;
+  const limitStr = Array.isArray(sp.limit) ? sp.limit[0] : sp.limit;
+  const limit = Number(limitStr ?? 12);
+  const qc = new QueryClient();
+  await qc.prefetchInfiniteQuery({
+    queryKey: ["teams", "infinite", limit],
+    queryFn: ({ pageParam }) => getTeams((pageParam as number) ?? 1, limit),
+    initialPageParam: 1,
+  });
+  const state = JSON.parse(JSON.stringify(dehydrate(qc)));
+
+  return (
+    <HydrationBoundary state={state}>
+      <div>
+        <PageHeader title="팀 찾기" />
+        <InfiniteTeammateList limit={limit} />
+      </div>
+    </HydrationBoundary>
+  );
 };
 
 export default Team;

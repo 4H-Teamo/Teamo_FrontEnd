@@ -38,7 +38,7 @@ const CardField = ({ board, data }: CardFieldProps) => {
   };
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-3 ">
       {fieldLabels.map(({ key, label }) => (
         <div key={key} className="flex justify-between items-start">
           <div className="font-bold text-main min-w-32">{label}</div>

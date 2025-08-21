@@ -13,8 +13,8 @@ const Header = () => {
   const pathname = usePathname();
   const router = useRouter();
   const { user, logout } = useAuthStore();
-
-  const showHeader = ["/", "/team", "/teammate"].includes(pathname);
+  const behindHeader = ["/mypage"].includes(pathname);
+  // const showHeader = ["/", "/team", "/teammate"].includes(pathname);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const openSidebar = () => setIsSidebarOpen(true);
   const closeSidebar = () => setIsSidebarOpen(false);
@@ -38,7 +38,7 @@ const Header = () => {
         {isSidebarOpen && <MobileSidebar onClose={closeSidebar} />}
       </div>
       <div className="flex items-center gap-x-5 mr-6">
-        {showHeader && (
+        {!behindHeader && (
           <>
             <SearchInput readOnly={true} onClick={handleSearch} />
             <div

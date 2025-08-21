@@ -1,4 +1,6 @@
 // import type { Stack } from "@/app/model/stack";
+export type WorkMode = "ONLINE" | "OFFLINE" | "BOTH";
+export type WorkModeNumeric = 1 | 2 | 3;
 
 export type filterType = "팀 구해요" | "팀원 구해요";
 export type Post = {
@@ -33,7 +35,38 @@ export type User = {
   posts?: Post[];
   comments?: Comment[];
   notices?: Notice[];
+  postId?: number | string;
+  id?: number | string;
+  title: string;
+  content: string;
+  status?: boolean;
+  // workMode: WorkMode | WorkModeNumeric;
+  // stacks: Stack[] | number[];
+  endDate?: string;
+  capacity?: number;
+  positions: string[] | number[];
 };
+// export type User = {
+// 	userId: string;
+// 	nickname: string;
+// 	nickName?: string;
+// 	description?: string;
+// 	location?: string | null;
+// 	image?: string | null;
+// 	github?: string | null;
+// 	workMode: WorkMode | WorkModeNumeric;
+// 	beginner?: string | boolean;
+// 	isPublic?: boolean;
+// 	stacks: Stack[] | number[];
+// 	createdAt?: Date | string;
+// 	updatedAt?: Date | string;
+// 	positionId?: number | null;
+// 	posts?: Post[];
+// 	comments?: Comment[];
+// 	notices?: Notice[];
+
+// };
+
 export type Notice = {
   noticeId?: string;
   userId?: string;
@@ -72,4 +105,8 @@ export const teammateItem: TeammateItem[] = [
   { key: "github", label: "깃허브" },
   { key: "stacks", label: "기술 스택" },
   { key: "positionId", label: "포지션" },
+  { key: "location", label: "지역" },
+  { key: "positionId", label: "모집 포지션" },
+  { key: "stacks", label: "기술 스택" },
+  { key: "description", label: "소개" },
 ];

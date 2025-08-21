@@ -36,7 +36,7 @@ const TeammateDetailClient = ({ userId }: TeammateDetailClientProps) => {
   }
 
   return (
-    <div className="bg-white border border-gray-300 rounded-xl p-10 mt-24">
+    <div className="h-10/12 border border-gray-300 rounded-xl p-16 mt-10">
       <CardDetail type="teammate" data={user} />
     </div>
   );
