@@ -1,5 +1,5 @@
 import PageHeader from "@/app/components/pageHeader/header";
-import InfiniteTeamList from "@/app/team/InfiniteTeamList";
+import InfiniteTeammateList from "@/app/teammate/InfiniteTeammateList";
 import {
   HydrationBoundary,
   QueryClient,
@@ -12,7 +12,6 @@ interface Props {
 }
 
 const Team = async ({ searchParams }: Props) => {
-  // SSR에서 목록 fetch (React Query는 상세/인터랙션 위주로 사용)
   const sp = await searchParams;
   const limitStr = Array.isArray(sp.limit) ? sp.limit[0] : sp.limit;
   const limit = Number(limitStr ?? 12);
@@ -28,7 +27,7 @@ const Team = async ({ searchParams }: Props) => {
     <HydrationBoundary state={state}>
       <div>
         <PageHeader title="팀 찾기" />
-        <InfiniteTeamList limit={limit} />
+        <InfiniteTeammateList limit={limit} />
       </div>
     </HydrationBoundary>
   );

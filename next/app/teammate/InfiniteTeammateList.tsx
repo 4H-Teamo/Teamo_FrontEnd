@@ -4,7 +4,11 @@ import Card from "@/app/components/card/layout";
 import { useEffect, useRef } from "react";
 import { useInfiniteTeammates } from "@/app/hooks/usePosts";
 import type { Post } from "@/app/model/type";
-import { toTeammateCardData } from "@/app/utils/cardData";
+import {
+  toTeammateCardData,
+  computeTeammateMatchLabels,
+} from "@/app/utils/cardData";
+import { currentUserMock } from "@/app/mock/currentUser";
 
 const InfiniteTeammateList = ({ limit = 12 }: { limit?: number }) => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
@@ -30,8 +34,19 @@ const InfiniteTeammateList = ({ limit = 12 }: { limit?: number }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {items.map((p) => {
           const card = toTeammateCardData(p);
+          const match = computeTeammateMatchLabels(
+            card,
+            currentUserMock.positionIds as Array<number | string>,
+            currentUserMock.stackIds as number[]
+          );
           return (
-            <Card key={card.id} id={card.id} type={card.type} data={card} />
+            <Card
+              key={card.id}
+              id={card.id}
+              type={card.type}
+              data={card}
+              labels={match.map((m) => m.type)}
+            />
           );
         })}
       </div>
