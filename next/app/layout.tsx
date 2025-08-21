@@ -33,23 +33,21 @@ const RootLayout = ({
   return (
     <html lang="ko" className={pretendard.variable}>
       <body className={pretendard.className}>
-          <RootProvider>
-            <div className="flex min-h-screen">
-              <Sidebar />
-              <div className="flex flex-col flex-1 min-h-screen">
-                <Header />
-                <main className="flex-1 bg-light overflow-auto px-9 py-4">
-                  {children}
-                  {modal}
-                </main>
-              </div>
+        <RootProvider>
+          <div className="flex min-h-screen">
+            <Sidebar />
+            <div className="flex flex-col flex-1 min-h-screen">
+              <Header />
+              <main className="flex-1 overflow-auto px-9 py-4">
+                {children}
+                {modal}
+              </main>
             </div>
-            <Footer />
-          </RootProvider>
-
+          </div>
+          <Footer />
+        </RootProvider>
       </body>
     </html>
   );
 };
 export default RootLayout;
-

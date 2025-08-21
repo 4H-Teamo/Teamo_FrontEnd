@@ -7,14 +7,14 @@ import React, { useState } from "react";
 import MobileSidebar from "@/app/components/sidebar/mobileSidebar";
 import Image from "next/image";
 import { URL } from "@/app/constants/url";
-import useUser from "@/app/hooks/useUser";
+import { useAuthStore } from "@/app/store/authStore";
 
 const Header = () => {
   const pathname = usePathname();
   const router = useRouter();
-  const { data: user, clearUser } = useUser();
-
-  const showHeader = ["/", "/team", "/teammate"].includes(pathname);
+  const { user, logout } = useAuthStore();
+  const behindHeader = ["/mypage"].includes(pathname);
+  // const showHeader = ["/", "/team", "/teammate"].includes(pathname);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const openSidebar = () => setIsSidebarOpen(true);
   const closeSidebar = () => setIsSidebarOpen(false);
@@ -23,7 +23,7 @@ const Header = () => {
 
   const handleAuthClick = () => {
     if (user) {
-      clearUser();
+      logout();
     } else {
       router.push(URL.LOGIN);
     }
@@ -38,7 +38,7 @@ const Header = () => {
         {isSidebarOpen && <MobileSidebar onClose={closeSidebar} />}
       </div>
       <div className="flex items-center gap-x-5 mr-6">
-        {showHeader && (
+        {!behindHeader && (
           <>
             <SearchInput readOnly={true} onClick={handleSearch} />
             <div

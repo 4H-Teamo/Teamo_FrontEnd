@@ -7,12 +7,7 @@ interface InputFormProps {
   placeholder?: string;
   type?: string;
 }
-const InputForm = ({
-  name,
-  placeholder,
-  className,
-  type = "text",
-}: InputFormProps) => {
+const InputForm = ({ name, placeholder, className, type }: InputFormProps) => {
   const { register } = useFormContext();
 
   const inputClassName =
@@ -24,7 +19,9 @@ const InputForm = ({
     <div className="font-medium ">
       <input
         type={type}
-        {...register(name)}
+        {...register(name, {
+          valueAsNumber: type === "number",
+        })}
         placeholder={placeholder}
         className={inputClassName}
       />

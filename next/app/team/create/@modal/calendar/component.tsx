@@ -2,8 +2,8 @@
 import "react-calendar/dist/Calendar.css";
 import Calendar from "react-calendar";
 import { useState, useCallback } from "react";
-import { formatCalendar } from "../../../../utils/formatDate";
-import { useRouter } from "next/navigation"
+import { toISOString } from "../../../../utils/formatDate";
+import { useRouter } from "next/navigation";
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
@@ -20,8 +20,8 @@ const CalendarModal = ({ onChange }: CalendarModalProps) => {
     (nextValue: Value) => {
       setCalendarValue(nextValue);
       if (!Array.isArray(nextValue)) {
-        const formattedDate = formatCalendar(nextValue);
-        onChange(formattedDate);
+        const isoDate = toISOString(nextValue);
+        onChange(isoDate);
         router.back();
       }
     },
