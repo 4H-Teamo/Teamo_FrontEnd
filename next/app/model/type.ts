@@ -46,26 +46,6 @@ export type User = {
   capacity?: number;
   positions: string[] | number[];
 };
-// export type User = {
-// 	userId: string;
-// 	nickname: string;
-// 	nickName?: string;
-// 	description?: string;
-// 	location?: string | null;
-// 	image?: string | null;
-// 	github?: string | null;
-// 	workMode: WorkMode | WorkModeNumeric;
-// 	beginner?: string | boolean;
-// 	isPublic?: boolean;
-// 	stacks: Stack[] | number[];
-// 	createdAt?: Date | string;
-// 	updatedAt?: Date | string;
-// 	positionId?: number | null;
-// 	posts?: Post[];
-// 	comments?: Comment[];
-// 	notices?: Notice[];
-
-// };
 
 export type Notice = {
   noticeId?: string;
@@ -84,13 +64,11 @@ type TeamItem = {
 };
 
 export const teamItem: TeamItem[] = [
-  { key: "title", label: "제목" },
+  { key: "positions", label: "모집 포지션" },
+  { key: "stacks", label: "기술 스택" },
   { key: "workMode", label: "작업 방식" },
   { key: "location", label: "지역" },
   { key: "endDate", label: "마감일" },
-  { key: "positions", label: "모집 포지션" },
-  { key: "stacks", label: "기술 스택" },
-  { key: "content", label: "소개" },
 ];
 
 type TeammateItemKey = keyof User;
@@ -103,10 +81,6 @@ type TeammateItem = {
 export const teammateItem: TeammateItem[] = [
   { key: "location", label: "지역" },
   { key: "github", label: "깃허브" },
-  { key: "stacks", label: "기술 스택" },
   { key: "positionId", label: "포지션" },
-  { key: "location", label: "지역" },
-  { key: "positionId", label: "모집 포지션" },
   { key: "stacks", label: "기술 스택" },
-  { key: "description", label: "소개" },
 ];

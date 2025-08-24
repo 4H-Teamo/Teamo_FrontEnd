@@ -1,150 +1,178 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { URL } from "@/app/constants/url";
+import Image from "next/image";
+import type { Post, User, BoardType } from "@/app/model/type";
+import { WORK_MODE } from "@/app/constants/forms/workMode";
 import { stackMock } from "@/app/mock/stack";
-import MatchLabel from "@/app/components/card/matchLabel";
-import type { LabelType } from "@/app/components/card/matchLabel";
-import { useEffect, useState, useMemo } from "react";
-import type { CardData } from "@/app/model/card";
-import { workModeIdToLabel } from "@/app/utils/workMode";
+import beginner from "@/app/assets/beginner.svg";
+import MatchLabel from "./matchLabel";
+import { computeTeammateMatchLabels } from "@/app/utils/cardData";
+import { useCurrentUser } from "@/app/hooks/useUserProfile";
 
-type CardType = "teammate" | "team";
-
-interface CardLayoutProps {
+interface CardLayoutProps<T extends BoardType> {
   id: string | number;
-  type: CardType;
-  data: CardData<CardType>;
-  labels?: string[];
+  type: T;
+  data?: Post | User;
 }
 
-const workModeAnyToLabel = (mode: any) => {
-  const byId = workModeIdToLabel(mode);
-  if (byId) return byId;
-  if (mode === "ONLINE") return "온라인";
-  if (mode === "OFFLINE") return "오프라인";
-  if (mode === "BOTH") return "상관없음";
-  return "";
-};
-
-const formatDateText = (dateLike?: string) => {
-  if (!dateLike) return "";
-  const d = new Date(dateLike);
-  if (isNaN(d.getTime())) return "";
-  const y = d.getFullYear();
-  const m = `${d.getMonth() + 1}`.padStart(2, "0");
-  const dd = `${d.getDate()}`.padStart(2, "0");
-  return `${y}-${m}-${dd}`;
-};
-
-const stackIdToName = (ids?: number[]) => {
-  if (!ids || ids.length === 0) return [] as string[];
-  const map = new Map(stackMock.techStack.map((s) => [s.stackId, s.name]));
-  return ids.map((id) => map.get(id) ?? `#${id}`);
-};
-
-const HeaderMeta = ({ date, mode }: { date: string; mode: string }) => (
-  <div className="flex justify-between items-center text-[18px] font-bold text-[#5A5AF7]">
-    <div>{date}</div>
-    <div className="text-black text-[16px] font-semibold">{mode}</div>
-  </div>
-);
-
-const ContentBox = ({
-  title,
-  content,
-}: {
-  title?: string;
-  content?: string;
-}) => (
-  <div className="rounded-2xl w-full min-h-[180px] border border-gray-200 p-6 mt-4 overflow-hidden bg-white">
-    {title && (
-      <div className="text-[20px] font-bold text-black leading-7 line-clamp-2">
-        {title}
-      </div>
-    )}
-    {content && (
-      <div className="mt-3 text-[15px] font-medium leading-7 text-[#2E2E2E] line-clamp-5 whitespace-pre-line">
-        {content}
-      </div>
-    )}
-  </div>
-);
-
-type ComputedLabel = { type: LabelType; text: string };
-
-const LabelsRow = ({ items }: { items?: ComputedLabel[] }) =>
-  items && items.length > 0 ? (
-    <div className="mt-5 flex items-center gap-3">
-      {items.map((l, i) => (
-        <MatchLabel key={`${l.text}-${i}`} type={l.type}>
-          {l.text}
-        </MatchLabel>
-      ))}
-    </div>
-  ) : null;
-
-const StacksRow = ({ names }: { names: string[] }) => (
-  <div className="mt-5 flex items-center justify-between">
-    <div className="flex items-center gap-3">
-      {names.slice(0, 5).map((name) => {
-        const record = stackMock.techStack.find((s) => s.name === name);
-        const src = record?.image ?? "";
-        return (
-          <img
-            key={name}
-            src={src}
-            alt={name}
-            className="h-9 w-9 rounded-lg border border-gray-200 object-cover"
-          />
-        );
-      })}
-    </div>
-    <div className="text-gray-400 text-xl">•••</div>
-  </div>
-);
-
-const CardLayout = ({ id, type, data, labels }: CardLayoutProps) => {
+export default function CardLayout<T extends BoardType>({
+  type,
+  data,
+  id,
+}: CardLayoutProps<T>) {
   const router = useRouter();
+  const { data: currentUser, error: userError } = useCurrentUser();
+
   const handleClick = () => {
-    const href =
-      type === "teammate" ? URL.TEAMMATE_DETAIL(id) : URL.TEAM_DETAIL(id);
-    router.push(href);
+    const path = type === "team" ? `/team/${id}` : `/teammate/${id}`;
+    router.push(path);
   };
 
-  const {
-    dateText: rawDateText,
-    workMode,
-    title,
-    content,
-    stackIds,
-    labels: dataLabels,
-  } = data as CardData<CardType>;
+  // 매칭 라벨
+  const renderMatchLabels = () => {
+    if (type !== "team" || !data) return null;
 
-  const dateText = formatDateText(rawDateText);
-  const modeText = workModeAnyToLabel(workMode);
-  const titleText = title;
-  const contentText = content;
-  const stackNames = stackIdToName(stackIds ?? []);
-  const labelList = labels ?? dataLabels;
+    const post = data as Post;
+    if (!currentUser || userError) {
+      return (
+        <MatchLabel type="로그인 후 일치 여부 확인가능">로그인 필요</MatchLabel>
+      );
+    }
+
+    // Post 데이터를 CardData 형태로 변환
+    const positionIds = Array.isArray(post.positions)
+      ? post.positions.map((p) =>
+          typeof p === "string" ? parseInt(p) || 0 : p
+        )
+      : [];
+
+    const cardData = {
+      id: post.postId,
+      type: "teammate" as const,
+      dateText: post.endDate || "",
+      workMode: post.workMode,
+      title: post.title,
+      content: post.content,
+      stackIds: post.stacks || [],
+      positionIds,
+      labels: [],
+    };
+
+    // 매칭 라벨 계산
+    const userPositionIds = currentUser.positionId
+      ? [currentUser.positionId]
+      : [];
+    const userStackIds = currentUser.stacks || [];
+
+    const matchLabels = computeTeammateMatchLabels(
+      cardData,
+      userPositionIds,
+      userStackIds
+    );
+
+    if (matchLabels.length === 0) return null;
+
+    return (
+      <>
+        {matchLabels.map((label, index) => (
+          <MatchLabel key={index} type={label.type}>
+            {label.text}
+          </MatchLabel>
+        ))}
+      </>
+    );
+  };
+
+  const renderBeginnerBadge = () => {
+    if (type !== "teammate" || !data) return <div className="w-5 h-5" />;
+
+    const user = data as User;
+    return user.beginner ? (
+      <Image
+        src={beginner}
+        alt="새싹"
+        width={20}
+        height={20}
+        className="w-5 h-5"
+      />
+    ) : (
+      <div className="w-5 h-5" />
+    );
+  };
+
+  const renderTechStacks = () => {
+    if (!data?.stacks?.length) {
+      return <span className="text-gray-400">기술 스택 없음</span>;
+    }
+
+    return data.stacks.map((stackId) => {
+      const stackName = stackMock.techStack.find(
+        (stack) => stack.stackId === stackId
+      )?.name;
+
+      return (
+        <span key={stackId.toString()}>{stackName || `ID: ${stackId}`}</span>
+      );
+    });
+  };
+
+  const renderDate = () => {
+    if (!data?.createdAt) return "날짜 없음";
+    try {
+      return new Date(data.createdAt).toLocaleDateString();
+    } catch {
+      return "날짜 없음";
+    }
+  };
+
+  const renderWorkMode = () => {
+    const workMode = WORK_MODE.find((mode) => mode.id === data?.workMode);
+    return workMode?.label || "정보 없음";
+  };
+
+  const renderContent = () => {
+    if (!data) return <div className="text-gray-400">데이터 없음</div>;
+
+    if (type === "teammate") {
+      const user = data as User;
+      return (
+        <>
+          <div className="font-bold text-black text-lg mb-2">
+            {user.nickname || "이름 없음"}
+          </div>
+          <div className="text-gray-600">{user.description || "설명 없음"}</div>
+        </>
+      );
+    }
+
+    const post = data as Post;
+    return (
+      <>
+        <div className="font-bold text-black text-lg mb-2">
+          {post.title || "제목 없음"}
+        </div>
+        <div className="text-gray-600">{post.content || "내용 없음"}</div>
+      </>
+    );
+  };
 
   return (
-    <button
-      type="button"
+    <div
+      className="max-w-80 h-[22rem] border rounded-xl border-gray-300 flex flex-col p-4 font-semibold text-sm mt-14 cursor-pointer"
       onClick={handleClick}
-      className="w-full max-w-[520px] border rounded-2xl border-gray-300 flex flex-col p-6 font-semibold text-sm mt-8 text-left"
     >
-      <HeaderMeta date={dateText || ""} mode={modeText || ""} />
-      <ContentBox title={titleText} content={contentText} />
-      {type === "teammate" && (
-        <LabelsRow
-          items={labelList?.map((t) => ({
-            type: t as any as LabelType,
-            text: t,
-          }))}
-        />
-      )}
-      <StacksRow names={stackNames} />
-    </button>
+      <div className="flex justify-between mx-2 my-2">
+        <div className="text-main">{renderDate()}</div>
+        <div>{renderWorkMode()}</div>
+      </div>
+
+      <div className="rounded-lg max-w-72 h-[14rem] border border-gray-200 p-7 mt-2">
+        {renderContent()}
+      </div>
+      <div className="mt-3 mx-2 gap-2">
+        {type === "team" ? renderMatchLabels() : renderBeginnerBadge()}
+      </div>
+      <div className="mt-4 mx-4 flex gap-2 flex-wrap">{renderTechStacks()}</div>
+    </div>
   );
-};
-export default CardLayout;
+}

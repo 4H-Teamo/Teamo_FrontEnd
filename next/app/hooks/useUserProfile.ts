@@ -91,10 +91,16 @@ export const useDeleteUserProfile = () => {
 
 // 현재 로그인한 사용자 정보 조회
 export const useCurrentUser = () => {
+  // 쿠키에서 accessToken 확인
+  const hasAccessToken =
+    typeof document !== "undefined" && document.cookie.includes("accessToken");
+
   return useQuery({
     queryKey: ["currentUser"],
     queryFn: () => fetcher<User>("/api/proxy/users/me", { method: "GET" }),
-    enabled: typeof document !== "undefined",
+    enabled: hasAccessToken,
+    retry: false,
+    staleTime: 1000 * 60 * 30, // 30분
   });
 };
 

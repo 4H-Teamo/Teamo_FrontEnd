@@ -1,5 +1,4 @@
-import PageHeader from "@/app/components/pageHeader/header";
-import InfiniteTeammateList from "@/app/teammate/InfiniteTeammateList";
+import InfiniteTeamList from "@/app/team/InfiniteTeamList";
 import {
   HydrationBoundary,
   QueryClient,
@@ -25,10 +24,7 @@ const Team = async ({ searchParams }: Props) => {
 
   return (
     <HydrationBoundary state={state}>
-      <div>
-        <PageHeader title="팀 찾기" />
-        <InfiniteTeammateList limit={limit} />
-      </div>
+      <InfiniteTeamList limit={limit} />
     </HydrationBoundary>
   );
 };

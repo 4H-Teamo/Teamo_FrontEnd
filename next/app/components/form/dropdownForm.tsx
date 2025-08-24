@@ -4,16 +4,14 @@ import ArrowDown from "@/app/assets/arrowDown.svg";
 import Image from "next/image";
 
 interface OptionType {
-  id?: string | number;
-  positionId?: number;
-  value: boolean | number;
+  id: number | boolean;
   label: string;
 }
 
 interface DropDownProps {
   options?: OptionType[] | undefined;
-  value: number;
-  onChange: (value: number) => void;
+  value: number | boolean;
+  onChange: (value: number | boolean) => void;
   placeholder?: string;
 }
 
@@ -25,12 +23,12 @@ const DropDownForm = ({
 }: DropDownProps) => {
   const [showDropDown, setShowDropDown] = useState(false);
   const toggleDropDown = () => setShowDropDown(!showDropDown);
-  const handleSelect = (val: number) => {
+  const handleSelect = (val: number | boolean) => {
     onChange(val);
     setShowDropDown(false);
   };
 
-  const selected = options?.find((opt) => opt.value === value)?.label;
+  const selected = options?.find((opt) => opt.id === value)?.label;
   return (
     <div className="relative">
       <div className="relative">
@@ -56,9 +54,9 @@ const DropDownForm = ({
         <ul className="absolute z-10 w-full mt-2 bg-white border border-gray-300 rounded-xl">
           {options?.map((opt) => (
             <li
-              key={opt.id}
+              key={String(opt.id)}
               className="p-5 text-sm font-medium cursor-pointer hover:bg-gray-100 rounded-xl"
-              onClick={() => handleSelect(opt.value as number)}
+              onClick={() => handleSelect(opt.id)}
             >
               {opt.label}
             </li>

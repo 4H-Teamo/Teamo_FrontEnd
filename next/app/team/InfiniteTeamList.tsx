@@ -1,10 +1,9 @@
 "use client";
 
-import Card from "@/app/components/card/layout";
+import CardLayout from "@/app/components/card/layout";
 import { useEffect, useRef } from "react";
 import { useInfiniteTeams } from "@/app/hooks/usePosts";
-import type { User } from "@/app/model/type";
-import { toTeamCardData } from "@/app/utils/cardData";
+import type { Post } from "@/app/model/type";
 
 const InfiniteTeamList = ({ limit = 12 }: { limit?: number }) => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
@@ -23,15 +22,19 @@ const InfiniteTeamList = ({ limit = 12 }: { limit?: number }) => {
     return () => io.disconnect();
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  const items = (data?.pages ?? []).flat() as User[];
+  const items = (data?.pages ?? []).flat() as Post[];
 
   return (
     <div>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {items.map((u) => {
-          const card = toTeamCardData(u);
+        {items.map((post) => {
           return (
-            <Card key={card.id} id={card.id} type={card.type} data={card} />
+            <CardLayout
+              key={post.postId}
+              id={post.postId}
+              type="team"
+              data={post}
+            />
           );
         })}
       </div>
