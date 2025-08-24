@@ -30,7 +30,7 @@ export type User = {
   isPublic?: boolean;
   stacks?: number[];
   createdAt?: Date;
-  updatedAt?: Date;
+  updatedAt: Date;
   positionId?: string;
   posts?: Post[];
   comments?: Comment[];
