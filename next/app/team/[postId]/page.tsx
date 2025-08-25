@@ -22,8 +22,8 @@ const TeamDetailPage = async ({ params }: Props) => {
     }
 
     return (
-      <div className="max-w-4xl mx-auto p-6">
-        <div className="bg-white rounded-lg border border-gray-200 p-6 mt-6">
+      <div className="w-full md:max-w-2xl lg:max-w-4xl xl:max-w-6xl py-4 md:py-6 lg:py-8">
+        <div className="border border-gray-300 rounded-xl p-4 md:p-8 lg:p-12 mt-4 md:mt-6 lg:mt-8">
           <CardDetail type="team" data={post} />
         </div>
       </div>

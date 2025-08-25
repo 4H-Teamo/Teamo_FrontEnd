@@ -36,9 +36,9 @@ const RootLayout = ({
         <RootProvider>
           <div className="flex min-h-screen">
             <Sidebar />
-            <div className="flex flex-col flex-1 min-h-screen">
+            <div className="flex flex-col flex-1 min-h-screen max-w-7xl mx-auto">
               <Header />
-              <main className="flex-1 overflow-auto px-9 py-4">
+              <main className="flex-1 overflow-auto px-5 py-4">
                 {children}
                 {modal}
               </main>

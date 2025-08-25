@@ -10,12 +10,12 @@ interface CardLayoutProps {
 
 const CardDetail = ({ type, data }: CardLayoutProps) => {
   return (
-    <div className="flex flex-col h-full space-y-12">
+    <div className="flex flex-col h-full gap-12 ">
       <div className="flex flex-col gap-8">
         <div className="text-main text-sm font-semibold">
           {type === "teammate"
             ? formatISOToKorean((data as User).updatedAt)
-            : formatISOToKorean((data as Post).updatedAt)}
+            : formatISOToKorean((data as Post).createdAt)}
         </div>
 
         <div className="text-3xl font-bold text-black">

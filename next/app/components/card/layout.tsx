@@ -158,7 +158,7 @@ export default function CardLayout<T extends BoardType>({
 
   return (
     <div
-      className="max-w-80 h-[22rem] border rounded-xl border-gray-300 flex flex-col p-4 font-semibold text-sm mt-14 cursor-pointer"
+      className="h-[22rem] border rounded-xl border-gray-300 flex flex-col p-4 font-semibold text-sm mt-14 cursor-pointer"
       onClick={handleClick}
     >
       <div className="flex justify-between mx-2 my-2">
