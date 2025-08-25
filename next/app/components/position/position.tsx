@@ -11,10 +11,10 @@ const Position = ({ className, value, onChange }: Props) => {
   const safeValue = value || null;
 
   const handleToggle = (position: Positions) => {
-    const selected = safeValue.includes(position.positionId);
+    const selected = safeValue.includes(position.id);
     const newSelected = selected
-      ? safeValue.filter((id) => id !== position.positionId)
-      : [...safeValue, position.positionId];
+      ? safeValue.filter((id) => id !== position.id)
+      : [...safeValue, position.id];
     onChange(newSelected);
   };
 
@@ -26,10 +26,10 @@ const Position = ({ className, value, onChange }: Props) => {
       )}
     >
       {POSITION.map((position) => {
-        const isActive = safeValue.includes(position.positionId);
+        const isActive = safeValue.includes(position.id);
         return (
           <div
-            key={position.positionId}
+            key={position.id}
             onClick={() => handleToggle(position)}
             className={clsx(
               "badge-common",

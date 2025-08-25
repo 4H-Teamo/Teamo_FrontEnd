@@ -15,7 +15,13 @@ const SidebarContent = ({ onNavigate }: Props) => {
     router.push(path);
     if (onNavigate) onNavigate();
   };
+  const isPathActive = (itemPath: string, currentPath: string): boolean => {
+    if (itemPath === "/") {
+      return currentPath === "/";
+    }
 
+    return currentPath === itemPath || currentPath.startsWith(itemPath + "/");
+  };
   const handleLogoClick = () => {
     router.push("/");
     if (onNavigate) onNavigate();
@@ -35,16 +41,8 @@ const SidebarContent = ({ onNavigate }: Props) => {
             key={item.label}
             icon={item.icon}
             text={item.label}
-            isSelected={
-              Array.isArray(item.path)
-                ? item.path.includes(pathname)
-                : item.path === pathname
-            }
-            onClick={() =>
-              handleItemClick(
-                Array.isArray(item.path) ? item.path[0] : item.path
-              )
-            }
+            isSelected={isPathActive(item.path, pathname)}
+            onClick={() => handleItemClick(item.path)}
           />
         ))}
       </nav>

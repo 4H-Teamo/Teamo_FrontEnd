@@ -6,8 +6,9 @@ import { WORK_MODE } from "@/app/constants/forms/workMode";
 import { stackMock } from "@/app/mock/stack";
 import beginner from "@/app/assets/beginner.svg";
 import MatchLabel from "./matchLabel";
-import { computeTeammateMatchLabels } from "@/app/utils/cardData";
+// import { computeTeammateMatchLabels } from "@/app/utils/cardData";
 import { useCurrentUser } from "@/app/hooks/useUserProfile";
+import { positionsToLabels } from "@/app/utils/position";
 
 interface CardLayoutProps<T extends BoardType> {
   id: string | number;
@@ -39,38 +40,46 @@ export default function CardLayout<T extends BoardType>({
       );
     }
 
-    // Post 데이터를 CardData 형태로 변환
+    // Post 데이터에서 positionIds 추출
     const positionIds = Array.isArray(post.positions)
       ? post.positions.map((p) =>
           typeof p === "string" ? parseInt(p) || 0 : p
         )
       : [];
 
-    const cardData = {
-      id: post.postId,
-      type: "teammate" as const,
-      dateText: post.endDate || "",
-      workMode: post.workMode,
-      title: post.title,
-      content: post.content,
-      stackIds: post.stacks || [],
-      positionIds,
-      labels: [],
-    };
-
-    // 매칭 라벨 계산
     const userPositionIds = currentUser.positionId
       ? [currentUser.positionId]
       : [];
     const userStackIds = currentUser.stacks || [];
 
-    const matchLabels = computeTeammateMatchLabels(
-      cardData,
-      userPositionIds,
-      userStackIds
-    );
+    const matchLabels: {
+      type: import("./matchLabel").LabelType;
+      text: string;
+    }[] = [];
 
-    if (matchLabels.length === 0) return null;
+    if (userPositionIds.length > 0 && positionIds.length > 0) {
+      const hasPositionMatch = userPositionIds.some((userPosId) =>
+        positionIds.some((posId) => String(posId) === String(userPosId))
+      );
+      if (hasPositionMatch) {
+        matchLabels.push({ type: "포지션 일치", text: "포지션 일치" });
+      }
+    }
+
+    if (userStackIds.length > 0 && post.stacks && post.stacks.length > 0) {
+      const matchedStacks = userStackIds.filter((userStackId) =>
+        post.stacks!.includes(userStackId)
+      );
+      if (matchedStacks.length > 0) {
+        const stackMatchType =
+          matchedStacks.length >= 3 ? "기술 일치" : "기술 부분 일치";
+        matchLabels.push({ type: stackMatchType, text: stackMatchType });
+      }
+    }
+
+    if (matchLabels.length === 0) {
+      matchLabels.push({ type: "해당 없음", text: "해당 없음" });
+    }
 
     return (
       <>
@@ -101,19 +110,45 @@ export default function CardLayout<T extends BoardType>({
   };
 
   const renderTechStacks = () => {
-    if (!data?.stacks?.length) {
-      return <span className="text-gray-400">기술 스택 없음</span>;
+    const elements: JSX.Element[] = [];
+
+    // 기술 스택 표시
+    if (data?.stacks?.length) {
+      data.stacks.forEach((stackId) => {
+        const stackName = stackMock.techStack.find(
+          (stack) => stack.stackId === stackId
+        )?.name;
+        elements.push(
+          <span key={`stack-${stackId}`}>{stackName || `ID: ${stackId}`}</span>
+        );
+      });
     }
 
-    return data.stacks.map((stackId) => {
-      const stackName = stackMock.techStack.find(
-        (stack) => stack.stackId === stackId
-      )?.name;
+    // 포지션 표시 (숫자 대신 라벨로)
+    // if (data?.positions?.length) {
+    //   const positionIds = Array.isArray(data.positions)
+    //     ? data.positions.map((p) =>
+    //         typeof p === "string" ? parseInt(p) || 0 : Number(p)
+    //       )
+    //     : [];
+    //   const positionLabels = positionsToLabels(positionIds);
+    //   positionLabels.forEach((label, index) => {
+    //     elements.push(
+    //       <span
+    //         key={`position-${index}`}
+    //         className="bg-green-100 px-2 py-1 rounded text-xs"
+    //       >
+    //         {label}
+    //       </span>
+    //     );
+    //   });
+    // }
 
-      return (
-        <span key={stackId.toString()}>{stackName || `ID: ${stackId}`}</span>
-      );
-    });
+    if (elements.length === 0) {
+      return <span className="text-gray-400">기술 스택 및 포지션 없음</span>;
+    }
+
+    return elements;
   };
 
   const renderDate = () => {
