@@ -39,8 +39,6 @@ export default function CardLayout<T extends BoardType>({
         <MatchLabel type="로그인 후 일치 여부 확인가능">로그인 필요</MatchLabel>
       );
     }
-
-    // Post 데이터에서 positionIds 추출
     const positionIds = Array.isArray(post.positions)
       ? post.positions.map((p) =>
           typeof p === "string" ? parseInt(p) || 0 : p
@@ -123,26 +121,6 @@ export default function CardLayout<T extends BoardType>({
         );
       });
     }
-
-    // 포지션 표시 (숫자 대신 라벨로)
-    // if (data?.positions?.length) {
-    //   const positionIds = Array.isArray(data.positions)
-    //     ? data.positions.map((p) =>
-    //         typeof p === "string" ? parseInt(p) || 0 : Number(p)
-    //       )
-    //     : [];
-    //   const positionLabels = positionsToLabels(positionIds);
-    //   positionLabels.forEach((label, index) => {
-    //     elements.push(
-    //       <span
-    //         key={`position-${index}`}
-    //         className="bg-green-100 px-2 py-1 rounded text-xs"
-    //       >
-    //         {label}
-    //       </span>
-    //     );
-    //   });
-    // }
 
     if (elements.length === 0) {
       return <span className="text-gray-400">기술 스택 및 포지션 없음</span>;

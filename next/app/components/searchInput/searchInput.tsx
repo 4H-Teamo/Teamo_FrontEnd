@@ -7,6 +7,7 @@ interface SearchBarProps {
   className?: string;
   onClick?: () => void;
   onChange?: (value: string) => void;
+  placeholder?: string;
 }
 const SearchInput = ({
   onClick,
@@ -14,6 +15,7 @@ const SearchInput = ({
   onChange,
   value,
   readOnly = false,
+  placeholder = "검색",
 }: SearchBarProps) => {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -35,7 +37,7 @@ const SearchInput = ({
         value={value}
         onChange={(e) => onChange?.(e.target.value)}
         readOnly={readOnly}
-        placeholder="검색"
+        placeholder={placeholder}
         className="focus:outline-none  bg-[#F4F7FE] text-black"
         onKeyDown={handleKeyDown}
       />

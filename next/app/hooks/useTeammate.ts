@@ -1,5 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { User } from "@/app/model/type";
+import { getTeammates } from "@/app/api/post";
+
 const fetcher = async <T>(
   input: RequestInfo,
   init?: RequestInit
@@ -32,10 +34,10 @@ export const useTeammateDetail = (userId: string) => {
   });
 };
 
-// 글 조회 (GET 요청)
-export const useTeamPosts = () => {
+// 팀원 목록 조회 (GET 요청)
+export const useTeammates = () => {
   return useQuery<User[]>({
-    queryKey: ["posts"],
-    queryFn: () => fetcher<User[]>("/api/proxy/users", { method: "GET" }),
+    queryKey: ["teammates"],
+    queryFn: () => getTeammates(),
   });
 };
