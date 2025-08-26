@@ -9,7 +9,7 @@ const json = async (res: Response) => {
   return res.json();
 };
 
-export const getTeammates = async (
+export const getTeams = async (
   page: number = 1,
   limit: number = 10
 ): Promise<Post[]> => {
@@ -21,13 +21,13 @@ export const getTeammates = async (
   return json(res);
 };
 
-export const getTeammateDetail = async (id: string | number): Promise<Post> => {
+export const getTeamDetail = async (id: string | number): Promise<Post> => {
   const res = await fetch(`${API_BASE}/posts/${id}`, { cache: "no-store" });
   return json(res);
 };
 
 // 팀구해요 목록(= 사용자 목록)
-export const getTeams = async (
+export const getTeammates = async (
   page: number = 1,
   limit: number = 10
 ): Promise<User[]> => {
@@ -37,7 +37,7 @@ export const getTeams = async (
   return json(res);
 };
 
-export const getTeamDetail = async (id: string | number): Promise<User> => {
+export const getTeammateDetail = async (id: string | number): Promise<User> => {
   const res = await fetch(`${API_BASE}/users/${id}`, { cache: "no-store" });
   return json(res);
 };

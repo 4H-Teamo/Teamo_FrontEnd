@@ -12,8 +12,8 @@ const UserInfoForm = () => {
   const { control, setValue, watch } = useFormContext();
 
   return (
-    <div className="flex flex-col gap-4 mt-6 justify-center items-center">
-      <div className="flex flex-col w-full justify-center sm:flex-row sm:gap-16">
+    <div className="flex flex-col gap-4 mt-6 px-2 justify-center items-center">
+      <div className="flex flex-col w-full gap-4 justify-center sm:flex-row sm:gap-16">
         {USERINFO_LABEL.filter((item) => item.type === "text").map((item) => (
           <div key={item.id} className="flex flex-col gap-2  sm:w-[15rem]">
             <Label id={item.id} text={item.label} />

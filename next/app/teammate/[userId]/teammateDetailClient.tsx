@@ -36,8 +36,10 @@ const TeammateDetailClient = ({ userId }: TeammateDetailClientProps) => {
   }
 
   return (
-    <div className="h-10/12 border border-gray-300 rounded-xl p-16 mt-10">
-      <CardDetail type="teammate" data={user} />
+    <div className="w-full max-w-80 md:max-w-2xl lg:max-w-4xl xl:max-w-6xl py-4 md:py-6 lg:py-8">
+      <div className="border border-gray-300 rounded-xl p-4 lg:p-12 mt-4 md:mt-6 lg:mt-8">
+        <CardDetail type="teammate" data={user} />
+      </div>
     </div>
   );
 };

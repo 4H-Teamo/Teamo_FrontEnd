@@ -1,4 +1,4 @@
 export const BEGINNER = [
-	{ id: 'false', value: false, label: 'X' },
-	{ id: 'true', value: true, label: 'O' }
+  { id: false, label: "X" },
+  { id: true, label: "O" },
 ];
