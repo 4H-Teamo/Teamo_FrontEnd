@@ -178,7 +178,7 @@ export default function CardLayout<T extends BoardType>({
         <div>{renderWorkMode()}</div>
       </div>
 
-      <div className="rounded-lg max-w-72 h-[14rem] border border-gray-200 p-7 mt-2">
+      <div className="rounded-lg h-[14rem] border border-gray-200 p-7 mt-2">
         {renderContent()}
       </div>
       <div className="mt-3 mx-2 gap-2">
