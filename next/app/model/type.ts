@@ -33,7 +33,6 @@ export type User = {
   updatedAt: Date;
   positionId?: string;
   posts?: Post[];
-  comments?: Comment[];
   notices?: Notice[];
   postId?: number | string;
   id?: number | string;

@@ -26,19 +26,19 @@ const SearchInput = ({
   return (
     <div
       className={clsx(
-        "flex mix-w-56 h-10 gap-2 items-center  rounded-full bg-[#F4F7FE] px-4 text-[#8F9BBA] text-sm",
+        "flex h-10 gap-2 items-center rounded-full bg-[#F4F7FE] px-4 text-[#8F9BBA] text-sm min-w-0",
         className
       )}
       onClick={onClick}
     >
-      <IoSearch className="text-[#2B3674] " />
+      <IoSearch className="text-[#2B3674] flex-shrink-0" />
       <input
         type="text"
         value={value}
         onChange={(e) => onChange?.(e.target.value)}
         readOnly={readOnly}
         placeholder={placeholder}
-        className="focus:outline-none  bg-[#F4F7FE] text-black"
+        className="focus:outline-none bg-[#F4F7FE] text-black flex-1 min-w-0"
         onKeyDown={handleKeyDown}
       />
     </div>

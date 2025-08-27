@@ -28,13 +28,6 @@ export const useSearch = () => {
   const filteredResults = useMemo(() => {
     const data = tab === "팀 찾기" ? posts : teammates;
 
-    // 디버깅 로그
-    console.log(`현재 탭: ${tab}`);
-    console.log(`데이터 개수: ${data.length}`);
-    console.log(`선택된 스택: ${selectedStacks}`);
-    console.log(`선택된 포지션: ${selectedPositions}`);
-    console.log(`키워드: "${keyword}"`);
-
     const matchesTeamKeyword = (post: Post) => {
       if (!keyword) return true;
 
@@ -91,7 +84,6 @@ export const useSearch = () => {
       }
     };
 
-    // 모든 필터 조건을 만족하는지 확인
     const passesAllFilters = (item: Post | User) => {
       return (
         matchesKeyword(item) && matchesStacks(item) && matchesPositions(item)

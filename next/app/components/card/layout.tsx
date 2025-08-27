@@ -8,7 +8,6 @@ import beginner from "@/app/assets/beginner.svg";
 import MatchLabel from "./matchLabel";
 // import { computeTeammateMatchLabels } from "@/app/utils/cardData";
 import { useCurrentUser } from "@/app/hooks/useUserProfile";
-import { positionsToLabels } from "@/app/utils/position";
 
 interface CardLayoutProps<T extends BoardType> {
   id: string | number;
