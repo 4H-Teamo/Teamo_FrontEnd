@@ -152,7 +152,9 @@ export default function CardLayout<T extends BoardType>({
           <div className="font-bold text-black text-lg mb-2">
             {user.nickname || "이름 없음"}
           </div>
-          <div className="text-gray-600">{user.description || "설명 없음"}</div>
+          <div className="text-gray-600 line-clamp-5">
+            {user.description || "설명 없음"}
+          </div>
         </>
       );
     }
@@ -163,14 +165,16 @@ export default function CardLayout<T extends BoardType>({
         <div className="font-bold text-black text-lg mb-2">
           {post.title || "제목 없음"}
         </div>
-        <div className="text-gray-600">{post.content || "내용 없음"}</div>
+        <div className="text-gray-600 line-clamp-5">
+          {post.content || "내용 없음"}
+        </div>
       </>
     );
   };
 
   return (
     <div
-      className="h-[22rem] border rounded-xl border-gray-300 flex flex-col p-4 font-semibold text-sm mt-14 cursor-pointer"
+      className="h-[22rem] border rounded-xl border-gray-300 flex flex-col p-4 font-semibold text-sm mt-7 cursor-pointer"
       onClick={handleClick}
     >
       <div className="flex justify-between mx-2 my-2">
