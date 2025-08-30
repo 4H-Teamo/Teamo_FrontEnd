@@ -7,6 +7,7 @@ export const URL = {
   CREATE_NEW_TEAM: "/team/create",
   SEARCH: "/search",
   LOGIN: "/login",
+  MY_TEAM: "/myteam",
 };
 
 export const API_BASE = "http://devcms.ddns.net:81/api";

@@ -1,5 +1,6 @@
 "use client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
 
 // 쿠키 상태 확인 함수
 export const checkCookieStatus = async () => {
@@ -19,6 +20,21 @@ export const checkCookieStatus = async () => {
     console.error("쿠키 확인 중 에러:", error);
     return null;
   }
+};
+
+// 토큰 관리를 위한 훅
+export const useAccessToken = () => {
+  const [accessToken, setAccessToken] = useState<string>("");
+
+  useEffect(() => {
+    const getToken = async () => {
+      const token = await checkCookieStatus();
+      setAccessToken(token || "");
+    };
+    getToken();
+  }, []);
+
+  return { accessToken };
 };
 
 const fetchUser = async () => {

@@ -41,3 +41,42 @@ export const getTeammateDetail = async (id: string | number): Promise<User> => {
   const res = await fetch(`${API_BASE}/users/${id}`, { cache: "no-store" });
   return json(res);
 };
+
+// 내 글 목록 - 서버에서 직접 백엔드 API 호출
+export const getMyPosts = async (accessToken: string): Promise<Post[]> => {
+  if (!accessToken) {
+    throw new Error("인증 토큰이 필요합니다.");
+  }
+
+  const res = await fetch(`${API_BASE}/posts/me`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    throw new Error(`HTTP error! status: ${res.status}`);
+  }
+
+  return res.json();
+};
+// 내 글 삭제
+export const deleteMyPost = async (accessToken: string, postId: number) => {
+  if (!accessToken) {
+    throw new Error("인증 토큰이 필요합니다.");
+  }
+
+  const res = await fetch(`${API_BASE}/posts/${postId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  if (!res.ok) {
+    throw new Error(`HTTP error! status: ${res.status}`);
+  }
+
+  return res.json();
+};
