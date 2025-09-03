@@ -8,7 +8,6 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/app/store/authStore";
 import { useAuthSync } from "@/app/hooks/useAuthSync";
-
 import Avatar from "@/app/components/avatar/avatar";
 import UserInfoForm from "@/app/mypage/userInfoForm";
 import Header from "./header";
@@ -105,10 +104,22 @@ const Mypage = () => {
         console.log("변환 후 updateData:", updateData);
         console.log("workMode 원본 값:", data.workMode);
         console.log("workMode 타입:", typeof data.workMode);
+        console.log("=== positionId 상세 디버깅 ===");
+        console.log("data.positionId:", data.positionId);
+        console.log("data.positionId 타입:", typeof data.positionId);
+        console.log(
+          "data.positionId 값이 유효한가?",
+          data.positionId >= 1 && data.positionId <= 8
+        );
+        console.log(
+          "POSITION 상수에서 해당 ID 존재하는가?",
+          [1, 2, 3, 4, 5, 6, 7, 8].includes(data.positionId)
+        );
+        console.log("updateData.positionId:", updateData.positionId);
+        console.log("===============================");
 
         const result = await updateUserProfile.mutateAsync(updateData);
         console.log("사용자 정보 업데이트 완료!", result);
-        // alert 제거 - useUpdateUserProfile의 onSuccess에서 토스트 표시
       } catch (error) {
         console.error("=== 마이페이지 업데이트 에러 ===");
         console.error("에러 타입:", typeof error);
@@ -117,10 +128,8 @@ const Mypage = () => {
           "에러 메시지:",
           error instanceof Error ? error.message : String(error)
         );
+        console.log(typeof data.positionId);
         console.error("================================");
-
-        // 에러 처리도 useUpdateUserProfile의 onError에서 처리하므로 여기서는 제거
-        // 401 에러는 useUpdateUserProfile에서 토스트로 표시됨
       }
     } catch (error) {
       console.error("폼 제출 에러:", error);
@@ -132,7 +141,7 @@ const Mypage = () => {
 
   // 로그인되지 않은 경우 로그인 모달로 리다이렉트
   if (!isAuthenticated) {
-    return null; // 리다이렉트 중이므로 아무것도 렌더링하지 않음
+    return null;
   }
 
   return (

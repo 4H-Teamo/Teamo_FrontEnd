@@ -14,7 +14,7 @@ const TextArea = ({ className, name, placeholder }: TextAreaProps) => {
   return (
     <textarea
       className={clsx(
-        "w-full h-48 p-5 border border-gray-300 rounded-xl resize-none md:w-6/8 lg:w-[54rem]",
+        "w-full h-48 p-5 border border-gray-300 font-black font-semibold rounded-xl resize-none md:w-6/8 lg:w-[54rem]",
         className
       )}
       placeholder={placeholder}

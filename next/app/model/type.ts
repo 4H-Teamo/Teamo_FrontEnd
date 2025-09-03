@@ -31,7 +31,7 @@ export type User = {
   stacks?: number[];
   createdAt?: Date;
   updatedAt: Date;
-  positionId?: string;
+  positionId?: number;
   posts?: Post[];
   notices?: Notice[];
   postId?: number | string;
@@ -43,7 +43,7 @@ export type User = {
   // stacks: Stack[] | number[];
   endDate?: string;
   capacity?: number;
-  positions: string[] | number[];
+  positions?: string[] | number[];
 };
 
 export type Notice = {

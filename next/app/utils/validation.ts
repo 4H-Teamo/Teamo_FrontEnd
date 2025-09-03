@@ -4,7 +4,7 @@ export const createPostSchema = z.object({
   title: z.string().min(1, "제목을 입력해주세요.").trim(),
   content: z.string().min(1, "내용을 입력해주세요.").trim(),
   location: z.string().min(1, "지역을 선택해주세요.").trim(),
-  workMode: z.number().min(1, "근무 방식을 선택해주세요."),
+  workMode: z.number().min(1, "진행 여부을 선택해주세요."),
   capacity: z.number().min(1, "모집 인원을 입력해주세요."),
   endDate: z.string().min(1, "마감일을 선택해주세요.").trim(),
   stacks: z.array(z.number()).min(1, "기술 스택을 최소 1개 이상 선택해주세요."),

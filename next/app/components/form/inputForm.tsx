@@ -16,7 +16,7 @@ const InputForm = ({ name, placeholder, className, type }: InputFormProps) => {
       : className;
 
   return (
-    <div className="font-medium ">
+    <div className="font-medium w-full">
       <input
         type={type}
         {...register(name, {
