@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Trash from "@/app/assets/trash.svg";
 import { deleteMyPost } from "@/app/api/post";
+import { toast } from "sonner";
 
 interface DeleteButtonProps {
   postId: number;
@@ -18,12 +19,11 @@ const DeleteButton = ({ postId, accessToken, onDelete }: DeleteButtonProps) => {
 
     try {
       await deleteMyPost(accessToken, postId);
-      alert("글이 삭제되었습니다.");
-      // 부모 컴포넌트에 삭제 완료 알림
+      toast.success("글이 삭제되었습니다.");
       onDelete(postId);
     } catch (err) {
       console.error("글 삭제 실패:", err);
-      alert("글 삭제에 실패했습니다.");
+      toast.error("글 삭제에 실패했습니다.");
     }
   };
 

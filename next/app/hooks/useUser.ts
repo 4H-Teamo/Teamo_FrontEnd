@@ -1,6 +1,7 @@
 "use client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
+import { toast } from "sonner";
 
 // 쿠키 상태 확인 함수
 export const checkCookieStatus = async () => {
@@ -38,18 +39,23 @@ export const useAccessToken = () => {
 };
 
 const fetchUser = async () => {
-  const res = await fetch("/api/proxy/users/me", {
-    method: "GET",
-    credentials: "include",
-  });
+  try {
+    const res = await fetch("/api/proxy/users/me", {
+      method: "GET",
+      credentials: "include",
+    });
 
-  if (!res.ok) {
-    throw new Error(`HTTP error! status: ${res.status}`);
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+
+    const userData = await res.json();
+    toast.success("로그인 성공");
+    return userData;
+  } catch (error) {
+    toast.error("로그인 실패");
+    throw error;
   }
-
-  const userData = await res.json();
-
-  return userData;
 };
 
 export default function useUser() {
@@ -66,18 +72,21 @@ export default function useUser() {
 
   const prefetchUser = async () => {
     try {
+      toast.loading("사용자 정보를 불러오는 중...");
       await queryClient.prefetchQuery({
         queryKey: ["user"],
         queryFn: fetchUser,
         staleTime: 1000 * 60 * 30,
       });
     } catch (error) {
+      toast.error("사용자 정보 prefetch 실패");
       console.log("사용자 정보 prefetch 실패:", error);
     }
   };
 
   const clearUser = () => {
     queryClient.removeQueries({ queryKey: ["user"] });
+    toast.success("사용자 정보가 캐시에서 제거되었습니다.");
     console.log("사용자 정보가 캐시에서 제거되었습니다.");
   };
 

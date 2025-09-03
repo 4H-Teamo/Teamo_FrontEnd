@@ -13,7 +13,7 @@ export type Post = {
   stacks: number[];
   endDate: string;
   capacity: number;
-  positions: string[];
+  positions: number[];
   createdAt: Date;
   location: string;
   updatedAt: Date;
