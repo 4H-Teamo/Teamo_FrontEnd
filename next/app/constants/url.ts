@@ -9,4 +9,4 @@ export const URL = {
   LOGIN: "/login",
 };
 
-export const API_BASE = "http://devcms.ddns.net:81/api";
+export const API_BASE = "http://211.230.62.32:81/api";
