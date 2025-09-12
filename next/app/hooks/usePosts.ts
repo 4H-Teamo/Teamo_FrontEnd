@@ -9,7 +9,9 @@ import {
   getTeamDetail,
   getTeammates,
   getTeammateDetail,
+
   getMyPosts,
+
 } from "@/app/api/post";
 import type { Post } from "@/app/model/type";
 
@@ -23,6 +25,45 @@ export const useTeammates = () =>
   useQuery<any[]>({
     queryKey: ["teammates"],
     queryFn: () => getTeammates(1, 12),
+  });
+
+
+// 제한 개수로 팀(팀원 구해요) 목록 조회
+export const useTeamsLimited = (limit: number = 3) =>
+  useQuery<any[]>({
+    queryKey: ["teams", "limited", limit],
+    queryFn: () => getTeams(1, limit),
+  });
+
+// 제한 개수로 사용자(팀 구해요) 목록 조회
+export const useTeammatesLimited = (limit: number = 3) =>
+  useQuery<any[]>({
+    queryKey: ["teammates", "limited", limit],
+    queryFn: () =>
+      fetcher<any[]>(
+        `/api/proxy/users?page=1&limit=${encodeURIComponent(limit)}`,
+        {
+          method: "GET",
+        }
+      ),
+  });
+
+// 기술스택 수요/공급 통계 조회
+type DemandSupplyItem = { stackId: number; stackName: string; count: number };
+export type TechStackDemandSupply = {
+  supply: DemandSupplyItem[];
+  demand: DemandSupplyItem[];
+};
+
+export const useTechStackDemandSupply = () =>
+  useQuery<TechStackDemandSupply>({
+    queryKey: ["analysis", "tech-stack-demand-supply"],
+    queryFn: () =>
+      fetcher<TechStackDemandSupply>(
+        "/api/proxy/analysis/tech-stack-demand-supply",
+        { method: "GET" }
+      ),
+    staleTime: 1000 * 60 * 10,
   });
 
 export const useTeammate = (id: string) =>
@@ -114,6 +155,11 @@ export const useCreatePost = () => {
     onSuccess: (data) => {
       // 글 작성 성공 시 posts 캐시 업데이트
       queryClient.invalidateQueries({ queryKey: ["posts"] });
+      console.log("글 작성 완료:", data);
+    },
+
+    onError: (error) => {
+      console.error("글 작성 실패:", error);
     },
   });
 };
