@@ -2,6 +2,7 @@
 
 import StackDemandSupplyChart from "@/app/components/dashboard/StackDemandSupplyChart";
 import CardLayout from "@/app/components/card/layout";
+import PageHeader from "@/app/components/pageHeader/header";
 import { useEffect } from "react";
 import {
   useTeamsLimited,
@@ -12,9 +13,8 @@ import type { Post, User } from "@/app/model/type";
 import { stackMock } from "@/app/mock/stack";
 
 export default function Home() {
-
-  const { data: teamPosts } = useTeamsLimited(3); // 팀원 구해요 = posts
-  const { data: users } = useTeammatesLimited(3); // 팀 구해요 = users
+  const { data: teamPosts } = useTeamsLimited(4); // 팀원 구해요 = posts
+  const { data: users } = useTeammatesLimited(4); // 팀 구해요 = users
 
   const { data: ds } = useTechStackDemandSupply();
   useEffect(() => {
@@ -46,49 +46,43 @@ export default function Home() {
   }, [stats]);
 
   return (
-    <div className="flex flex-col gap-10">
-      <h2 className="text-xl font-bold text-black">수요와 공급</h2>
-      <StackDemandSupplyChart stats={stats} />
-      <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-bold text-black">팀원 구해요</h2>
-        <div className="relative">
-          <div
-            className="flex gap-4 overflow-x-auto snap-x snap-mandatory no-scrollbar scroll-p-4 pr-4"
-            style={{ WebkitOverflowScrolling: "touch" }}
-          >
+    <div>
+      <PageHeader title="수요와 공급" />
+      <div className="mt-4">
+        <StackDemandSupplyChart stats={stats} />
+      </div>
+
+      <div className="mt-8">
+        <PageHeader title="팀원 구해요" />
+        <div className="mt-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {(teamPosts as Post[] | undefined)?.map((post) => (
-              <div
+              <CardLayout
                 key={post.postId}
-                className="min-w-[18rem] md:min-w-[22rem] snap-start"
-              >
-                <CardLayout id={post.postId} type="team" data={post} />
-              </div>
+                id={post.postId}
+                type="team"
+                data={post}
+              />
             ))}
           </div>
         </div>
-      </section>
-      <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-bold text-black">팀 구해요</h2>
-        <div className="relative">
-          <div
-            className="flex gap-4 overflow-x-auto snap-x snap-mandatory no-scrollbar scroll-p-4 pr-4"
-            style={{ WebkitOverflowScrolling: "touch" }}
-          >
+      </div>
+
+      <div className="mt-8">
+        <PageHeader title="팀 구해요" />
+        <div className="mt-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {(users as User[] | undefined)?.map((user) => (
-              <div
+              <CardLayout
                 key={user.userId}
-                className="min-w-[18rem] md:min-w-[22rem] snap-start"
-              >
-                <CardLayout
-                  id={user.userId || ""}
-                  type="teammate"
-                  data={user}
-                />
-              </div>
+                id={user.userId || ""}
+                type="teammate"
+                data={user}
+              />
             ))}
           </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 }

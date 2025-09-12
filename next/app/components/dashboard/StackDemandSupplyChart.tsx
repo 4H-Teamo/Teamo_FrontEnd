@@ -4,7 +4,6 @@ import { useMemo } from "react";
 
 type Stat = { stackId: number; name: string; demand: number; supply: number };
 
-// 이미지와 유사한 스타일의 막대 차트
 export default function StackDemandSupplyChart({
   stats,
   maxBars = 8,
@@ -15,9 +14,9 @@ export default function StackDemandSupplyChart({
   gridDivisions?: number;
 }) {
   // 막대, 격자, Y축 라벨이 동일한 시작점(좌측/하단 패딩)을 공유
-  const chartLeftPx = 64; // 64px = 4rem (tailwind left-16 과 동일)
-  const labelGapPx = 17; // 격자(막대 시작점)와 Y축 라벨 사이 여백
-  const chartBottomPx = 40; // X축 레이블 영역 높이
+  const chartLeftPx = 48; // 모바일: 48px, 데스크톱: 64px
+  const labelGapPx = 12; // 격자(막대 시작점)와 Y축 라벨 사이 여백
+  const chartBottomPx = 32; // X축 레이블 영역 높이
   const top = useMemo(() => {
     const arr = [...stats];
     arr.sort((a, b) => b.demand - a.demand);
@@ -42,15 +41,8 @@ export default function StackDemandSupplyChart({
   }
 
   return (
-    <div
-      className="w-full rounded-2xl p-6 bg-white relative"
-      style={{
-        boxShadow: "0 12px 20px -12px rgba(0,0,0,0.12)",
-        marginRight: "16px",
-      }}
-    >
-      {/* 캔버스 영역 */}
-      <div className="relative h-80">
+    <div className="w-full rounded-2xl p-3 sm:p-4 md:p-6 bg-white relative shadow-[0_2px_4px_-1px_rgba(0,0,0,0.1)]">
+      <div className="relative h-64 sm:h-72 md:h-80">
         {/* 격자 라인: 막대 시작점과 동일 좌표에서 렌더 */}
         <div
           className="absolute right-0 top-0 z-0 pointer-events-none"
@@ -84,7 +76,7 @@ export default function StackDemandSupplyChart({
           style={{
             top: 0,
             bottom: `${chartBottomPx}px`,
-            width: `${chartLeftPx - labelGapPx}px`,
+            width: `${chartLeftPx - labelGapPx - 15}px`,
           }}
         >
           <div className="relative h-full w-full">
@@ -105,7 +97,7 @@ export default function StackDemandSupplyChart({
 
         {/* 막대 영역 */}
         <div
-          className="absolute right-0 top-0 z-10 grid grid-flow-col auto-cols-[80px] gap-2 items-end"
+          className="absolute right-0 top-0 z-10 grid grid-flow-col auto-cols-[40px] sm:auto-cols-[50px] md:auto-cols-[60px] lg:auto-cols-[80px] gap-1 sm:gap-1.5 md:gap-2 items-end"
           style={{
             left: `${chartLeftPx}px`,
             bottom: `${chartBottomPx}px`,
@@ -120,15 +112,15 @@ export default function StackDemandSupplyChart({
             return (
               <div
                 key={item.stackId}
-                className="flex flex-col items-center h-full w-[80px]"
+                className="flex flex-col items-center h-full w-[40px] sm:w-[50px] md:w-[60px] lg:w-[80px]"
               >
-                <div className="flex items-end gap-2 h-full">
+                <div className="flex items-end gap-1 sm:gap-1.5 md:gap-2 h-full">
                   <div
-                    className="w-2 md:w-3 bg-indigo-600 rounded-sm"
+                    className="w-2 bg-indigo-600 rounded-sm"
                     style={{ height: `${demandPct}%`, minHeight: demandMin }}
                   />
                   <div
-                    className="w-2 md:w-3 bg-gray-400 rounded-sm"
+                    className="w-2 bg-gray-400 rounded-sm"
                     style={{ height: `${supplyPct}%`, minHeight: supplyMin }}
                   />
                 </div>
@@ -139,7 +131,7 @@ export default function StackDemandSupplyChart({
 
         {/* X축 라벨: 막대 바로 아래 영역에 분리 렌더 */}
         <div
-          className="absolute right-0 bottom-0 z-10 grid grid-flow-col auto-cols-[80px] gap-2 items-start"
+          className="absolute right-0 bottom-0 z-10 grid grid-flow-col auto-cols-[40px] sm:auto-cols-[50px] md:auto-cols-[60px] lg:auto-cols-[80px] gap-1 sm:gap-1.5 md:gap-2 items-start"
           style={{
             left: `${chartLeftPx}px`,
             height: `${chartBottomPx}px`,
@@ -149,10 +141,10 @@ export default function StackDemandSupplyChart({
           {top.map((item) => (
             <div
               key={`label-${item.stackId}`}
-              className="w-[80px] flex justify-center"
+              className="w-[40px] sm:w-[50px] md:w-[60px] lg:w-[80px] flex justify-center"
             >
               <div
-                className="text-[14px] text-black font-normal text-center break-words"
+                className="text-[8px] sm:text-[10px] md:text-[12px] lg:text-[14px] text-black font-normal text-center break-words"
                 style={{ fontFamily: "Pretendard" }}
               >
                 {item.name}
@@ -161,15 +153,15 @@ export default function StackDemandSupplyChart({
           ))}
         </div>
       </div>
-      {/* 범례: 카드 우측 하단 (차트 영역 밖) */}
-      <div className="mt-3 w-full flex justify-end">
-        <div className="bg-white/90 backdrop-blur-sm rounded-md shadow px-3 py-2 flex flex-col gap-2 text-xs">
-          <div className="flex items-center gap-2">
-            <span className="inline-block w-10 h-0.5 bg-indigo-600" />
+
+      <div className="mt-2 sm:mt-3 w-full flex justify-end">
+        <div className="bg-white/90 backdrop-blur-sm rounded-md shadow px-2 sm:px-3 py-1.5 sm:py-2 flex flex-col gap-1 sm:gap-2 text-[10px] sm:text-xs">
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <span className="inline-block w-6 sm:w-8 md:w-10 h-0.5 bg-indigo-600" />
             <span>수요</span>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="inline-block w-10 h-0.5 bg-gray-400" />
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <span className="inline-block w-6 sm:w-8 md:w-10 h-0.5 bg-gray-400" />
             <span>공급</span>
           </div>
         </div>
