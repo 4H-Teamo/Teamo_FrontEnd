@@ -1,9 +1,7 @@
-import { filterType } from "@/app/model/type";
 import clsx from "clsx";
-import { useState } from "react";
 
 // 필터 옵션 정의
-const FILTER_OPTIONS: filterType[] = ["팀 구해요", "팀원 구해요"];
+const FILTER_OPTIONS: ("팀 찾기" | "팀원 찾기")[] = ["팀 찾기", "팀원 찾기"];
 
 // 버튼 스타일 함수
 const getButtonStyle = (isSelected: boolean) => {
@@ -13,11 +11,14 @@ const getButtonStyle = (isSelected: boolean) => {
   );
 };
 
-export const FilterTab = () => {
-  const [selectedFilter, setSelectedFilter] = useState<filterType>("팀 구해요");
+interface FilterTabProps {
+  activeTab: "팀 찾기" | "팀원 찾기";
+  onTabChange: (tab: "팀 찾기" | "팀원 찾기") => void;
+}
 
-  const handleFilterChange = (filter: filterType) => {
-    setSelectedFilter(filter);
+export const FilterTab = ({ activeTab, onTabChange }: FilterTabProps) => {
+  const handleFilterChange = (tab: "팀 찾기" | "팀원 찾기") => {
+    onTabChange(tab);
   };
 
   return (
@@ -25,7 +26,7 @@ export const FilterTab = () => {
       {FILTER_OPTIONS.map((option) => (
         <button
           key={option}
-          className={getButtonStyle(selectedFilter === option)}
+          className={getButtonStyle(activeTab === option)}
           onClick={() => handleFilterChange(option)}
         >
           {option}

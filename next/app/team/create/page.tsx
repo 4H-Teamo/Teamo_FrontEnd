@@ -3,9 +3,16 @@ import Content from "@/app/team/create/content";
 import Header from "@/app/team/create/header";
 import { useForm, FormProvider } from "react-hook-form";
 import { useCreatePost } from "@/app/hooks/usePosts";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { createPostSchema, type CreatePostData } from "@/app/utils/validation";
+import { zodResolver } from "@hookform/resolvers/zod";
 const Create = () => {
-  const methods = useForm();
+  const methods = useForm<CreatePostData>({
+    resolver: zodResolver(createPostSchema),
+  });
   const createPost = useCreatePost();
+  const router = useRouter();
   const onSubmit = methods.handleSubmit(async (data) => {
     console.log("=== 폼 제출 시작 ===");
     console.log("Form Submitted:", data);
@@ -44,18 +51,10 @@ const Create = () => {
       content: data.content,
       location: data.location,
       workMode: data.workMode,
-      capacity: parseInt(data.capacity) || 0,
+      capacity: data.capacity,
       endDate: data.endDate,
-      stacks: Array.isArray(data.stacks)
-        ? data.stacks
-            .map((stack) => (typeof stack === "object" ? stack.id : stack))
-            .filter(Boolean)
-        : [],
-      positions: Array.isArray(data.positions)
-        ? data.positions
-            .map((pos) => (typeof pos === "object" ? pos.id : pos))
-            .filter(Boolean)
-        : [],
+      stacks: data.stacks,
+      positions: data.positions,
     };
 
     // 변환된 데이터의 타입도 확인
@@ -96,7 +95,8 @@ const Create = () => {
       console.log("API 호출 시작...");
       const result = await createPost.mutateAsync(updateData);
       console.log("포스터 작성완료:", result);
-      alert("팀 모집글이 작성되었습니다!");
+      toast.success("팀 모집글이 작성되었습니다!");
+      router.push(`/team/${result.postId}`);
     } catch (error) {
       console.error("=== Post Creation Error ===");
       console.error("에러 타입:", typeof error);
@@ -105,7 +105,7 @@ const Create = () => {
         "에러 메시지:",
         error instanceof Error ? error.message : String(error)
       );
-      alert("팀 모집글 작성에 실패했습니다.");
+      toast.error("팀 모집글 작성에 실패했습니다.");
     }
   });
 

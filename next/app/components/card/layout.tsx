@@ -8,7 +8,6 @@ import beginner from "@/app/assets/beginner.svg";
 import MatchLabel from "./matchLabel";
 // import { computeTeammateMatchLabels } from "@/app/utils/cardData";
 import { useCurrentUser } from "@/app/hooks/useUserProfile";
-import { positionsToLabels } from "@/app/utils/position";
 
 interface CardLayoutProps<T extends BoardType> {
   id: string | number;
@@ -39,8 +38,6 @@ export default function CardLayout<T extends BoardType>({
         <MatchLabel type="로그인 후 일치 여부 확인가능">로그인 필요</MatchLabel>
       );
     }
-
-    // Post 데이터에서 positionIds 추출
     const positionIds = Array.isArray(post.positions)
       ? post.positions.map((p) =>
           typeof p === "string" ? parseInt(p) || 0 : p
@@ -124,26 +121,6 @@ export default function CardLayout<T extends BoardType>({
       });
     }
 
-    // 포지션 표시 (숫자 대신 라벨로)
-    // if (data?.positions?.length) {
-    //   const positionIds = Array.isArray(data.positions)
-    //     ? data.positions.map((p) =>
-    //         typeof p === "string" ? parseInt(p) || 0 : Number(p)
-    //       )
-    //     : [];
-    //   const positionLabels = positionsToLabels(positionIds);
-    //   positionLabels.forEach((label, index) => {
-    //     elements.push(
-    //       <span
-    //         key={`position-${index}`}
-    //         className="bg-green-100 px-2 py-1 rounded text-xs"
-    //       >
-    //         {label}
-    //       </span>
-    //     );
-    //   });
-    // }
-
     if (elements.length === 0) {
       return <span className="text-gray-400">기술 스택 및 포지션 없음</span>;
     }
@@ -175,7 +152,9 @@ export default function CardLayout<T extends BoardType>({
           <div className="font-bold text-black text-lg mb-2">
             {user.nickname || "이름 없음"}
           </div>
-          <div className="text-gray-600">{user.description || "설명 없음"}</div>
+          <div className="text-gray-600 line-clamp-5">
+            {user.description || "설명 없음"}
+          </div>
         </>
       );
     }
@@ -186,14 +165,16 @@ export default function CardLayout<T extends BoardType>({
         <div className="font-bold text-black text-lg mb-2">
           {post.title || "제목 없음"}
         </div>
-        <div className="text-gray-600">{post.content || "내용 없음"}</div>
+        <div className="text-gray-600 line-clamp-5">
+          {post.content || "내용 없음"}
+        </div>
       </>
     );
   };
 
   return (
     <div
-      className="h-[22rem] border rounded-xl border-gray-300 flex flex-col p-4 font-semibold text-sm mt-14 cursor-pointer"
+      className="h-[22rem] border rounded-xl border-gray-300 flex flex-col p-4 font-semibold text-sm mt-7 cursor-pointer"
       onClick={handleClick}
     >
       <div className="flex justify-between mx-2 my-2">
@@ -201,7 +182,7 @@ export default function CardLayout<T extends BoardType>({
         <div>{renderWorkMode()}</div>
       </div>
 
-      <div className="rounded-lg max-w-72 h-[14rem] border border-gray-200 p-7 mt-2">
+      <div className="rounded-lg h-[14rem] border border-gray-200 p-7 mt-2">
         {renderContent()}
       </div>
       <div className="mt-3 mx-2 gap-2">

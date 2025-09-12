@@ -5,6 +5,10 @@ import {
   dehydrate,
 } from "@tanstack/react-query";
 import { getTeams } from "@/app/api/post";
+import PageHeader from "../components/pageHeader/header";
+import Link from "next/link";
+import { URL } from "../constants/url";
+import Button from "../components/button/button";
 
 interface Props {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -24,7 +28,16 @@ const Team = async ({ searchParams }: Props) => {
 
   return (
     <HydrationBoundary state={state}>
-      <InfiniteTeamList limit={limit} />
+      <div>
+        <PageHeader title="팀 찾기" />
+        <div className="flex justify-end">
+          <Link href={URL.CREATE_NEW_TEAM}>
+            <Button className="button-circle">팀 만들기</Button>
+          </Link>
+        </div>
+
+        <InfiniteTeamList limit={limit} />
+      </div>
     </HydrationBoundary>
   );
 };

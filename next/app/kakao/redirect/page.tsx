@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState, Suspense } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAuthStore } from "@/app/store/authStore";
+import { toast } from "sonner";
 
 const LoadingUI = () => (
   <div className="flex flex-col items-center justify-center h-screen">
@@ -98,12 +99,12 @@ const KakaoLoginHandler = () => {
           login(data.user);
           router.push("/");
         } else {
-          alert("로그인에 실패했습니다.");
+          toast.error("로그인에 실패했습니다.");
           router.push("/");
         }
       } catch (error) {
         console.error("카카오 로그인 에러:", error);
-        alert("로그인 처리 중 오류가 발생했습니다.");
+        toast.error("로그인 처리 중 오류가 발생했습니다.");
         router.push("/");
       }
     };

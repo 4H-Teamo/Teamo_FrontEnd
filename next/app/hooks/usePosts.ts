@@ -9,6 +9,9 @@ import {
   getTeamDetail,
   getTeammates,
   getTeammateDetail,
+
+  getMyPosts,
+
 } from "@/app/api/post";
 import type { Post } from "@/app/model/type";
 
@@ -23,6 +26,7 @@ export const useTeammates = () =>
     queryKey: ["teammates"],
     queryFn: () => getTeammates(1, 12),
   });
+
 
 // 제한 개수로 팀(팀원 구해요) 목록 조회
 export const useTeamsLimited = (limit: number = 3) =>
@@ -93,6 +97,16 @@ export const useInfiniteTeams = (limit: number = 12) =>
         ? curr + 1
         : undefined;
     },
+    refetchOnWindowFocus: false,
+  });
+
+// 내 글 목록 훅
+export const useMyPosts = (accessToken: string) =>
+  useQuery<Post[]>({
+    queryKey: ["myPosts"],
+    queryFn: () => getMyPosts(accessToken),
+    enabled: !!accessToken,
+    retry: false,
     refetchOnWindowFocus: false,
   });
 

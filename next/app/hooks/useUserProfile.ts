@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { User } from "@/app/model/type";
+import { toast } from "sonner";
 
 const fetcher = async <T>(
   input: RequestInfo,
@@ -56,8 +57,7 @@ export const useUpdateUserProfile = () => {
       queryClient.setQueryData(["user"], data);
       queryClient.setQueryData(["currentUser"], data);
       queryClient.invalidateQueries({ queryKey: ["users"] });
-
-      console.log("회원정보 수정 완료!");
+      toast.success("회원정보가 성공적으로 수정되었습니다! 🎉");
     },
 
     onError: (error) => {
@@ -69,6 +69,12 @@ export const useUpdateUserProfile = () => {
         error instanceof Error ? error.message : String(error)
       );
       console.error("================================");
+
+      if (error instanceof Error && error.message.includes("401")) {
+        toast.error("로그인이 만료되었습니다. 다시 로그인해주세요.");
+      } else {
+        toast.error("회원정보 수정에 실패했습니다. 다시 시도해주세요.");
+      }
     },
   });
 };
@@ -100,7 +106,7 @@ export const useCurrentUser = () => {
     queryFn: () => fetcher<User>("/api/proxy/users/me", { method: "GET" }),
     enabled: hasAccessToken,
     retry: false,
-    staleTime: 1000 * 60 * 30, // 30분
+    staleTime: 1000 * 60 * 30,
   });
 };
 

@@ -7,6 +7,7 @@ interface SearchBarProps {
   className?: string;
   onClick?: () => void;
   onChange?: (value: string) => void;
+  placeholder?: string;
 }
 const SearchInput = ({
   onClick,
@@ -14,6 +15,7 @@ const SearchInput = ({
   onChange,
   value,
   readOnly = false,
+  placeholder = "검색",
 }: SearchBarProps) => {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -24,19 +26,19 @@ const SearchInput = ({
   return (
     <div
       className={clsx(
-        "flex mix-w-56 h-10 gap-2 items-center  rounded-full bg-[#F4F7FE] px-4 text-[#8F9BBA] text-sm",
+        "flex h-10 gap-2 items-center rounded-full bg-[#F4F7FE] px-4 text-[#8F9BBA] text-sm min-w-0",
         className
       )}
       onClick={onClick}
     >
-      <IoSearch className="text-[#2B3674] " />
+      <IoSearch className="text-[#2B3674] flex-shrink-0" />
       <input
         type="text"
         value={value}
         onChange={(e) => onChange?.(e.target.value)}
         readOnly={readOnly}
-        placeholder="검색"
-        className="focus:outline-none  bg-[#F4F7FE] text-black"
+        placeholder={placeholder}
+        className="focus:outline-none bg-[#F4F7FE] text-black flex-1 min-w-0"
         onKeyDown={handleKeyDown}
       />
     </div>

@@ -6,6 +6,7 @@ import { Metadata } from "next";
 import Sidebar from "@/app/components/sidebar/index";
 import React from "react";
 import RootProvider from "@/app/providers/RootProvider";
+import { Toaster } from "@/components/ui/sonner";
 
 const pretendard = localFont({
   src: "../public/font/PretendardVariable.woff2",
@@ -43,6 +44,7 @@ const RootLayout = ({
                 {modal}
               </main>
             </div>
+            <Toaster />
           </div>
           <Footer />
         </RootProvider>

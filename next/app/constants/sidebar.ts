@@ -34,8 +34,8 @@ export const SIDEBAR_ITEMS = [
     icon: MdAccountCircle,
   },
   {
-    label: "내 알림",
-    path: URL.MY_NOTIFICATIONS,
+    label: "내 글 목록",
+    path: URL.MY_TEAM,
     icon: MdNotificationsNone,
   },
 ];

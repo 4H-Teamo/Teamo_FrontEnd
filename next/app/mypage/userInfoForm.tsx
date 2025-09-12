@@ -15,7 +15,7 @@ const UserInfoForm = () => {
     <div className="flex flex-col gap-4 mt-6 px-2 justify-center items-center">
       <div className="flex flex-col w-full gap-4 justify-center sm:flex-row sm:gap-16">
         {USERINFO_LABEL.filter((item) => item.type === "text").map((item) => (
-          <div key={item.id} className="flex flex-col gap-2  sm:w-[15rem]">
+          <div key={item.id} className="flex flex-col gap-2 w-full sm:w-62">
             <Label id={item.id} text={item.label} />
             <InputForm
               className="input-common"
@@ -27,7 +27,7 @@ const UserInfoForm = () => {
       </div>
       <div className="flex flex-col mb-4 justify-center sm:flex-row gap-4 sm:gap-16 w-full items-center">
         {USERINFO_LABEL.filter((item) => item.type === "select").map((item) => (
-          <div key={item.id} className="flex  flex-col gap-2 w-full sm:w-auto">
+          <div key={item.id} className="flex  flex-col gap-2 w-full sm:w-62">
             <Label id={item.id} text={item.label} />
             <DropdownForm
               options={item.options}

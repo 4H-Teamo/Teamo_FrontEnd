@@ -30,15 +30,15 @@ const CardDetail = ({ type, data }: CardLayoutProps) => {
       <div className="flex-1">
         <CardField board={type} data={data} />
       </div>
-      <div className="flex justify-end items-end mt-8">
-        <div className="text-right text-gray-600 max-w-xs">
-          {type === "teammate" ? (
+      {type === "teammate" ? (
+        <div className="flex justify-end items-end mt-8">
+          <div className="text-right text-gray-600 max-w-xs">
             <Button className="button-common">채팅하기</Button>
-          ) : (
-            ""
-          )}
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="mt-8"></div>
+      )}
     </div>
   );
 };
