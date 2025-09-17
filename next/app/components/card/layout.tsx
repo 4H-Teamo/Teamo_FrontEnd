@@ -107,7 +107,7 @@ export default function CardLayout<T extends BoardType>({
   };
 
   const renderTechStacks = () => {
-    const elements: JSX.Element[] = [];
+    const elements: React.ReactElement[] = [];
 
     // 기술 스택 표시
     if (data?.stacks?.length) {
