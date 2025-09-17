@@ -4,6 +4,7 @@ import Footer from "@/app/components/footer/footer";
 import "@/app/globals.css";
 import { Metadata } from "next";
 import Sidebar from "@/app/components/sidebar/index";
+import ChatWidget from "@/app/components/chat/chatWidget";
 import React from "react";
 import RootProvider from "@/app/providers/RootProvider";
 import { Toaster } from "@/components/ui/sonner";
@@ -45,7 +46,11 @@ const RootLayout = ({
               </main>
             </div>
             <Toaster />
+            <div className="hidden lg:block fixed bottom-6 left-8 z-50">
+              <ChatWidget />
+            </div>
           </div>
+
           <Footer />
         </RootProvider>
       </body>

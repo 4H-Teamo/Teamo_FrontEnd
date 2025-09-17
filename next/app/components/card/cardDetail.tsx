@@ -1,7 +1,13 @@
+"use client";
+
 import CardField from "@/app/components/card/cardField";
 import { BoardType, Post, User } from "@/app/model/type";
 import Button from "../button/button";
 import { formatISOToKorean } from "@/app/utils/formatDate";
+import { useChat } from "@/app/hooks/useChat";
+import { useAccessToken } from "@/app/hooks/useUser";
+import { useCurrentUser } from "@/app/hooks/useUserProfile";
+import { useState } from "react";
 
 interface CardLayoutProps {
   type: BoardType;
@@ -9,6 +15,43 @@ interface CardLayoutProps {
 }
 
 const CardDetail = ({ type, data }: CardLayoutProps) => {
+  const { accessToken } = useAccessToken();
+  const { data: currentUser } = useCurrentUser();
+  const { startChat } = useChat();
+  const [isCreating, setIsCreating] = useState(false);
+
+  const handleStartChat = async () => {
+    if (!accessToken || !currentUser?.userId) {
+      alert("로그인이 필요합니다.");
+      return;
+    }
+
+    const targetUserId = (data as User).userId;
+    if (!targetUserId) {
+      alert("사용자 정보를 찾을 수 없습니다.");
+      return;
+    }
+
+    setIsCreating(true);
+    try {
+      const result = await startChat(targetUserId, currentUser.userId);
+      console.log("채팅방 생성됨:", result);
+
+      // 채팅방 생성 완료
+      if (result && result.id) {
+        alert(
+          `채팅방이 생성되었습니다! (ID: ${result.id})\n채팅 아이콘을 클릭하여 대화를 시작하세요.`
+        );
+      } else {
+        alert("채팅방이 생성되었습니다!");
+      }
+    } catch (error) {
+      console.error("채팅방 생성 실패:", error);
+      alert("채팅방 생성에 실패했습니다.");
+    } finally {
+      setIsCreating(false);
+    }
+  };
   return (
     <div className="flex flex-col h-full gap-12 ">
       <div className="flex flex-col gap-8">
@@ -33,7 +76,9 @@ const CardDetail = ({ type, data }: CardLayoutProps) => {
       {type === "teammate" ? (
         <div className="flex justify-end items-end mt-8">
           <div className="text-right text-gray-600 max-w-xs">
-            <Button className="button-common">채팅하기</Button>
+            <Button className="button-common" onClick={handleStartChat}>
+              {isCreating ? "채팅방 생성 중..." : "채팅하기"}
+            </Button>
           </div>
         </div>
       ) : (
