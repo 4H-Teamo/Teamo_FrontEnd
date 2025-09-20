@@ -7,6 +7,11 @@ export interface StoreChatRoom {
   participants: string[];
   messages: UIMessage[];
   unreadCount: number;
+  lastMessage?: {
+    content: string;
+    senderId: string;
+    createdAt: string;
+  };
 }
 export interface ChatStore {
   chatRooms: StoreChatRoom[];

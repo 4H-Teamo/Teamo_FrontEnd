@@ -12,14 +12,9 @@ import { transformMessage } from "@/app/utils/formatChat";
 interface ChatRoomModalProps {
   roomId: string;
   onClose: () => void;
-  updateRoomMessage?: (roomId: string, message: UIMessage) => void;
 }
 
-const ChatRoomModal = ({
-  roomId,
-  onClose,
-  updateRoomMessage,
-}: ChatRoomModalProps) => {
+const ChatRoomModal = ({ roomId, onClose }: ChatRoomModalProps) => {
   const { data: currentUser } = useCurrentUser();
   const { getMessages } = useChatRooms();
   const { sendMessage } = useMessageHandler();
@@ -29,6 +24,15 @@ const ChatRoomModal = ({
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const chatStoreRoom = chatRooms.find((r) => r.roomId === roomId);
+
+  // 디버깅을 위한 로그
+  console.log("🔍 ChatRoomModal 디버깅:", {
+    roomId,
+    serverMessagesCount: messages.length,
+    storeMessagesCount: chatStoreRoom?.messages.length || 0,
+    hasServerMessages: messages.length > 0,
+    hasStoreMessages: (chatStoreRoom?.messages.length || 0) > 0,
+  });
 
   // 상대방 찾기
   const otherParticipant = chatStoreRoom?.participants.find(
@@ -63,12 +67,15 @@ const ChatRoomModal = ({
     scrollToBottom();
   }, [messages]);
 
-  // 채팅방 열 때 메시지 로드
+  // 채팅방 열 때 서버에서 메시지 로드 (우선순위)
   useEffect(() => {
     const loadMessages = async () => {
       try {
+        console.log("📋 서버에서 메시지 로드 시작");
         const messages = await getMessages(roomId);
-        setMessages(messages.map(transformMessage));
+        const transformedMessages = messages.map(transformMessage);
+        setMessages(transformedMessages);
+        console.log("✅ 서버에서 메시지 로드 완료:", transformedMessages);
       } catch (error) {
         console.error("❌ 메시지 로드 실패:", error);
         setMessages([]);
@@ -78,12 +85,21 @@ const ChatRoomModal = ({
     loadMessages();
   }, [roomId, getMessages]);
 
-  // 스토어 메시지와 동기화
+  // 실시간 메시지 수신 시에만 스토어 메시지 추가 (낙관적 업데이트용)
   useEffect(() => {
-    if (chatStoreRoom?.messages) {
-      setMessages(chatStoreRoom.messages);
+    if (chatStoreRoom?.messages && chatStoreRoom.messages.length > 0) {
+      // 스토어에 있는 새 메시지만 추가 (낙관적 업데이트)
+      const newMessages = chatStoreRoom.messages.filter(
+        (storeMsg) =>
+          !messages.some((serverMsg) => serverMsg.id === storeMsg.id)
+      );
+
+      if (newMessages.length > 0) {
+        setMessages((prev) => [...prev, ...newMessages]);
+        console.log("📋 새 메시지 추가:", newMessages);
+      }
     }
-  }, [chatStoreRoom?.messages]);
+  }, [chatStoreRoom?.messages, messages]);
 
   // 메시지 전송
   const handleSendMessage = () => {
@@ -108,10 +124,7 @@ const ChatRoomModal = ({
     };
     addMessage(roomId, tempMessage, true);
 
-    // 채팅방 목록의 마지막 메시지 업데이트
-    if (updateRoomMessage) {
-      updateRoomMessage(roomId, tempMessage);
-    }
+    // 채팅방 목록의 마지막 메시지는 실시간으로 업데이트됨
 
     // 입력 필드만 초기화 (메시지는 백엔드에서 받을 때 추가)
     setNewMessage("");

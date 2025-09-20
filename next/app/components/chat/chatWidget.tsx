@@ -11,14 +11,8 @@ import { useChatStore } from "@/app/store/chatStore";
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedRoomId, setSelectedRoomId] = useState<string | null>(null);
-  const {
-    rooms,
-    isLoading,
-    error,
-    fetchChatRooms,
-    updateRoomMessage,
-    clearUnreadCount,
-  } = useChatRooms();
+  const { rooms, isLoading, error, fetchChatRooms, clearUnreadCount } =
+    useChatRooms();
 
   // Zustand Store에서 활성 채팅방 관리
   const { setActiveRoomId } = useChatStore();
@@ -47,13 +41,6 @@ const ChatWidget = () => {
     fetchChatRooms();
   };
 
-  const handleDebugConnection = () => {
-    console.log("🔧 디버깅 시작...");
-    console.log("📋 현재 채팅방 목록:", rooms);
-    console.log("📋 로딩 상태:", isLoading);
-    console.log("📋 에러 상태:", error);
-  };
-
   return (
     <>
       <button
@@ -71,18 +58,11 @@ const ChatWidget = () => {
         <>
           <div onClick={handleCloseModal} />
           <div className="fixed bottom-20 left-8 w-80 h-[30rem] bg-white rounded-lg shadow-md border border-gray-200 z-50 flex flex-col">
-            {/* 헤더 */}
             <div className="p-4 border-b border-gray-200 flex justify-between items-center">
               <div>
                 <h3 className="font-semibold text-gray-900">채팅</h3>
               </div>
               <div className="flex items-center gap-2">
-                <button
-                  onClick={handleDebugConnection}
-                  className="text-xs bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
-                >
-                  🔧 디버그
-                </button>
                 <button
                   onClick={handleCloseModal}
                   className="text-gray-400 hover:text-gray-600"
@@ -126,11 +106,7 @@ const ChatWidget = () => {
 
       {/* 개별 채팅방 모달 */}
       {selectedRoomId && (
-        <ChatRoomModal
-          roomId={selectedRoomId}
-          onClose={handleCloseModal}
-          updateRoomMessage={updateRoomMessage}
-        />
+        <ChatRoomModal roomId={selectedRoomId} onClose={handleCloseModal} />
       )}
     </>
   );
