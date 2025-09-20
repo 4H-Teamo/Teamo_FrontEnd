@@ -1,11 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL!; // 기존 환경변수 사용
+// 내부 통신 주소 우선 → 환경변수 없으면 도커 서비스명 폴백
+const BACKEND_URL =
+  process.env.BACKEND_INTERNAL_URL ||
+  process.env.NEXT_PUBLIC_BACKEND_INTERNAL_URL ||
+  process.env.BACKEND_URL ||
+  process.env.NEXT_PUBLIC_BACKEND_URL ||
+  process.env.NEXT_PUBLIC_API_BASE_URL ||
+  "http://teamo_backend:4000";
 const ACCESS_COOKIE_NAME = "accessToken"; // 기존 쿠키명과 일치
 const NEW_TOKEN_HEADER = "x-new-access-token"; // 백엔드가 새 토큰을 넣어주는 헤더 이름
 
 function cookieOptions() {
-  const isProd = process.env.NODE_ENV === "development";
+  const isProd = process.env.NODE_ENV !== "development";
   return {
     httpOnly: false, // accessToken은 JS에서 읽을 수 있게
     sameSite: "lax" as const,
@@ -20,6 +27,8 @@ async function proxy(req: NextRequest) {
     const { pathname, search } = new URL(req.url);
     const targetPath = pathname.replace(/^\/api\/proxy/, "");
     const targetUrl = `${BACKEND_URL}${targetPath}${search ?? ""}`;
+
+    console.log("프록시 BACKEND_URL:", BACKEND_URL);
 
     // URL 유효성 검증
     if (!targetUrl || targetUrl === BACKEND_URL) {
