@@ -15,7 +15,7 @@ interface ChatRoomProps {
   roomId: string;
 }
 
-export default function ChatRoom({ roomId }: ChatRoomProps) {
+const ChatRoom = ({ roomId }: ChatRoomProps) => {
   const { accessToken } = useAccessToken();
   const { data: currentUser } = useCurrentUser();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -135,4 +135,6 @@ export default function ChatRoom({ roomId }: ChatRoomProps) {
       </div>
     </div>
   );
-}
+};
+
+export default ChatRoom;

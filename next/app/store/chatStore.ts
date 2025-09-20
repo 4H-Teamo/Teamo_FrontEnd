@@ -1,36 +1,33 @@
 import { create } from "zustand";
-export interface Message {
-  id: string;
-  content: string;
-  senderUserId: string;
-  timestamp: string;
-}
+import { UIMessage } from "@/app/types/chat";
 
-export interface ChatRoom {
+// UI에서 사용하는 채팅방 타입 (스토어용)
+export interface StoreChatRoom {
   roomId: string;
   participants: string[];
-  messages: Message[];
+  messages: UIMessage[];
   unreadCount: number;
 }
 export interface ChatStore {
-  chatRooms: ChatRoom[];
+  chatRooms: StoreChatRoom[];
   currentRoomId: string | null;
-  setChatRooms: (chatRooms: ChatRoom[]) => void;
-  addMessage: (roomId: string, message: Message, isActive: boolean) => void;
-  addRoom: (room: ChatRoom) => void;
+  activeRoomId: string | null;
+  setChatRooms: (chatRooms: StoreChatRoom[]) => void;
+  addMessage: (roomId: string, message: UIMessage, isActive: boolean) => void;
+  addRoom: (room: StoreChatRoom) => void;
   setCurrentRoom: (roomId: string) => void;
+  setActiveRoomId: (roomId: string | null) => void;
   resetUnread: (roomId: string) => void;
-}
-export interface ChatStore {
-  chatRooms: ChatRoom[];
-  setChatRooms: (chatRooms: ChatRoom[]) => void;
 }
 
 export const useChatStore = create<ChatStore>((set) => ({
   chatRooms: [],
   currentRoomId: null,
+  activeRoomId: null,
 
   setChatRooms: (chatRooms) => set({ chatRooms }),
+
+  setActiveRoomId: (roomId) => set({ activeRoomId: roomId }),
 
   setCurrentRoom: (roomId) =>
     set((state) => ({

@@ -11,11 +11,16 @@ import { useAuthSync } from "@/app/hooks/useAuthSync";
 import Avatar from "@/app/components/avatar/avatar";
 import UserInfoForm from "@/app/mypage/userInfoForm";
 import Header from "./header";
-import { useUpdateUserProfile } from "../hooks/useUserProfile";
+import {
+  useUpdateUserProfile,
+  useDeleteUserProfile,
+} from "../hooks/useUserProfile";
+import Button from "../components/button/button";
 
 const Mypage = () => {
   const { data: userData, isLoading } = useUser();
   const updateUserProfile = useUpdateUserProfile();
+  const deleteUserProfile = useDeleteUserProfile();
   const router = useRouter();
   const { isAuthenticated, checkAuthStatus } = useAuthStore();
   const methods = useForm({
@@ -57,6 +62,23 @@ const Mypage = () => {
   useEffect(() => {
     console.log("현재 폼 값:", formValues);
   }, [formValues]);
+
+  // 계정 삭제 핸들러
+  const handleDeleteAccount = async () => {
+    if (
+      window.confirm(
+        "정말로 계정을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다."
+      )
+    ) {
+      try {
+        await deleteUserProfile.mutateAsync();
+        // 삭제 성공 시 홈페이지로 리다이렉트 (토스트는 훅에서 처리)
+        router.push("/");
+      } catch (error) {
+        console.error("계정 삭제 실패:", error);
+      }
+    }
+  };
 
   const onSubmit = methods.handleSubmit(async (data) => {
     try {
@@ -151,6 +173,17 @@ const Mypage = () => {
         <div className="leading-5 text-sm flex flex-col justify-items-center justify-center align-middle font-light text-gray10">
           <Avatar />
           <UserInfoForm />
+          <div className="mt-8 pt-6 border-t border-gray-200">
+            <div className="text-center">
+              <Button
+                onClick={handleDeleteAccount}
+                disabled={deleteUserProfile.isPending}
+                className="button-delete"
+              >
+                계정 삭제
+              </Button>
+            </div>
+          </div>
         </div>
       </form>
     </FormProvider>
