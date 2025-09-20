@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { User } from "@/app/model/type";
 import { toast } from "sonner";
+import { useAuthStore } from "../store/authStore";
 
 const fetcher = async <T>(
   input: RequestInfo,
@@ -79,18 +80,32 @@ export const useUpdateUserProfile = () => {
   });
 };
 
-// 회원정보 삭제
+// 회원정보 삭제 (현재 로그인한 사용자)
 export const useDeleteUserProfile = () => {
   const queryClient = useQueryClient();
+  const { logout } = useAuthStore();
 
   return useMutation({
-    mutationFn: (userId: string) =>
-      fetcher(`/api/proxy/users/${userId}`, { method: "DELETE" }),
+    mutationFn: () => fetcher(`/api/proxy/users`, { method: "DELETE" }),
 
-    onSuccess: (_, userId) => {
-      queryClient.removeQueries({ queryKey: ["user", userId] });
+    onSuccess: () => {
+      queryClient.removeQueries({ queryKey: ["user"] });
+      queryClient.removeQueries({ queryKey: ["currentUser"] });
       queryClient.invalidateQueries({ queryKey: ["users"] });
-      console.log("회원정보 삭제 완료!");
+
+      toast.success("회원정보가 성공적으로 삭제되었습니다!");
+
+      // 로그아웃 처리
+      logout();
+    },
+    onError: (error) => {
+      console.error("회원정보 삭제 실패:", error);
+
+      if (error instanceof Error && error.message.includes("401")) {
+        toast.error("로그인이 만료되었습니다. 다시 로그인해주세요.");
+      } else {
+        toast.error("회원정보 삭제에 실패했습니다. 다시 시도해주세요.");
+      }
     },
   });
 };

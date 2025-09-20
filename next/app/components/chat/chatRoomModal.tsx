@@ -1,23 +1,18 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { useCurrentUser } from "@/app/hooks/useUserProfile";
-// import { useChatRooms } from "@/app/hooks/useChatRooms";
+import { useCurrentUser, useUserProfile } from "@/app/hooks/useUserProfile";
 import { useMessageHandler } from "@/app/socket/messageHandler";
 import { useChatStore } from "@/app/store/chatStore";
 import { initializeSocket } from "@/app/socket/socketManager";
-
-interface Message {
-  id: string;
-  content: string;
-  senderId: string;
-  timestamp: string;
-}
+import { UIMessage } from "@/app/types/chat";
+import { useChatRooms } from "@/app/hooks/useChatRooms";
+import { transformMessage } from "@/app/utils/formatChat";
 
 interface ChatRoomModalProps {
   roomId: string;
   onClose: () => void;
-  updateRoomMessage?: (roomId: string, message: Message) => void;
+  updateRoomMessage?: (roomId: string, message: UIMessage) => void;
 }
 
 const ChatRoomModal = ({
@@ -26,15 +21,27 @@ const ChatRoomModal = ({
   updateRoomMessage,
 }: ChatRoomModalProps) => {
   const { data: currentUser } = useCurrentUser();
-  // const { rooms } = useChatRooms();
+  const { getMessages } = useChatRooms();
   const { sendMessage } = useMessageHandler();
   const { addMessage, chatRooms } = useChatStore();
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<UIMessage[]>([]);
   const [newMessage, setNewMessage] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // const room = rooms.find((r: any) => r.id === roomId);
   const chatStoreRoom = chatRooms.find((r) => r.roomId === roomId);
+
+  // 상대방 찾기
+  const otherParticipant = chatStoreRoom?.participants.find(
+    (id) => id !== currentUser?.userId
+  );
+
+  // 상대방 정보 가져오기
+  const { data: otherUser } = useUserProfile(otherParticipant || "");
+
+  // 상대방 이름 결정
+  const displayName =
+    otherUser?.nickname ||
+    `사용자 ${otherParticipant?.slice(-4) || "알 수 없음"}`;
 
   // 메시지 목록 스크롤을 맨 아래로
   const scrollToBottom = () => {
@@ -56,35 +63,25 @@ const ChatRoomModal = ({
     scrollToBottom();
   }, [messages]);
 
-  // 초기 메시지 로드 및 실시간 메시지 동기화
+  // 채팅방 열 때 메시지 로드
   useEffect(() => {
-    if (chatStoreRoom?.messages && chatStoreRoom.messages.length > 0) {
-      console.log("📨 채팅 스토어에서 메시지 로드:", chatStoreRoom.messages);
-      setMessages(
-        chatStoreRoom.messages.map((msg) => ({
-          id: msg.id,
-          content: msg.content,
-          senderId: msg.senderUserId,
-          timestamp: msg.timestamp,
-        }))
-      );
-    } else {
-      console.log("📨 채팅방에 메시지가 없습니다");
-      setMessages([]);
-    }
-  }, [chatStoreRoom]);
+    const loadMessages = async () => {
+      try {
+        const messages = await getMessages(roomId);
+        setMessages(messages.map(transformMessage));
+      } catch (error) {
+        console.error("❌ 메시지 로드 실패:", error);
+        setMessages([]);
+      }
+    };
 
-  // 채팅 스토어의 메시지 변경 감지
+    loadMessages();
+  }, [roomId, getMessages]);
+
+  // 스토어 메시지와 동기화
   useEffect(() => {
     if (chatStoreRoom?.messages) {
-      setMessages(
-        chatStoreRoom.messages.map((msg) => ({
-          id: msg.id,
-          content: msg.content,
-          senderId: msg.senderUserId,
-          timestamp: msg.timestamp,
-        }))
-      );
+      setMessages(chatStoreRoom.messages);
     }
   }, [chatStoreRoom?.messages]);
 
@@ -92,40 +89,33 @@ const ChatRoomModal = ({
   const handleSendMessage = () => {
     if (!newMessage.trim() || !currentUser?.userId) return;
 
-    const message: Message = {
-      id: Date.now().toString(),
+    console.log("📤 소켓으로 메시지 전송:", {
+      roomId,
       content: newMessage,
       senderId: currentUser.userId,
+    });
+
+    // 소켓으로 메시지 전송 (백엔드 형태에 맞춰)
+    sendMessage(roomId, newMessage, currentUser.userId);
+
+    // 임시 메시지를 스토어에 추가 (낙관적 업데이트)
+    const tempMessage: UIMessage = {
+      id: Date.now().toString(),
+      content: newMessage,
+      senderUserId: currentUser.userId,
       timestamp: new Date().toISOString(),
+      isRead: false,
     };
+    addMessage(roomId, tempMessage, true);
 
-    console.log("📤 소켓으로 메시지 전송:", message);
-
-    // 소켓으로 메시지 전송
-    sendMessage(newMessage, roomId);
-
-    // 로컬 상태에 즉시 추가 (낙관적 업데이트)
-    setMessages((prev) => [...prev, message]);
-    setNewMessage("");
-
-    // 채팅 스토어에 메시지 추가
-    addMessage(
-      roomId,
-      {
-        id: message.id,
-        content: message.content,
-        senderUserId: message.senderId,
-        timestamp: message.timestamp,
-      },
-      true
-    );
-
-    // 채팅방 목록 업데이트
+    // 채팅방 목록의 마지막 메시지 업데이트
     if (updateRoomMessage) {
-      updateRoomMessage(roomId, message);
+      updateRoomMessage(roomId, tempMessage);
     }
-  };
 
+    // 입력 필드만 초기화 (메시지는 백엔드에서 받을 때 추가)
+    setNewMessage("");
+  };
   // Enter 키로 메시지 전송
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -144,7 +134,6 @@ const ChatRoomModal = ({
 
   return (
     <>
-      {/* 배경 오버레이 */}
       <div onClick={onClose} />
 
       {/* 채팅 모달 */}
@@ -152,9 +141,7 @@ const ChatRoomModal = ({
         {/* 헤더 */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
           <div>
-            <h3 className="font-semibold text-gray-900">
-              {chatStoreRoom?.roomId || `채팅방 ${roomId}`}
-            </h3>
+            <h3 className="font-semibold text-gray-900">{displayName}</h3>
             <p className="text-xs text-gray-500">실시간 채팅</p>
           </div>
           <button
@@ -172,14 +159,14 @@ const ChatRoomModal = ({
               <div
                 key={message.id}
                 className={`flex ${
-                  message.senderId === currentUser?.userId
+                  message.senderUserId === currentUser?.userId
                     ? "justify-end"
                     : "justify-start"
                 }`}
               >
                 <div
                   className={`max-w-xs px-3 py-2 rounded-2xl text-sm ${
-                    message.senderId === currentUser?.userId
+                    message.senderUserId === currentUser?.userId
                       ? "bg-blue-500 text-white rounded-br-md"
                       : "bg-gray-100 text-gray-800 rounded-bl-md"
                   }`}
