@@ -43,14 +43,6 @@ export const useAuthSync = () => {
       }
     };
 
-    // 스마트 주기적 확인 (사용자 활동 시에만)
-    const smartPeriodicCheck = () => {
-      if (isActiveRef.current && user) {
-        console.log("사용자 활동 중, 인증 상태 확인");
-        stableCheckAuthStatus();
-      }
-    };
-
     // 쿠키 변경 감지 (Storage Event)
     const handleStorageChange = (e: StorageEvent) => {
       if (e.key === "accessToken" || e.key === null) {
@@ -99,9 +91,6 @@ export const useAuthSync = () => {
     // 비활성 체크 (1분마다)
     const inactivityInterval = setInterval(checkInactivity, 60 * 1000);
 
-    // 스마트 주기적 확인 (10분마다, 사용자 활동 시에만)
-    const smartInterval = setInterval(smartPeriodicCheck, 10 * 60 * 1000);
-
     // 컴포넌트 언마운트 시 정리
     return () => {
       // 이벤트 리스너 제거
@@ -116,7 +105,6 @@ export const useAuthSync = () => {
 
       // 인터벌 정리
       clearInterval(inactivityInterval);
-      clearInterval(smartInterval);
     };
   }, [stableCheckAuthStatus]); // user 제거, stableCheckAuthStatus만 의존
 };

@@ -13,8 +13,8 @@ export const transformChatRoom = (response: ChatRoomResponse): ChatRoom => ({
   updatedAt: response.updatedAt,
   lastMessage: response.lastMessage,
   unreadCount: response.unreadCount,
-  messages: [], // 초기에는 빈 배열
-  avatar: "💬", // 기본 아바타
+  messages: [],
+  avatar: "💬",
   name: `채팅방 ${response.id}`,
   lastMessageTime: response.lastMessage?.createdAt || response.createdAt, // 마지막 메시지 시간
 });

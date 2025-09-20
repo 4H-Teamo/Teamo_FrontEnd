@@ -92,19 +92,20 @@ export const useChatRooms = () => {
   // transformChatRoom 재사용해서 rooms 생성
   const rooms: ChatRoom[] = chatRooms.map((room) => {
     const lastMessage = room.messages.at(-1);
+    const finalLastMessage = lastMessage
+      ? {
+          content: lastMessage.content,
+          senderId: lastMessage.senderUserId,
+          createdAt: lastMessage.timestamp,
+        }
+      : room.lastMessage;
 
     return transformChatRoom({
       id: room.roomId,
       participants: room.participants,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
-      lastMessage: lastMessage
-        ? {
-            content: lastMessage.content,
-            senderId: lastMessage.senderUserId,
-            createdAt: lastMessage.timestamp,
-          }
-        : undefined,
+      lastMessage: finalLastMessage,
       unreadCount: room.unreadCount,
     });
   });
@@ -116,7 +117,6 @@ export const useChatRooms = () => {
     fetchChatRooms,
     getMessages,
     createChatRoom,
-    updateRoomMessage: () => {}, // TODO: 구현 필요
     clearUnreadCount: (roomId: string) => {
       const { resetUnread } = useChatStore.getState();
       resetUnread(roomId);
