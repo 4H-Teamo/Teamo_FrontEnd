@@ -27,3 +27,22 @@ export const transformMessage = (message: Message): UIMessage => ({
   timestamp: message.createdAt,
   isRead: message.isRead,
 });
+
+// 상대방 찾기 (공통 유틸 함수)
+export const findOtherParticipant = (
+  participants: string[],
+  currentUserId?: string
+): string | undefined => {
+  return participants.find((id) => id !== currentUserId);
+};
+
+// 상대방 이름 생성 (공통 유틸 함수)
+export const generateDisplayName = (
+  otherUser?: { nickname?: string },
+  otherParticipant?: string
+): string => {
+  return (
+    otherUser?.nickname ||
+    `사용자 ${otherParticipant?.slice(-4) || "알 수 없음"}`
+  );
+};

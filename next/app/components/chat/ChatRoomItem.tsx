@@ -3,6 +3,10 @@
 import { useCurrentUser, useUserProfile } from "@/app/hooks/useUserProfile";
 import { ChatRoom } from "@/app/types/chat";
 import { formatTime } from "@/app/utils/formatTime";
+import {
+  findOtherParticipant,
+  generateDisplayName,
+} from "@/app/utils/formatChat";
 
 interface ChatRoomItemProps {
   room: ChatRoom;
@@ -11,19 +15,14 @@ interface ChatRoomItemProps {
 
 const ChatRoomItem = ({ room, onClick }: ChatRoomItemProps) => {
   const { data: currentUser } = useCurrentUser();
-
-  // 상대방 찾기
-  const otherParticipant = room.participants.find(
-    (id) => id !== currentUser?.userId
+  const otherParticipant = findOtherParticipant(
+    room.participants,
+    currentUser?.userId
   );
-
-  // 상대방 정보 가져오기
   const { data: otherUser } = useUserProfile(otherParticipant || "");
 
   // 상대방 이름 결정
-  const displayName =
-    otherUser?.nickname ||
-    `사용자 ${otherParticipant?.slice(-4) || "알 수 없음"}`;
+  const displayName = generateDisplayName(otherUser, otherParticipant);
 
   return (
     <div
