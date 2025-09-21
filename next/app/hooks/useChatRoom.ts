@@ -58,7 +58,12 @@ export const useChatRoom = (roomId: string) => {
         console.log("📋 서버에서 메시지 로드 시작");
         const messages = await getMessages(roomId);
         const transformedMessages = messages.map(transformMessage);
-        setMessages(transformedMessages);
+
+        // 서버 메시지를 스토어에 추가
+        transformedMessages.forEach((message) => {
+          addMessage(roomId, message, true);
+        });
+
         console.log("✅ 서버에서 메시지 로드 완료:", transformedMessages);
         scrollToBottom();
       } catch (error) {
@@ -74,17 +79,13 @@ export const useChatRoom = (roomId: string) => {
   useEffect(() => {
     if (!chatStoreRoom?.messages?.length) return;
 
-    const newMessages = chatStoreRoom.messages.filter(
-      (storeMsg) => !messages.some((serverMsg) => serverMsg.id === storeMsg.id)
-    );
+    // 스토어의 메시지를 로컬 상태와 동기화
+    setMessages(chatStoreRoom.messages);
+    console.log("📋 메시지 동기화:", chatStoreRoom.messages);
 
-    if (newMessages.length > 0) {
-      setMessages((prev) => [...prev, ...newMessages]);
-      console.log("📋 새 메시지 추가:", newMessages);
-      // 새 메시지 추가 후 스크롤을 맨 아래로
-      setTimeout(() => scrollToBottom(), 100);
-    }
-  }, [chatStoreRoom?.messages, messages]);
+    // 메시지 동기화 후 스크롤을 맨 아래로
+    setTimeout(() => scrollToBottom(), 100);
+  }, [chatStoreRoom?.messages]);
 
   // 메시지 전송
   const handleSendMessage = () => {
@@ -96,24 +97,11 @@ export const useChatRoom = (roomId: string) => {
       senderId: currentUser.userId,
     });
 
-    // 소켓으로 메시지 전송 (백엔드 형태에 맞춰)
+    // 소켓으로 메시지 전송 (백엔드에서 받을 때 UI에 표시)
     sendMessage(roomId, newMessage, currentUser.userId);
 
-    // 임시 메시지를 스토어에 추가 (낙관적 업데이트)
-    const tempMessage: UIMessage = {
-      id: Date.now().toString(),
-      content: newMessage,
-      senderUserId: currentUser.userId,
-      timestamp: new Date().toISOString(),
-      isRead: false,
-    };
-    addMessage(roomId, tempMessage, true);
-
-    // 입력 필드만 초기화 (메시지는 백엔드에서 받을 때 추가)
+    // 입력 필드만 초기화
     setNewMessage("");
-
-    // 메시지 전송 후 스크롤을 맨 아래로
-    setTimeout(() => scrollToBottom(), 100);
   };
 
   // Enter 키로 메시지 전송
