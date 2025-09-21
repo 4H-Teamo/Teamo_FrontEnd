@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import ChatAvatar from "@/app/assets/chatAvatar.svg";
-import { useChatRooms } from "@/app/hooks/useChatRooms";
+import { useChat } from "@/app/hooks/useChat";
 import ChatRoomModal from "./chatRoomModal";
 import ChatRoomItem from "./ChatRoomItem";
 import { useChatStore } from "@/app/store/chatStore";
@@ -12,7 +12,7 @@ const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedRoomId, setSelectedRoomId] = useState<string | null>(null);
   const { rooms, isLoading, error, fetchChatRooms, clearUnreadCount } =
-    useChatRooms();
+    useChat();
 
   // Zustand Store에서 활성 채팅방 관리
   const { setActiveRoomId } = useChatStore();

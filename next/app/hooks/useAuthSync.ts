@@ -4,23 +4,20 @@ import { useAuthStore } from "@/app/store/authStore";
 
 // 쿠키 변경을 감지하여 인증 상태를 자동으로 동기화하는 훅
 export const useAuthSync = () => {
-  const { checkAuthStatus, user } = useAuthStore();
+  const { checkAuthStatus } = useAuthStore();
   const lastActivityRef = useRef<number>(Date.now());
   const isActiveRef = useRef<boolean>(true);
   const isInitializedRef = useRef<boolean>(false);
 
   // checkAuthStatus를 useCallback으로 감싸서 안정화
   const stableCheckAuthStatus = useCallback(() => {
-    if (!isInitializedRef.current) {
-      isInitializedRef.current = true;
-      return;
-    }
     checkAuthStatus();
   }, [checkAuthStatus]);
 
   useEffect(() => {
     // 초기 인증 상태 확인 (한 번만)
     if (!isInitializedRef.current) {
+      console.log("초기 인증 상태 확인 시작");
       checkAuthStatus();
       isInitializedRef.current = true;
     }
