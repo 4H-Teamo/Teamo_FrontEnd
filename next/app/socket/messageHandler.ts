@@ -62,7 +62,7 @@ export const useMessageHandler = () => {
     return () => {
       socket.off("receiveMessage", handleReceiveMessage);
     };
-  }, [user, addMessage, activeRoomId]);
+  }, [user?.userId, activeRoomId]); // addMessage는 Zustand 스토어 함수이므로 의존성에서 제외
 
   const sendMessage = (roomId: string, content: string, senderId: string) => {
     const socket = getSocket();
@@ -81,17 +81,22 @@ export const useMessageHandler = () => {
       console.log("📤 소켓으로 메시지 전송:", payload);
       socket.emit("sendMessage", payload);
       console.log("✅ 메시지 전송 완료 (소켓)");
-    } else {
-      console.error("❌ 소켓 연결 없음 또는 빈 메시지");
     }
   };
-
   const joinRoom = (roomId: string) => {
     const socket = getSocket();
-    if (socket) {
-      console.log("🏠 채팅방 참여:", roomId);
-      socket.emit("joinRoom", { roomId });
+    if (!socket) {
+      console.error("❌ 소켓이 없어서 채팅방 참여 실패");
+      return;
     }
+
+    if (!socket.connected) {
+      console.error("❌ 소켓이 연결되지 않아서 채팅방 참여 실패");
+      return;
+    }
+
+    console.log("🏠 채팅방 참여:", roomId);
+    socket.emit("joinRoom", { roomId });
   };
 
   // REST API로 채팅방 생성

@@ -47,7 +47,8 @@ export const useChatRoom = (roomId: string) => {
       console.log("🔌 채팅 모달 열림 - 소켓 초기화 시작");
       const socket = initializeSocket();
       if (socket) {
-        console.log("✅ 소켓 초기화 완료");
+        console.log("🏠 채팅방 참여:", roomId);
+        socket.emit("joinRoom", { roomId });
       } else {
         console.log("❌ 소켓 초기화 실패 (SSR 환경)");
       }
@@ -84,13 +85,6 @@ export const useChatRoom = (roomId: string) => {
       setTimeout(() => scrollToBottom(), 100);
     }
   }, [chatStoreRoom?.messages, messages]);
-
-  // 메시지가 변경될 때마다 스크롤을 맨 아래로
-  useEffect(() => {
-    if (messages.length > 0) {
-      setTimeout(() => scrollToBottom(), 100);
-    }
-  }, [messages]);
 
   // 메시지 전송
   const handleSendMessage = () => {
