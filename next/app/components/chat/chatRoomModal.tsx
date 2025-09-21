@@ -2,6 +2,8 @@
 
 import { useChatRoom } from "@/app/hooks/useChatRoom";
 import { formatTime } from "@/app/utils/formatTime";
+import { useEffect } from "react";
+
 interface ChatRoomModalProps {
   roomId: string;
   onClose: () => void;
@@ -18,6 +20,15 @@ const ChatRoomModal = ({ roomId, onClose }: ChatRoomModalProps) => {
     handleSendMessage,
     handleKeyPress,
   } = useChatRoom(roomId);
+
+  // 채팅방 모달이 열릴 때 스크롤을 맨 아래로
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      setTimeout(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    }
+  }, [roomId]);
 
   return (
     <>
@@ -53,7 +64,7 @@ const ChatRoomModal = ({ roomId, onClose }: ChatRoomModalProps) => {
                       : "bg-gray-100 text-black rounded-bl-md"
                   }`}
                 >
-                  <p className="text-sm">{message.content}</p>
+                  <p className="text-base">{message.content}</p>
                   <p className="text-xs opacity-70 mt-1">
                     {formatTime(message.timestamp)}
                   </p>
@@ -78,7 +89,7 @@ const ChatRoomModal = ({ roomId, onClose }: ChatRoomModalProps) => {
             <button
               onClick={handleSendMessage}
               disabled={!newMessage.trim()}
-              className="px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-4 py-2 bg-main text-white rounded-full hover:bg-blue-600 transition-colors text-sm disabled:opacity-50 disabled:cursor-not-allowed"
             >
               전송
             </button>
