@@ -22,7 +22,6 @@ const ChatRoomModal = ({ roomId, onClose }: ChatRoomModalProps) => {
   return (
     <>
       <div onClick={onClose} />
-
       <div className="fixed bottom-20 left-8  w-80 h-[30rem] bg-white rounded-lg shadow-xl border border-gray-200 z-50 flex flex-col">
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
           <div>

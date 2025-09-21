@@ -16,7 +16,7 @@ export const transformChatRoom = (response: ChatRoomResponse): ChatRoom => ({
   messages: [],
   avatar: "💬",
   name: `채팅방 ${response.id}`,
-  lastMessageTime: response.lastMessage?.createdAt || response.createdAt, // 마지막 메시지 시간
+  lastMessageTime: response.lastMessage?.createdAt || response.createdAt,
 });
 
 // 백엔드-> 프론트로 변환
@@ -28,7 +28,7 @@ export const transformMessage = (message: Message): UIMessage => ({
   isRead: message.isRead,
 });
 
-// 상대방 찾기 (공통 유틸 함수)
+// 상대방 찾기
 export const findOtherParticipant = (
   participants: string[],
   currentUserId?: string
@@ -36,7 +36,7 @@ export const findOtherParticipant = (
   return participants.find((id) => id !== currentUserId);
 };
 
-// 상대방 이름 생성 (공통 유틸 함수)
+// 상대방 이름 생성
 export const generateDisplayName = (
   otherUser?: { nickname?: string },
   otherParticipant?: string

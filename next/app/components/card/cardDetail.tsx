@@ -73,17 +73,14 @@ const CardDetail = ({ type, data }: CardLayoutProps) => {
       <div className="flex-1">
         <CardField board={type} data={data} />
       </div>
-      {type === "teammate" ? (
-        <div className="flex justify-end items-end mt-8">
-          <div className="text-right text-gray-600 max-w-xs">
-            <Button className="button-common" onClick={handleStartChat}>
-              {isCreating ? "채팅방 생성 중..." : "채팅하기"}
-            </Button>
-          </div>
+
+      <div className="flex justify-end items-end mt-8">
+        <div className="text-right text-gray-600 max-w-xs">
+          <Button className="button-common" onClick={handleStartChat}>
+            {isCreating ? "채팅방 생성 중..." : "채팅하기"}
+          </Button>
         </div>
-      ) : (
-        <div className="mt-8"></div>
-      )}
+      </div>
     </div>
   );
 };
