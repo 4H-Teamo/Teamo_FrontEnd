@@ -80,8 +80,17 @@ export const useChatRoom = (roomId: string) => {
     if (newMessages.length > 0) {
       setMessages((prev) => [...prev, ...newMessages]);
       console.log("📋 새 메시지 추가:", newMessages);
+      // 새 메시지 추가 후 스크롤을 맨 아래로
+      setTimeout(() => scrollToBottom(), 100);
     }
   }, [chatStoreRoom?.messages, messages]);
+
+  // 메시지가 변경될 때마다 스크롤을 맨 아래로
+  useEffect(() => {
+    if (messages.length > 0) {
+      setTimeout(() => scrollToBottom(), 100);
+    }
+  }, [messages]);
 
   // 메시지 전송
   const handleSendMessage = () => {
@@ -108,6 +117,9 @@ export const useChatRoom = (roomId: string) => {
 
     // 입력 필드만 초기화 (메시지는 백엔드에서 받을 때 추가)
     setNewMessage("");
+
+    // 메시지 전송 후 스크롤을 맨 아래로
+    setTimeout(() => scrollToBottom(), 100);
   };
 
   // Enter 키로 메시지 전송
