@@ -8,7 +8,6 @@ let socket: Socket | null = null;
 
 export const initializeSocket = (): Socket | null => {
   if (typeof window === "undefined") {
-    // SSR 환경에서는 null 반환
     return null;
   }
 
@@ -17,7 +16,7 @@ export const initializeSocket = (): Socket | null => {
   }
 
   socket = io("http://211.230.62.32:81/chat", {
-    path: "/api/socket.io", // 중요
+    path: "/api/socket.io",
     withCredentials: true,
     autoConnect: true,
     reconnection: true,

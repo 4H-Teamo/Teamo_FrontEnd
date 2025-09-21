@@ -20,8 +20,6 @@ const ChatRoomItem = ({ room, onClick }: ChatRoomItemProps) => {
     currentUser?.userId
   );
   const { data: otherUser } = useUserProfile(otherParticipant || "");
-
-  // 상대방 이름 결정
   const displayName = generateDisplayName(otherUser, otherParticipant);
 
   return (
