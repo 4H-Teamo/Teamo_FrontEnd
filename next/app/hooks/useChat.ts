@@ -4,11 +4,8 @@ import { useState, useCallback } from "react";
 import { useChatStore, StoreChatRoom } from "@/app/store/chatStore";
 import { ChatRoom, ChatRoomResponse, Message } from "@/app/types/chat";
 import { transformChatRoom } from "@/app/utils/formatChat";
-import { useMessageHandler } from "@/app/socket/messageHandler";
-
 export const useChat = () => {
   const { chatRooms, setChatRooms, addRoom } = useChatStore();
-  const { createRoom } = useMessageHandler();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [hasFetched, setHasFetched] = useState(false);
@@ -90,7 +87,6 @@ export const useChat = () => {
         unreadCount: 0,
       };
       addRoom(newRoom);
-      createRoom(targetUserId);
 
       return {
         id: roomData.id,
