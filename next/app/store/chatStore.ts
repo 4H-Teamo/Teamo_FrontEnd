@@ -50,15 +50,26 @@ export const useChatStore = create<ChatStore>((set) => ({
         isActive,
       });
 
-      const updatedRooms = state.chatRooms.map((room) =>
-        room.roomId === roomId
-          ? {
-              ...room,
-              messages: [...room.messages, message],
-              unreadCount: isActive ? 0 : room.unreadCount + 1,
-            }
-          : room
-      );
+      const updatedRooms = state.chatRooms.map((room) => {
+        if (room.roomId === roomId) {
+          // 중복 메시지 체크
+          const messageExists = room.messages.some(
+            (existingMessage) => existingMessage.id === message.id
+          );
+
+          if (messageExists) {
+            console.log("⚠️ 중복 메시지 감지, 추가하지 않음:", message.id);
+            return room;
+          }
+
+          return {
+            ...room,
+            messages: [...room.messages, message],
+            unreadCount: isActive ? 0 : room.unreadCount + 1,
+          };
+        }
+        return room;
+      });
 
       console.log("✅ 채팅 스토어 업데이트 완료:", updatedRooms);
       return { chatRooms: updatedRooms };

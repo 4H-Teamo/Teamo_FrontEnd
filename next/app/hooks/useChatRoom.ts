@@ -2,9 +2,8 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useCurrentUser, useUserProfile } from "@/app/hooks/useUserProfile";
-import { useMessageHandler } from "@/app/socket/messageHandler";
 import { useChatStore } from "@/app/store/chatStore";
-import { initializeSocket } from "@/app/socket/socketManager";
+import { initializeSocket, getSocket } from "@/app/socket/socketManager";
 import { UIMessage } from "@/app/types/chat";
 import { useChat } from "@/app/hooks/useChat";
 import {
@@ -16,8 +15,7 @@ import {
 export const useChatRoom = (roomId: string) => {
   const { data: currentUser } = useCurrentUser();
   const { getMessages } = useChat();
-  const { sendMessage } = useMessageHandler();
-  const { addMessage, chatRooms } = useChatStore();
+  const { chatRooms } = useChatStore();
   const [messages, setMessages] = useState<UIMessage[]>([]);
   const [newMessage, setNewMessage] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -58,8 +56,6 @@ export const useChatRoom = (roomId: string) => {
         console.log("📋 서버에서 메시지 로드 시작");
         const messages = await getMessages(roomId);
         const transformedMessages = messages.map(transformMessage);
-
-        // 서버 메시지를 직접 UI에 표시 (스토어에 추가하지 않음)
         setMessages(transformedMessages);
 
         console.log("✅ 서버에서 메시지 로드 완료:", transformedMessages);
@@ -83,17 +79,39 @@ export const useChatRoom = (roomId: string) => {
     );
 
     if (newMessages.length > 0) {
-      setMessages((prev) => [...prev, ...newMessages]);
-      console.log("📋 새 메시지 추가:", newMessages);
+      setMessages((prev) => {
+        // 추가 중복 체크
+        const uniqueNewMessages = newMessages.filter(
+          (newMsg) => !prev.some((existingMsg) => existingMsg.id === newMsg.id)
+        );
+
+        if (uniqueNewMessages.length > 0) {
+          console.log("📋 새 메시지 추가:", uniqueNewMessages);
+          return [...prev, ...uniqueNewMessages];
+        }
+
+        return prev;
+      });
 
       // 새 메시지 추가 후 스크롤을 맨 아래로
       setTimeout(() => scrollToBottom(), 100);
     }
-  }, [chatStoreRoom?.messages, messages]);
+  }, [chatStoreRoom?.messages]); // messages 의존성 제거하여 무한 루프 방지
 
   // 메시지 전송
   const handleSendMessage = () => {
     if (!newMessage.trim() || !currentUser?.userId) return;
+
+    const socket = getSocket();
+    if (!socket) {
+      console.error("❌ 소켓이 없습니다");
+      return;
+    }
+
+    if (!socket.connected) {
+      console.error("❌ 소켓이 연결되지 않았습니다");
+      return;
+    }
 
     console.log("📤 소켓으로 메시지 전송:", {
       roomId,
@@ -101,7 +119,13 @@ export const useChatRoom = (roomId: string) => {
       senderId: currentUser.userId,
     });
 
-    sendMessage(roomId, newMessage, currentUser.userId);
+    const payload = {
+      roomId,
+      content: newMessage,
+      senderId: currentUser.userId,
+    };
+
+    socket.emit("sendMessage", payload);
     setNewMessage("");
   };
 
