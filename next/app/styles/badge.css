@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 @layer components {
-    .badge-common {
-        @apply w-full h-10  flex items-center justify-center rounded-full border text-sm cursor-pointer transition;
-    }
+  .badge-common {
+    @apply h-10 flex items-center justify-center rounded-full border text-sm cursor-pointer transition px-3 py-2;
+  }
 
-    .badge-active {
-        @apply bg-main border text-white border-main;
-    }
+  .badge-active {
+    @apply bg-main border text-white border-main;
+  }
 
-    .badge-inactive {
-        @apply bg-white border text-black border-main;
-    }
+  .badge-inactive {
+    @apply bg-white border text-black border-main;
+  }
 }
