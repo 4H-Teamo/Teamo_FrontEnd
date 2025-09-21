@@ -53,7 +53,7 @@ const ChatRoomModal = ({ roomId, onClose }: ChatRoomModalProps) => {
                       : "bg-gray-100 text-black rounded-bl-md"
                   }`}
                 >
-                  <p>{message.content}</p>
+                  <p className="text-sm">{message.content}</p>
                   <p className="text-xs opacity-70 mt-1">
                     {formatTime(message.timestamp)}
                   </p>
