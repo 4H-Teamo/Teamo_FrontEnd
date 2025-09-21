@@ -59,10 +59,8 @@ export const useChatRoom = (roomId: string) => {
         const messages = await getMessages(roomId);
         const transformedMessages = messages.map(transformMessage);
 
-        // 서버 메시지를 스토어에 추가
-        transformedMessages.forEach((message) => {
-          addMessage(roomId, message, true);
-        });
+        // 서버 메시지를 직접 UI에 표시 (스토어에 추가하지 않음)
+        setMessages(transformedMessages);
 
         console.log("✅ 서버에서 메시지 로드 완료:", transformedMessages);
         scrollToBottom();
@@ -79,13 +77,19 @@ export const useChatRoom = (roomId: string) => {
   useEffect(() => {
     if (!chatStoreRoom?.messages?.length) return;
 
-    // 스토어의 메시지를 로컬 상태와 동기화
-    setMessages(chatStoreRoom.messages);
-    console.log("📋 메시지 동기화:", chatStoreRoom.messages);
+    // 스토어의 새 메시지만 필터링하여 추가
+    const newMessages = chatStoreRoom.messages.filter(
+      (storeMsg) => !messages.some((localMsg) => localMsg.id === storeMsg.id)
+    );
 
-    // 메시지 동기화 후 스크롤을 맨 아래로
-    setTimeout(() => scrollToBottom(), 100);
-  }, [chatStoreRoom?.messages]);
+    if (newMessages.length > 0) {
+      setMessages((prev) => [...prev, ...newMessages]);
+      console.log("📋 새 메시지 추가:", newMessages);
+
+      // 새 메시지 추가 후 스크롤을 맨 아래로
+      setTimeout(() => scrollToBottom(), 100);
+    }
+  }, [chatStoreRoom?.messages, messages]);
 
   // 메시지 전송
   const handleSendMessage = () => {
@@ -97,10 +101,7 @@ export const useChatRoom = (roomId: string) => {
       senderId: currentUser.userId,
     });
 
-    // 소켓으로 메시지 전송 (백엔드에서 받을 때 UI에 표시)
     sendMessage(roomId, newMessage, currentUser.userId);
-
-    // 입력 필드만 초기화
     setNewMessage("");
   };
 
