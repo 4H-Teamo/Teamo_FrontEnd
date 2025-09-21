@@ -26,7 +26,10 @@ const CardDetail = ({ type, data }: CardLayoutProps) => {
       return;
     }
 
-    const targetUserId = (data as User).userId;
+    // type에 따라 올바른 userId 추출
+    const targetUserId =
+      type === "teammate" ? (data as User).userId : (data as Post).userId;
+
     if (!targetUserId) {
       alert("사용자 정보를 찾을 수 없습니다.");
       return;
@@ -73,7 +76,6 @@ const CardDetail = ({ type, data }: CardLayoutProps) => {
       <div className="flex-1">
         <CardField board={type} data={data} />
       </div>
-
       <div className="flex justify-end items-end mt-8">
         <div className="text-right text-gray-600 max-w-xs">
           <Button className="button-common" onClick={handleStartChat}>
