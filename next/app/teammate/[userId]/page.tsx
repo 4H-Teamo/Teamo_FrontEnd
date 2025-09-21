@@ -4,6 +4,7 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import TeammateDetailClient from "./teammateDetailClient";
+import { API_BASE } from "@/app/constants/url";
 
 interface TeammateDetailPageProps {
   params: Promise<{ userId: string }>;
@@ -18,13 +19,10 @@ export default async function TeammateDetailPage({
   await queryClient.prefetchQuery({
     queryKey: ["teammate", userId],
     queryFn: async () => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/proxy/users/${userId}`,
-        {
-          credentials: "include",
-          cache: "no-store",
-        }
-      );
+      const res = await fetch(`${API_BASE}/users/${userId}`, {
+        credentials: "include",
+        cache: "no-store",
+      });
       return res.json();
     },
   });

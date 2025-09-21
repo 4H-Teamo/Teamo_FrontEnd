@@ -1,8 +1,8 @@
 export const kakaoAuth = async (code: string) => {
-    const apiUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/kakao?code=${code}`;
+    const apiUrl = `/api/proxy/auth/kakao?code=${code}`;
     const res = await fetch(apiUrl,{
         method:"GET",
-        mode:"cors",
+        credentials: "include",
         headers:{
             "Content-Type":"application/json",
         },

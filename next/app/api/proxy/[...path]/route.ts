@@ -41,8 +41,8 @@ async function proxy(req: NextRequest) {
     const accessToken = req.cookies.get(ACCESS_COOKIE_NAME)?.value;
     const headers = new Headers(req.headers);
 
-    // 원본 요청의 쿠키/호스트 등은 백엔드에 넘길 필요 X
-    headers.delete("cookie");
+    // 쿠키는 그대로 전달(리프레시 토큰 흐름 유지), host 만 제거
+    headers.delete("host");
     headers.set("authorization", accessToken ? `Bearer ${accessToken}` : "");
 
     // 토큰 전송 상태 로깅
@@ -117,8 +117,11 @@ async function proxy(req: NextRequest) {
     }
 
     // 백엔드가 새 액세스를 응답 헤더로 내려줬다면, 여기서 쿠키로 덮어쓰기
-    const newAccess = backendRes.headers.get(NEW_TOKEN_HEADER);
-    console.log("x-new-access-token 헤더:", newAccess);
+    const newAccessHeader = backendRes.headers.get(NEW_TOKEN_HEADER);
+    const authorizationHeader = backendRes.headers.get("authorization");
+    const bearerMatch = authorizationHeader?.match(/^Bearer\s+(.+)$/i);
+    const newAccess = newAccessHeader ?? bearerMatch?.[1] ?? null;
+    console.log("새 액세스 토큰 수신:", !!newAccess);
 
     // 백엔드 응답을 그대로 전달 (스트림 유지)
     const res = new NextResponse(backendRes.body, {
@@ -128,11 +131,25 @@ async function proxy(req: NextRequest) {
 
     // 백엔드의 중요한 헤더들만 일부 전달
     backendRes.headers.forEach((v, k) => {
-      // 민감한 헤더 필터링
-      if (!["set-cookie"].includes(k.toLowerCase())) {
+      // Set-Cookie 는 아래에서 다중 처리
+      if (k.toLowerCase() !== "set-cookie") {
         res.headers.set(k, v);
       }
     });
+
+    // 다중 Set-Cookie 포워딩 처리
+    const getSetCookie = (backendRes.headers as any).getSetCookie?.bind(
+      backendRes.headers
+    );
+    const setCookies: string[] = getSetCookie ? getSetCookie() : [];
+    if (Array.isArray(setCookies) && setCookies.length > 0) {
+      for (const cookie of setCookies) {
+        res.headers.append("set-cookie", cookie);
+      }
+    } else {
+      const single = backendRes.headers.get("set-cookie");
+      if (single) res.headers.append("set-cookie", single);
+    }
 
     if (newAccess) {
       res.cookies.set(ACCESS_COOKIE_NAME, newAccess, cookieOptions());
