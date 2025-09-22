@@ -2,10 +2,9 @@
 
 @layer components {
   .bubble-white {
-    @apply bg-white text-gray-800 px-4 py-2 rounded-lg shadow-sm border border-gray-200 relative;
+    @apply relative bg-white10 text-black p-4 font-medium rounded-3xl max-w-xs;
   }
-
   .bubble-white-under {
-    @apply absolute -bottom-1 left-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-white;
+    @apply absolute -bottom-2 left-10 w-0 h-0 border-l-[15px] border-l-transparent border-r-[10px] border-r-transparent border-t-[10px] border-t-white10;
   }
 }

@@ -21,7 +21,7 @@ const Position = ({ className, value, onChange }: Props) => {
   return (
     <div
       className={clsx(
-        "w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-2 sm:gap-3 md:gap-4 m-4 rounded-xl",
+        "w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-2 sm:gap-3 md:gap-4  rounded-xl",
         className
       )}
     >
