@@ -10,4 +10,4 @@ export const URL = {
   MY_TEAM: "/myteam",
 };
 
-export const API_BASE = "http://211.230.62.32:81/api";
+export const API_BASE = "/api/proxy";
