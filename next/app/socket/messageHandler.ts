@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { getSocket } from "./socketManager";
 import { useAuthStore } from "@/app/store/authStore";
 import { useChatStore } from "@/app/store/chatStore";
@@ -13,7 +13,7 @@ interface ReceiveMessageData {
 
 export const useMessageHandler = () => {
   const { user } = useAuthStore();
-  const { addMessage, addRoom, activeRoomId } = useChatStore();
+  const { addMessage, addRoom } = useChatStore();
 
   // 소켓 이벤트 리스너 설정
   useEffect(() => {
@@ -48,7 +48,6 @@ export const useMessageHandler = () => {
         isRead: message.isRead,
       };
 
-      // 활성 채팅방에 있으면 읽음 처리, 아니면 안읽음 처리
       addMessage(message.roomId, uiMessage, isInActiveRoom);
 
       console.log("✅ 메시지 처리 완료:", {
@@ -63,7 +62,7 @@ export const useMessageHandler = () => {
     return () => {
       socket.off("receiveMessage", handleReceiveMessage);
     };
-  }, []); // 의존성 배열을 비워서 한 번만 등록
+  }, []);
 
   const sendMessage = (roomId: string, content: string, senderId: string) => {
     const socket = getSocket();
