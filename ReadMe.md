@@ -14,6 +14,7 @@
 | 대시보드    | ![대시보드 웹](./next/app/assets/readme/dashboard_web.gif) | ![대시보드 앱](./next/app/assets/readme/dashboard_app.gif) |
 | 마이페이지  | ![마이페이지 웹](./next/app/assets/readme/mypage_web.gif)  | ![마이페이지 앱](./next/app/assets/readme/mypage_app.gif)  |
 | 포스트 작성 | ![포스트 작성](./next/app/assets/readme/create_post.gif)   | ![포스트 앱](./next/app/assets/readme/post_app.gif)        |
+| 마이포스트 | ![내 글 웹](./next/app/assets/readme/mypost_web.gif)   | ![내 글 앱](./next/app/assets/readme/mypost_app.gif)        |
 | 검색        | ![검색](./next/app/assets/readme/search.gif)               | ![검색](./next/app/assets/readme/search_app.gif)           |
 | 채팅        | ![채팅](./next/app/assets/readme/chat.gif)                 | ![채팅](./next/app//assets/readme/chat_app.gif)            |
 
