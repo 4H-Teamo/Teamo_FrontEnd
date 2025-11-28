@@ -23,7 +23,6 @@
 ## 🔧 주요 기술 스택
 
 - **Next.js** – React 기반 SSR/CSR 프레임워크
-- **PWA** – `next-pwa` 적용
 - **TypeScript** – 타입 안정성 확보
 - **Tailwind CSS** – 유틸리티 기반 스타일링
 
